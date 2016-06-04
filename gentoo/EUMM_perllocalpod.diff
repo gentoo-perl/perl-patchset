@@ -1,0 +1,42 @@
+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
+index 4140432..dd3850b 100644
+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
+@@ -2187,16 +2177,6 @@
+ 
+     push @m, q{
+ doc_perl_install :: all
+-	$(NOECHO) $(ECHO) Appending installation info to "$(DESTINSTALLARCHLIB)/perllocal.pod"
+-	-$(NOECHO) $(MKPATH) "$(DESTINSTALLARCHLIB)"
+-	-$(NOECHO) $(DOC_INSTALL) \
+-		"Module" "$(NAME)" \
+-		"installed into" $(INSTALLPRIVLIB) \
+-		LINKTYPE "$(LINKTYPE)" \
+-		VERSION "$(VERSION)" \
+-		EXE_FILES "$(EXE_FILES)" \
+-		>> "}.$self->catfile('$(DESTINSTALLARCHLIB)','perllocal.pod').q{"
+-
+ doc_site_install :: all
+ 	$(NOECHO) $(ECHO) Appending installation info to "$(DESTINSTALLARCHLIB)/perllocal.pod"
+ 	-$(NOECHO) $(MKPATH) "$(DESTINSTALLARCHLIB)"
+@@ -2206,19 +2186,9 @@
+ 		LINKTYPE "$(LINKTYPE)" \
+ 		VERSION "$(VERSION)" \
+ 		EXE_FILES "$(EXE_FILES)" \
+-		>> "}.$self->catfile('$(DESTINSTALLARCHLIB)','perllocal.pod').q{"
++		>> "}.$self->catfile('$(DESTINSTALLSITELIB)','perllocal.pod').q{"
+ 
+ doc_vendor_install :: all
+-	$(NOECHO) $(ECHO) Appending installation info to "$(DESTINSTALLARCHLIB)/perllocal.pod"
+-	-$(NOECHO) $(MKPATH) "$(DESTINSTALLARCHLIB)"
+-	-$(NOECHO) $(DOC_INSTALL) \
+-		"Module" "$(NAME)" \
+-		"installed into" $(INSTALLVENDORLIB) \
+-		LINKTYPE "$(LINKTYPE)" \
+-		VERSION "$(VERSION)" \
+-		EXE_FILES "$(EXE_FILES)" \
+-		>> "}.$self->catfile('$(DESTINSTALLARCHLIB)','perllocal.pod').q{"
+-
+ } unless $self->{NO_PERLLOCAL};
+ 
+     push @m, q{

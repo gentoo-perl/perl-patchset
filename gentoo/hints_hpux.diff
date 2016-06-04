@@ -1,0 +1,52 @@
+From 29ca0ff93a6eb5e62c6e496c6f38567ffda216aa Mon Sep 17 00:00:00 2001
+From: Torsten Veller <tove@gentoo.org>
+Date: Sun, 15 Apr 2012 09:27:19 +0200
+Subject: Fix hpux hints
+
+do not assume '.' being in PATH on hpux,
+use 'gcc' as linker, link with '-lm'.
+
+Patch-Name: gentoo/hints_hpux.diff
+---
+ hints/hpux.sh | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/hints/hpux.sh b/hints/hpux.sh
+index cdee27e..2ae6ca1 100644
+--- a/hints/hpux.sh
++++ b/hints/hpux.sh
+@@ -190,7 +190,7 @@ case "$ccisgcc" in
+     $define|true|[Yy])
+ 	echo '#include <stdio.h>\nint main(){long l;printf("%d\\n",sizeof(l));}'>try.c
+ 	$cc -o try $ccflags $ldflags try.c
+-	if [ "`try`" = "8" ]; then
++	if [ "`./try`" = "8" ]; then
+ 	    case "$use64bitall" in
+ 		$define|true|[Yy]) ;;
+ 		*)  cat <<EOM >&4
+@@ -361,7 +361,7 @@ int main ()
+     } /* main */
+ EOF
+ $cc -o try $ccflags $ldflags try.c
+-	maxdsiz=`try`
++	maxdsiz=`./try`
+ rm -f try try.c core
+ if [ $maxdsiz -le 64 ]; then
+     # 64 Mb is probably not enough to optimize toke.c
+@@ -386,11 +386,12 @@ case "$ccisgcc" in
+ 	    "")           optimize="-g -O" ;;
+ 	    *O[3456789]*) optimize=`echo "$optimize" | sed -e 's/O[3-9]/O2/'` ;;
+ 	    esac
+-	#ld="$cc"
+-	ld=/usr/bin/ld
++	ld="$cc"
++	#ld=/usr/bin/ld
+ 	cccdlflags='-fPIC'
+-	#lddlflags='-shared'
+-	lddlflags='-b'
++	lddlflags='-shared'
++	#lddlflags='-b'
++	libs='-lm'
+ 	case "$optimize" in
+ 	    *-g*-O*|*-O*-g*)
+ 		# gcc without gas will not accept -g

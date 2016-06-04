@@ -1,0 +1,30 @@
+From 2aacb1be1a15586a7477f02d5f1840ed399bdee5 Mon Sep 17 00:00:00 2001
+From: Torsten Veller <tove@gentoo.org>
+Date: Sat, 14 Apr 2012 13:16:34 +0200
+Subject: cpan/ExtUtils-MakeMaker: drop $PORTAGE_TMPDIR from LD_RUN_PATH
+
+Bug-Gentoo: https://bugs.gentoo.org/105054
+
+Patch-Name: gentoo/EUMM-RUNPATH.diff
+---
+ cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
+index fd85612..e3aa20a 100644
+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
+@@ -2073,6 +2073,13 @@ sub init_others {
+             # LD_RUN_PATH now computed by ExtUtils::Liblist
+             ($self->{EXTRALIBS},  $self->{BSLOADLIBS}, 
+              $self->{LDLOADLIBS}, $self->{LD_RUN_PATH}) = @libs;
++            # We do not want the build root in RPATH
++            if (exists $ENV{PORTAGE_TMPDIR}) {
++                # If we have PORTAGE_TMPDIR set, strip that, as just testing for
++                # /usr and /opt might not be sufficient
++                $self->{LD_RUN_PATH} = join ':', grep !/^\Q$ENV{PORTAGE_TMPDIR}/,
++                                       split /:/, $self->{LD_RUN_PATH};
++            }
+             last;
+         }
+     }
