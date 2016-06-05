@@ -29,6 +29,10 @@ matrix:
               - ubuntu-toolchain-r-test
       - env: TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
         compiler: gcc
+      - env: myconf="-Dusethreads" TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
+        compiler: gcc
+      - env: myconf="-DDEBUGGING" TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
+        compiler: gcc
       - env: CLANG_VERSION=3.8 TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
         compiler: clang38
         addons:
