@@ -7,7 +7,22 @@ matrix:
           apt:
             sources:
               - ubuntu-toolchain-r-test
+      - env: CLANG_VERSION=3.4 VANILLA=1
+        compiler: clang34
+        addons: &clang34
+          apt:
+            sources:
+              - ubuntu-toolchain-r-test
       - env: GCC_VERSION=5
+        compiler: gcc-5
+        addons: &gcc5
+          apt:
+            packages:
+              - g++-5
+              - gcc-5
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=5 VANILLA=1
         compiler: gcc-5
         addons: &gcc5
           apt:
@@ -25,12 +40,36 @@ matrix:
               - gcc-6
             sources:
               - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=6 VANILLA=1
+        compiler: gcc-6
+        addons: &gcc6
+          apt:
+            packages:
+              - g++-6
+              - gcc-6
+            sources:
+              - ubuntu-toolchain-r-test
       - compiler: gcc
+      - env: VANILLA=1
+        compiler: gcc
       - env: myconf="-Dusethreads"
+        compiler: gcc
+      - env: myconf="-Dusethreads" VANILLA=1
         compiler: gcc
       - env: myconf="-DDEBUGGING"
         compiler: gcc
+      - env: myconf="-DDEBUGGING" VANILLA=1
+        compiler: gcc
       - env: CLANG_VERSION=3.8
+        compiler: clang38
+        addons:
+          apt:
+            packages:
+              - clang-3.8
+            sources:
+              - ubuntu-toolchain-r-test
+              - llvm-toolchain-precise-3.8
+      - env: CLANG_VERSION=3.8 VANILLA=1
         compiler: clang38
         addons:
           apt:
