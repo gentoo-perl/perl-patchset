@@ -53,5 +53,5 @@ install:
 script:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - source travis-utils/patch-perl.sh
+  - if [ -z "$VANILLA" ]; then source travis-utils/patch-perl.sh; fi
   - source travis-utils/compile-perl.sh
