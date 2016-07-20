@@ -1,13 +1,13 @@
 matrix:
   fast_finish: true
   include:
-      - env: CLANG_VERSION=3.4 TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
+      - env: CLANG_VERSION=3.4
         compiler: clang34
         addons: &clang34
           apt:
             sources:
               - ubuntu-toolchain-r-test
-      - env: GCC_VERSION=5 TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
+      - env: GCC_VERSION=5
         compiler: gcc-5
         addons: &gcc5
           apt:
@@ -16,7 +16,7 @@ matrix:
               - gcc-5
             sources:
               - ubuntu-toolchain-r-test
-      - env: GCC_VERSION=6 TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
+      - env: GCC_VERSION=6
         compiler: gcc-6
         addons: &gcc6
           apt:
@@ -25,13 +25,12 @@ matrix:
               - gcc-6
             sources:
               - ubuntu-toolchain-r-test
-      - env: TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
+      - compiler: gcc
+      - env: myconf="-Dusethreads"
         compiler: gcc
-      - env: myconf="-Dusethreads" TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
+      - env: myconf="-DDEBUGGING"
         compiler: gcc
-      - env: myconf="-DDEBUGGING" TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
-        compiler: gcc
-      - env: CLANG_VERSION=3.8 TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
+      - env: CLANG_VERSION=3.8
         compiler: clang38
         addons:
           apt:
@@ -48,6 +47,7 @@ before_install:
 install:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
+  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
   - source travis-utils/get_perl.sh
   - tar -xf /tmp/perl.tar.bz2 --strip-components 1 -C ${S}
 script:
