@@ -1,7 +1,5 @@
 matrix:
   fast_finish: true
-  allow_failures:
-      - compiler: clang38 # broken
   include:
       - env: CLANG_VERSION=3.4 TARGET_PERL=https://cpan.metacpan.org/authors/id/R/RJ/RJBS/perl-5.24.0.tar.bz2
         compiler: clang34
