@@ -15,5 +15,6 @@ eerror() {
 }
 die() {
   eerror "$@"
+  set -e
   exit 1;
 }

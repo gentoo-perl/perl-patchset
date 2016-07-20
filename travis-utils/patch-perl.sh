@@ -1,3 +1,4 @@
+set -e -E -o pipefail
 PF=perl
 PATCH_VER=1
 prefix=""
