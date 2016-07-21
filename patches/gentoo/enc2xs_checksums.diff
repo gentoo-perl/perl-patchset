@@ -1,0 +1,10 @@
+diff -Naur a/t/porting/customized.dat b/t/porting/customized.dat
+--- a/t/porting/customized.dat
++++ b/t/porting/customized.dat
+@@ -1,5 +1,5 @@
+ Digest::MD5 cpan/Digest-MD5/t/files.t bdbe05b705d9da305fedce7a9f4b6ba63250c7cf
+-Encode cpan/Encode/bin/enc2xs f60036fd3574ec05c9aab7f4db00a828d5dea92d
++Encode cpan/Encode/bin/enc2xs 1d3e1d1d538369a17bd262ec913eb04a44a1d0da
+ Encode cpan/Encode/Byte/Makefile.PL 0986e25f981a3bf182a13a0060d28d4efedd87e6
+ Encode cpan/Encode/CN/Makefile.PL 5507a49d822d0c1d14e967f4595e29e9c873540b
+ Encode cpan/Encode/EBCDIC/Makefile.PL 574289638393eb6b1109eb9a6874bfe8c5d2ddea

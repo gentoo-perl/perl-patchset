@@ -1,0 +1,114 @@
+--- a/t/porting/customized.dat	2015-06-15 23:03:33.446499696 +0200
++++ b/t/porting/customized.dat	2015-06-15 23:05:30.998497298 +0200
+@@ -1,7 +1,7 @@
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Command/MM.pm 7f4dfd0fe884bd42412bcf04ca80ef97b39c1d54
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist.pm bef099988b15fb0b2a1f5ac48c01af1f7f36d329
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm 8168e18f0e3ce3ece4bb7e7c72d57ec07c67c402
+-ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm 7115e97a53559cb3ec061dd6f7f344e522724c4a
++ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm 3d7abd674b15ed323f743594ef0bd09db76b1aee
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/Config.pm f8db8d4245bf0684b8210c811f50d7cfb1a27d78
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/FAQ.pod 757bffb47857521311f8f3bde43ebe165f8d5191
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/Locale.pm 82be06851deb84c6419ad003ce9b6d1957f395f3
+@@ -13,7 +13,7 @@
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Mksymlists.pm ab80029ab16d38d4f2e41dc88d2ceb9f3790e477
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM.pm 453e0abbc4bb38db4c0820ad5c4846f313b66291
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_AIX.pm c1b1babda8f43ae7a2caba1cb4f70f92af5a0e34
+-ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm 6f90d94ad3e7aa0045a3b1a10a1bb18391f89f57
++ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm 57dda7cd279f978a280f56b078efb8d617aaf6ae
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_BeOS.pm cab2b3ce08b71a4ce89aa630f236eb08b852439d
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Cygwin.pm 61fced0faf518bf87c265fcb51ed330ba354623f
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Darwin.pm ae0ef51a7b6dd0b05aa61c779df7167dda5f5119
+@@ -22,7 +22,7 @@
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_NW5.pm 433135eecb85b4b1d90d3027432f329436c78447
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_OS2.pm 1fbb5605bfb47feee4083feba8aa85e659628f70
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_QNX.pm 5b66d1f485a6034d96fc24ba1665b1bad9e447f1
+-ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm 8cef99a9bd370ecfd07ddb0efbdcbb4101255e45
++ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm 53683cc37e311e6ecb6cf4dc4eea3f7cd6916379
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_UWIN.pm 939572fde3d59ba77c2e677fe2df2bed4bed5898
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_VMS.pm 09c2049bfd25b735e2a5bcf56a6cff7b4827f9c8
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_VOS.pm d65d63f8217a55c36f62e249814988974f593c79
+@@ -30,7 +30,7 @@
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Win95.pm 12df38eacceeed73cab94c423236bfaed0fbbfec
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MY.pm 22fe9596a0237252f45399a36abc83b7813bc328
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/testlib.pm 7fbc42ca2ebc6c677b79ae5fd5647243cf069463
+-ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/t/basic.t 6cdc7701b50e586bc9c4cfb1616de8eb0b1baf34
++ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/t/basic.t cbf84230af9a4a0ec327fec4f792f021150fcf9a
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/t/pm_to_blib.t 71ebcee355691ce374fcad251b12d8b2412462b3
+ Text::ParseWords cpan/Text-ParseWords/t/ParseWords.t 9bae51c9b944cd5c0bbabe9d397e573976a2be8e
+ Win32API::File cpan/Win32API-File/buffers.h 02d230ac9ac7091365128161a0ed671898baefae
+@@ -42,7 +42,7 @@
+ Win32API::File cpan/Win32API-File/t/file.t 124e64aa77e755235eb297644a87fac5388d3d78
+ Win32API::File cpan/Win32API-File/t/tie.t 712ea7edd0cc805ce1c0b8172c01b03dd19b583d
+ Win32API::File cpan/Win32API-File/typemap 24bff088babeadac0873e8df390d1666d9d9db4a
+-podlators cpan/podlators/scripts/pod2man.PL f81acf53f3ff46cdcc5ebdd661c5d13eb35d20d6
++podlators cpan/podlators/scripts/pod2man.PL 761f35d3fcf91c1bc2f9e024a9fa5c62fd3fc338
+ podlators cpan/podlators/scripts/pod2text.PL b4693fcfe4a0a1b38a215cfb8985a65d5d025d69
+ version cpan/version/lib/version.pm d0923b895d57f1d669ae36fcf85c87b16db341d1
+ version vutil.c 668f17ca43e2527645674d29ba772b86330d5663
+--- a/cpan/ExtUtils-Install/t/InstallWithMM.t	2015-06-15 23:28:52.482468699 +0200
++++ b/cpan/ExtUtils-Install/t/InstallWithMM.t	2015-06-15 23:29:03.930468466 +0200
+@@ -20,7 +20,7 @@
+ 	plan skip_all => "make isn't available";
+     }
+     else {
+-	plan tests => 15;
++	plan tests => 13;
+     }
+ }
+ 
+@@ -80,7 +80,6 @@
+     my $install_out = run($make_install_verbinst);
+     is( $?, 0, 'install' ) || diag $install_out;
+     like( $install_out, qr/^Installing /m );
+-    like( $install_out, qr/^Writing /m );
+ 
+     ok( -r '../dummy-install',     '  install dir created' );
+     my %files = ();
+@@ -96,6 +96,5 @@
+     ok( $files{'dummy.pm'},     '  Dummy.pm installed' );
+     ok( $files{'liar.pm'},      '  Liar.pm installed'  );
+     ok( $files{'program'},      '  program installed'  );
+-    ok( $files{'.packlist'},    '  packlist created'   );
+     ok( $files{'perllocal.pod'},'  perllocal.pod created' );
+ }
+--- a/cpan/ExtUtils-MakeMaker/t/basic.t	2015-06-15 23:06:44.750495793 +0200
++++ b/cpan/ExtUtils-MakeMaker/t/basic.t	2015-06-15 23:06:57.666495529 +0200
+@@ -24,7 +24,7 @@
+ use ExtUtils::MM;
+ plan !MM->can_run(make()) && $ENV{PERL_CORE} && $Config{'usecrosscompile'}
+     ? (skip_all => "cross-compiling and make not available")
+-    : (tests => 171);
++    : (tests => 167);
+ use File::Find;
+ use File::Spec;
+ use File::Path;
+@@ -180,7 +180,6 @@
+     ok( $files{'dummy.pm'},     '  Dummy.pm installed' );
+     ok( $files{'liar.pm'},      '  Liar.pm installed'  );
+     ok( $files{'program'},      '  program installed'  );
+-    ok( $files{'.packlist'},    '  packlist created'   );
+     ok( $files{'perllocal.pod'},'  perllocal.pod created' );
+     \%files;
+ }
+--- a/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t	2015-06-15 23:09:15.486492717 +0200
++++ b/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t	2015-06-15 23:09:54.358491924 +0200
+@@ -20,7 +20,7 @@
+ use ExtUtils::MM;
+ plan !MM->can_run(make()) && $ENV{PERL_CORE} && $Config{'usecrosscompile'}
+     ? (skip_all => "cross-compiling and make not available")
+-    : (tests => 3 + $CLEANUP + @INSTDIRS * (15 + $CLEANUP));
++    : (tests => 3 + $CLEANUP + @INSTDIRS * (11 + $CLEANUP));
+ 
+ my $Is_VMS = $^O eq 'VMS';
+ 
+@@ -63,9 +63,7 @@
+   my @installed_files =
+     ("$instdir/lib/perl5/Big/Dummy.pm",
+      "$instdir/lib/perl5/Big/Liar.pm",
+-     "$instdir/bin/program",
+-     "$instdir/lib/perl5/$Config{archname}/perllocal.pod",
+-     "$instdir/lib/perl5/$Config{archname}/auto/Big/Dummy/.packlist"
++     "$instdir/bin/program"
+     );
+ 
+   foreach my $file (@installed_files) {
