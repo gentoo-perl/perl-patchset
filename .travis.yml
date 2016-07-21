@@ -1,0 +1,104 @@
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: CLANG_VERSION=3.4 VANILLA=1
+    - env: GCC_VERSION=5 VANILLA=1
+    - env: GCC_VERSION=6 VANILLA=1
+    - env: VANILLA=1
+    - env: myconf="-Dusethreads" VANILLA=1
+    - env: myconf="-DDEBUGGING" VANILLA=1
+    - env: CLANG_VERSION=3.8 VANILLA=1
+  include:
+      - env: CLANG_VERSION=3.4
+        compiler: clang34
+        addons: &clang34
+          apt:
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: CLANG_VERSION=3.4 VANILLA=1
+        compiler: clang34
+        addons: &clang34
+          apt:
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=5
+        compiler: gcc-5
+        addons: &gcc5
+          apt:
+            packages:
+              - g++-5
+              - gcc-5
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=5 VANILLA=1
+        compiler: gcc-5
+        addons: &gcc5
+          apt:
+            packages:
+              - g++-5
+              - gcc-5
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=6
+        compiler: gcc-6
+        addons: &gcc6
+          apt:
+            packages:
+              - g++-6
+              - gcc-6
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=6 VANILLA=1
+        compiler: gcc-6
+        addons: &gcc6
+          apt:
+            packages:
+              - g++-6
+              - gcc-6
+            sources:
+              - ubuntu-toolchain-r-test
+      - compiler: gcc
+      - env: VANILLA=1
+        compiler: gcc
+      - env: myconf="-Dusethreads"
+        compiler: gcc
+      - env: myconf="-Dusethreads" VANILLA=1
+        compiler: gcc
+      - env: myconf="-DDEBUGGING"
+        compiler: gcc
+      - env: myconf="-DDEBUGGING" VANILLA=1
+        compiler: gcc
+      - env: CLANG_VERSION=3.8
+        compiler: clang38
+        addons:
+          apt:
+            packages:
+              - clang-3.8
+            sources:
+              - ubuntu-toolchain-r-test
+              - llvm-toolchain-precise-3.8
+      - env: CLANG_VERSION=3.8 VANILLA=1
+        compiler: clang38
+        addons:
+          apt:
+            packages:
+              - clang-3.8
+            sources:
+              - ubuntu-toolchain-r-test
+              - llvm-toolchain-precise-3.8
+language: c
+before_install:
+  - if [ -n "$GCC_VERSION" ]; then export CXX="g++-${GCC_VERSION}" CC="gcc-${GCC_VERSION}"; fi
+  - if [ -n "$CLANG_VERSION" ]; then export CXX="clang++-${CLANG_VERSION}" CC="clang-${CLANG_VERSION}"; fi
+  - if [ "$CLANG_VERSION" == "3.4" ]; then export CXX="/usr/local/clang-3.4/bin/clang++" CC="/usr/local/clang-3.4/bin/clang"; fi
+install:
+  - source travis-utils/emsg.sh
+  - source travis-utils/env-setup.sh
+  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/S/SH/SHAY/perl-5.20.2.tar.bz2
+  - source travis-utils/get_perl.sh
+  - tar -xf /tmp/perl.tar.bz2 --strip-components 1 -C ${S}
+script:
+  - source travis-utils/emsg.sh
+  - source travis-utils/env-setup.sh
+  - if [ -z "$VANILLA" ]; then source travis-utils/patch-perl.sh; fi
+  - source travis-utils/compile-perl.sh
