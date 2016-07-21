@@ -1,5 +1,13 @@
 matrix:
   fast_finish: true
+  allow_failures:
+    - env: CLANG_VERSION=3.4 VANILLA=1
+    - env: GCC_VERSION=5 VANILLA=1
+    - env: GCC_VERSION=6 VANILLA=1
+    - env: VANILLA=1
+    - env: myconf="-Dusethreads" VANILLA=1
+    - env: myconf="-DDEBUGGING" VANILLA=1
+    - env: CLANG_VERSION=3.8 VANILLA=1
   include:
       - env: CLANG_VERSION=3.4
         compiler: clang34
