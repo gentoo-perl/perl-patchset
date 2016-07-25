@@ -1,45 +1,57 @@
---- a/t/porting/customized.dat	2015-06-15 23:03:33.446499696 +0200
-+++ b/t/porting/customized.dat	2015-06-15 23:05:30.998497298 +0200
-@@ -1,7 +1,7 @@
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Command/MM.pm 7f4dfd0fe884bd42412bcf04ca80ef97b39c1d54
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist.pm bef099988b15fb0b2a1f5ac48c01af1f7f36d329
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm 8168e18f0e3ce3ece4bb7e7c72d57ec07c67c402
--ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm 7115e97a53559cb3ec061dd6f7f344e522724c4a
-+ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm 3d7abd674b15ed323f743594ef0bd09db76b1aee
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/Config.pm f8db8d4245bf0684b8210c811f50d7cfb1a27d78
+--- a/t/porting/customized.dat	2016-07-24 17:18:14.000000000 +0000
++++ b/t/porting/customized.dat	2016-07-25 22:39:56.585878445 +0000
+@@ -10,7 +10,7 @@
+ Digest cpan/Digest/Digest.pm 43f7f544cb11842b2f55c73e28930da50774e081
+ Digest::SHA cpan/Digest-SHA/lib/Digest/SHA.pm 5841fcf70f7290e07befdd16f05093664c618a96
+ Digest::SHA cpan/Digest-SHA/shasum f92faa37afc098e2a825e4ecda1097890492d957
+-Encode cpan/Encode/bin/enc2xs 832a56f55ffc100e8beacfb0f0362f00d09a5056
++Encode cpan/Encode/bin/enc2xs a72d506a2c95dcf602f6e48b36dc24d23e4d6a53
+ Encode cpan/Encode/bin/encguess f1e7a130995c4bad53bb6d3034dae625cfe61e32
+ Encode cpan/Encode/bin/piconv 80ea7f9afff580e41c4b29f5ab214ed378274b49
+ Encode cpan/Encode/bin/ucmlint 495862125269a60536b78fd0a7910d024c4d21fe
+@@ -21,7 +21,7 @@
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Command/MM.pm 6298f9b41b29e13010b185f64fa952570637fbb4
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist.pm 6e16329fb4d4c2f8db4afef4d8e79c1c1c918128
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm fc0483c5c7b92a8e0f63eb1f762172cddce5b948
+-ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm 8d1b35fcd7d3b4f0552ffb151baf75ccb181267b
++ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm eaf8c67816a525d582ee994f2bc6e08a6cb13523
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/Config.pm 676b10e16b2dc68ba21312ed8aa4d409e86005a6
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/FAQ.pod 757bffb47857521311f8f3bde43ebe165f8d5191
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/Locale.pm 82be06851deb84c6419ad003ce9b6d1957f395f3
-@@ -13,7 +13,7 @@
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Mksymlists.pm ab80029ab16d38d4f2e41dc88d2ceb9f3790e477
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM.pm 453e0abbc4bb38db4c0820ad5c4846f313b66291
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_AIX.pm c1b1babda8f43ae7a2caba1cb4f70f92af5a0e34
--ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm 6f90d94ad3e7aa0045a3b1a10a1bb18391f89f57
-+ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm 57dda7cd279f978a280f56b078efb8d617aaf6ae
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_BeOS.pm cab2b3ce08b71a4ce89aa630f236eb08b852439d
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Cygwin.pm 61fced0faf518bf87c265fcb51ed330ba354623f
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Darwin.pm ae0ef51a7b6dd0b05aa61c779df7167dda5f5119
-@@ -22,7 +22,7 @@
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_NW5.pm 433135eecb85b4b1d90d3027432f329436c78447
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_OS2.pm 1fbb5605bfb47feee4083feba8aa85e659628f70
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_QNX.pm 5b66d1f485a6034d96fc24ba1665b1bad9e447f1
--ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm 8cef99a9bd370ecfd07ddb0efbdcbb4101255e45
-+ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm 53683cc37e311e6ecb6cf4dc4eea3f7cd6916379
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_UWIN.pm 939572fde3d59ba77c2e677fe2df2bed4bed5898
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_VMS.pm 09c2049bfd25b735e2a5bcf56a6cff7b4827f9c8
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_VOS.pm d65d63f8217a55c36f62e249814988974f593c79
-@@ -30,7 +30,7 @@
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Win95.pm 12df38eacceeed73cab94c423236bfaed0fbbfec
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MY.pm 22fe9596a0237252f45399a36abc83b7813bc328
- ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/testlib.pm 7fbc42ca2ebc6c677b79ae5fd5647243cf069463
+@@ -33,7 +33,7 @@
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Mksymlists.pm 81ebde56af5860edc646518fb64e5c427754ac4f
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM.pm fb83ad4184016de85de92e8a428ec2e48b8fbc18
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_AIX.pm 6917a5d775e4e6f348abebe59ac4362e75885c51
+-ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm 843e15e58fe1a1bd7f6054dc8a8e839aaa03003b
++ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm 20e6018847e25c19e8396b2d459032b70d067ce0
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_BeOS.pm 4cadf37f823fef47a4862c44a3d34aa38315600b
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Cygwin.pm ee5298707a26912989934f1d44bf25460394ef60
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Darwin.pm e247f2f2ba5d6283418ec6125d64a7a2b477ae43
+@@ -42,7 +42,7 @@
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_NW5.pm c92f49161433b47e1bde182382f295d17469e298
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_OS2.pm a35e3b45759c40152eb49381ce559f8841670824
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_QNX.pm e071e7343ccfcefceb08edfc7adeb376750c641c
+-ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm a28e086bbbb493569fe8eabc1ceb8ad439b255cf
++ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm 7e18c21439e6e207406adb797becd0fddec9e7f1
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_UWIN.pm 3738ade1474915ee758d11756a86c82fa27b38b3
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_VMS.pm 1eb8c77a788ad3c00064420361ab9234654b9525
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_VOS.pm 512ee5ce6c3c5733a2abb4ddf7ce18b704615d10
+@@ -50,7 +50,7 @@
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Win95.pm 53d22b9ee5292d4530d247251389aae92ba0a105
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MY.pm 34b76c6387d2f3f3a01dcbff605a781ba3d0d193
+ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/testlib.pm a2a37bdf9269c6fa66e031e2e6ed8d7a300e3f45
 -ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/t/basic.t 6cdc7701b50e586bc9c4cfb1616de8eb0b1baf34
 +ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/t/basic.t cbf84230af9a4a0ec327fec4f792f021150fcf9a
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/t/pm_to_blib.t 71ebcee355691ce374fcad251b12d8b2412462b3
- Text::ParseWords cpan/Text-ParseWords/t/ParseWords.t 9bae51c9b944cd5c0bbabe9d397e573976a2be8e
- Win32API::File cpan/Win32API-File/buffers.h 02d230ac9ac7091365128161a0ed671898baefae
-@@ -42,7 +42,7 @@
- Win32API::File cpan/Win32API-File/t/file.t 124e64aa77e755235eb297644a87fac5388d3d78
- Win32API::File cpan/Win32API-File/t/tie.t 712ea7edd0cc805ce1c0b8172c01b03dd19b583d
- Win32API::File cpan/Win32API-File/typemap 24bff088babeadac0873e8df390d1666d9d9db4a
+ File::Fetch cpan/File-Fetch/lib/File/Fetch.pm bd0b64a1d8ee2ffac39e017f9fa9f78f95514b4d
+ HTTP::Tiny cpan/HTTP-Tiny/lib/HTTP/Tiny.pm 4cffe21a5c66dd7336f13df7d52be5120d090aa7
+@@ -161,9 +161,9 @@
+ libnet cpan/libnet/lib/Net/Netrc.pm 4f633af3bcbb8fe3d66bc048c5399e15a6ae9339
+ libnet cpan/libnet/lib/Net/NNTP.pm 8f1e0cdb2746b88245394fc4301b36be162cd8ff
+ libnet cpan/libnet/lib/Net/POP3.pm dfd924fac6041c163f93e1b0006370eb55894f19
+-libnet cpan/libnet/lib/Net/SMTP.pm 5dbb1d3bc93f00f130c7f62b15b9fa48c4fa99fd
++libnet cpan/libnet/lib/Net/SMTP.pm 5aec57b487bc1b04fc8abb51eb640580d724ee38
+ libnet cpan/libnet/lib/Net/Time.pm ddc742bc1d386ab6778090afb374d21bdc664d40
 -podlators cpan/podlators/scripts/pod2man.PL f81acf53f3ff46cdcc5ebdd661c5d13eb35d20d6
 +podlators cpan/podlators/scripts/pod2man.PL 761f35d3fcf91c1bc2f9e024a9fa5c62fd3fc338
  podlators cpan/podlators/scripts/pod2text.PL b4693fcfe4a0a1b38a215cfb8985a65d5d025d69
