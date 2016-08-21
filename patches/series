@@ -17,7 +17,6 @@ gentoo/drop_fstack_protector.diff
 gentoo/usr_local.diff
 gentoo/D-SHA-CFLAGS.diff
 gentoo/io_socket_ip_tests.diff
-gentoo/cygwin-libperl.diff
 gentoo/tests.diff
 debian/cpan-missing-site-dirs.diff
 debian/makemaker-pasthru.diff
