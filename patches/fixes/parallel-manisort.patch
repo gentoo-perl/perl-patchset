@@ -1,0 +1,32 @@
+>From 309830d1990f6125d1fed459cf15f8e424b7dfab Mon Sep 17 00:00:00 2001
+From: Tom Hukins <tom@eborcom.com>
+Date: Thu, 8 Sep 2016 16:01:36 +0000
+Subject: [PATCH] Fix parallel building
+
+Commit 3dfcef7e97bf1b516f added a dependency on Porting/pod_lib.pl to
+Porting/manisort.  Porting/pod_lib.pl depends on File::Find which in
+turn depends on Cwd.
+
+Stating Cwd as a requirement ensures the $(MANIFEST_SRT) target builds
+successfully with "make -jX" where X > 1.  Without this fix, I see this
+target fail every time because perl can't load Cwd.
+---
+ Makefile.SH | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.SH b/Makefile.SH
+index 42beb81..27f1e66 100755
+--- a/Makefile.SH
++++ b/Makefile.SH
+@@ -600,7 +600,7 @@ all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) $(generated_pods) $(private) $(unidatafile
+ 	@echo " ";
+ 	@echo "	Everything is up to date. Type '$(MAKE) test' to run test suite."
+ 
+-$(MANIFEST_SRT):	MANIFEST $(PERL_EXE)
++$(MANIFEST_SRT):	MANIFEST $(PERL_EXE) lib/auto/Cwd/Cwd$(DLSUFFIX)
+ 	@$(RUN_PERL) Porting/manisort -q || (echo "WARNING: re-sorting MANIFEST"; \
+ 	    $(RUN_PERL) Porting/manisort -q -o MANIFEST; sh -c true)
+ 	@touch $(MANIFEST_SRT)
+-- 
+2.9.2
+

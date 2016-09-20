@@ -26,3 +26,4 @@ fixes/podman-pipe.diff
 fixes/respect_umask.diff
 fixes/net_smtp_docs.diff
 fixes/document_makemaker_ccflags.diff
+fixes/parallel-manisort.patch
