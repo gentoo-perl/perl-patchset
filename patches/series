@@ -18,6 +18,7 @@ gentoo/usr_local.diff
 gentoo/D-SHA-CFLAGS.diff
 gentoo/io_socket_ip_tests.diff
 gentoo/tests.patch
+gentoo/base-keep-dot.patch
 debian/cpan-missing-site-dirs.diff
 debian/makemaker-pasthru.diff
 debian/locale-robustness.diff

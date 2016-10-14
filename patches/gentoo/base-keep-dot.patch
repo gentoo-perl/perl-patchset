@@ -1,0 +1,237 @@
+From db888701e4503c54fc92ee2710cc0c6155e56118 Mon Sep 17 00:00:00 2001
+From: Kent Fredric <kentfredric@gmail.com>
+Date: Fri, 14 Oct 2016 19:03:06 +1300
+Subject: Revert changes to base.pm for dot-in-INC API Breakage.
+
+Reverts parts of:
+ - 34527a0964485e5b84e76074838015e516f41e98 - "Regen customized.dat for base.pm changes again"
+ - 560e9eed36e28cd67ee5166736bd048f2e6d7a08 - "revert base.pm incdot test change and fix properly"
+ - 990e80c153251695558491b553d71392aa17ca0d - "Regen customized.dat for base.pm changes"
+ - 5d8239256e461c077b28d825d18f71242fe53d44 - "try to minimise fallout of base @INC fiddling"
+ - 55acfabdc7e61c9e3607d98a6dbfd77b235c3e73 - "Update customized.dat entry for base.pm"
+ - 6ee385e514e057ac876a4fbea6bcfebeb5ad7efa - "Update MANIFEST for previous commit"
+ - 6bcd39a65fd349de4dea14c3ff0ab91203000105 - "[perl #128769] Improve base.pm @INC . message"
+ - cdffa5b319d1b55b87e0e4a32787c1da448d68a3 - "[perl #128769] base.pm: Localize @INC unconditionally"
+ - 37e3ca14ffd858d3892118cd76f2e1e80c767d64 - "[perl #128769] Improve base.pm @INC '.' handling"
+ - 94c781b3ce20124dcde1f0cce0086cf3fdf51a46 - "(perl #127834) update CUSTOMIZED entries"
+ - bfe2dd1e9c3296bebf3ab9adc2ca48d3eb8d105d - "dist/: bump $VERSION as needed"
+ - ac5b10a9c5ff29cb2fbb732524e471547414c5f8 - "dist/: remove . from @INC when loading optional modules"
+
+Patch-Name: gentoo/base-keep-dot.patch
+---
+ MANIFEST                                 |  4 ----
+ Porting/Maintainers.pl                   |  4 ----
+ dist/base/lib/base.pm                    | 34 +++++---------------------------
+ dist/base/t/incdot.t                     | 19 ------------------
+ dist/base/t/incmodified-vs-incdot.t      | 27 -------------------------
+ dist/base/t/lib/BaseIncDoubleExtender.pm |  9 ---------
+ dist/base/t/lib/BaseIncExtender.pm       |  7 -------
+ t/porting/customized.dat                 |  1 -
+ 8 files changed, 5 insertions(+), 100 deletions(-)
+ delete mode 100644 dist/base/t/incdot.t
+ delete mode 100644 dist/base/t/incmodified-vs-incdot.t
+ delete mode 100644 dist/base/t/lib/BaseIncDoubleExtender.pm
+ delete mode 100644 dist/base/t/lib/BaseIncExtender.pm
+
+diff --git a/MANIFEST b/MANIFEST
+index 05a0065..a8d6854 100644
+--- a/MANIFEST
++++ b/MANIFEST
+@@ -2892,11 +2892,7 @@ dist/base/t/fields-5_6_0.t	See if fields work
+ dist/base/t/fields-5_8_0.t	See if fields work
+ dist/base/t/fields-base.t	See if fields work
+ dist/base/t/fields.t		See if fields work
+-dist/base/t/incdot.t		Test how base.pm handles '.' in @INC
+-dist/base/t/incmodified-vs-incdot.t		Test base.pm's @INC fiddling
+ dist/base/t/isa.t		See if base's behaviour doesn't change
+-dist/base/t/lib/BaseIncDoubleExtender.pm	Test module for base.pm
+-dist/base/t/lib/BaseIncExtender.pm		Test module for base.pm
+ dist/base/t/lib/Broken.pm	Test module for base.pm
+ dist/base/t/lib/Dummy.pm	Test module for base.pm
+ dist/base/t/lib/HasSigDie.pm	Module for testing base.pm
+diff --git a/Porting/Maintainers.pl b/Porting/Maintainers.pl
+index d66e120..a9ed05b4 100755
+--- a/Porting/Maintainers.pl
++++ b/Porting/Maintainers.pl
+@@ -186,10 +186,6 @@ use File::Glob qw(:case);
+     'base' => {
+         'DISTRIBUTION' => 'RGARCIA/base-2.18.tar.gz',
+         'FILES'        => q[dist/base],
+-        'CUSTOMIZED'   => [
+-            # https://rt.perl.org/Ticket/Display.html?id=127834
+-            qw( lib/base.pm )
+-        ],
+     },
+ 
+     'bignum' => {
+diff --git a/dist/base/lib/base.pm b/dist/base/lib/base.pm
+index 1b318b6..5d13787 100644
+--- a/dist/base/lib/base.pm
++++ b/dist/base/lib/base.pm
+@@ -2,15 +2,9 @@ package base;
+ 
+ use strict 'vars';
+ use vars qw($VERSION);
+-$VERSION = '2.22_01';
++$VERSION = '2.22';
+ $VERSION = eval $VERSION;
+ 
+-# simplest way to avoid indexing of the package: no package statement
+-sub base::__inc_scope_guard::DESTROY {
+-	my $noop = $_[0][0];
+-	ref $_ and $_ == $noop and $_ = '.' for @INC;
+-}
+-
+ # constant.pm is slow
+ sub SUCCESS () { 1 }
+ 
+@@ -96,17 +90,13 @@ sub import {
+ 
+         next if grep $_->isa($base), ($inheritor, @bases);
+ 
+-        # Following blocks help isolate $SIG{__DIE__} and @INC changes
++        # Following blocks help isolate $SIG{__DIE__} changes
+         {
+             my $sigdie;
+             {
+                 local $SIG{__DIE__};
+                 my $fn = _module_to_filename($base);
+-                my $dotty = $INC[-1] eq '.' && ( $INC[-1] = sub {()} );
+-                eval {
+-                    my $redotty = $dotty && bless [ $dotty ], 'base::__inc_scope_guard';
+-                    require $fn
+-                };
++                eval { require $fn };
+                 # Only ignore "Can't locate" errors from our eval require.
+                 # Other fatal errors (syntax etc) must be reported.
+                 #
+@@ -119,26 +109,12 @@ sub import {
+                           || $@ =~ /Compilation failed in require at .* line [0-9]+(?:, <[^>]*> (?:line|chunk) [0-9]+)?\.\n\z/;
+                 unless (%{"$base\::"}) {
+                     require Carp;
+-                    my @inc = $dotty ? @INC[0..$#INC-1] : @INC;
+                     local $" = " ";
+-                    my $e = <<ERROR;
++                    Carp::croak(<<ERROR);
+ Base class package "$base" is empty.
+     (Perhaps you need to 'use' the module which defines that package first,
+-    or make that module available in \@INC (\@INC contains: @inc).
++    or make that module available in \@INC (\@INC contains: @INC).
+ ERROR
+-                    if ($dotty && -e $fn) {
+-                        $e .= <<ERROS;
+-    The file $fn does exist in the current directory.  But note
+-    that base.pm, when loading a module, now ignores the current working
+-    directory if it is the last entry in \@INC.  If your software worked on
+-    previous versions of Perl, the best solution is to use FindBin to
+-    detect the path properly and to add that path to \@INC.  As a last
+-    resort, you can re-enable looking in the current working directory by
+-    adding "use lib '.'" to your code.
+-ERROS
+-                    }
+-                    $e =~ s/\n\z/)\n/;
+-                    Carp::croak($e);
+                 }
+                 $sigdie = $SIG{__DIE__} || undef;
+             }
+diff --git a/dist/base/t/incdot.t b/dist/base/t/incdot.t
+deleted file mode 100644
+index 1619492..0000000
+--- a/dist/base/t/incdot.t
++++ /dev/null
+@@ -1,19 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-use strict;
+-
+-use base ();
+-
+-use Test::More tests => 2;
+-
+-if ($INC[-1] ne '.') { push @INC, '.' }
+-
+-my $inc = quotemeta "@INC[0..$#INC-1]";
+-
+-eval { 'base'->import("foo") };
+-like $@, qr/\@INC contains: $inc\).\)/,
+-    'Error does not list final dot in @INC (or mention use lib)';
+-eval { 'base'->import('t::lib::Dummy') };
+-like $@, qr<\@INC contains: $inc\).\n(?x:
+-           )    The file t/lib/Dummy\.pm does exist in the current direct>,
+-    'special cur dir message for existing files in . that are ignored';
+diff --git a/dist/base/t/incmodified-vs-incdot.t b/dist/base/t/incmodified-vs-incdot.t
+deleted file mode 100644
+index a5288e8..0000000
+--- a/dist/base/t/incmodified-vs-incdot.t
++++ /dev/null
+@@ -1,27 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-use strict;
+-use Test::More tests => 10;  # one test is in each BaseInc* itself
+-
+-use lib 't/lib';
+-
+-# make it look like an older perl
+-BEGIN { push @INC, '.' if $INC[-1] ne '.' }
+-
+-use base 'BaseIncExtender';
+-
+-BEGIN {
+-    is $INC[0], 't/lib/blahblah', 'modules loaded by base can prepend entries to @INC';
+-    is $INC[1], 't/lib', 'previously prepended additional @INC entry remains';
+-    is $INC[-1], '.', 'dot still at end @INC after using base';
+-}
+-
+-use base 'BaseIncDoubleExtender';
+-
+-BEGIN {
+-    is $INC[0], 't/lib/blahdeblah', 'modules loaded by base can prepend entries to @INC';
+-    is $INC[1], 't/lib/blahblah', 'previously prepended additional @INC entry remains';
+-    is $INC[2], 't/lib', 'previously prepended additional @INC entry remains';
+-    is $INC[-2], '.', 'dot still at previous end of @INC after using base';
+-    is $INC[-1], 't/lib/on-end', 'modules loaded by base can append entries to @INC';
+-}
+diff --git a/dist/base/t/lib/BaseIncDoubleExtender.pm b/dist/base/t/lib/BaseIncDoubleExtender.pm
+deleted file mode 100644
+index 455c5de..0000000
+--- a/dist/base/t/lib/BaseIncDoubleExtender.pm
++++ /dev/null
+@@ -1,9 +0,0 @@
+-package BaseIncDoubleExtender;
+-
+-BEGIN { ::ok( $INC[-1] ne '.', 'no trailing dot in @INC during module load from base' ) }
+-
+-use lib 't/lib/blahdeblah';
+-
+-push @INC, 't/lib/on-end';
+-
+-1;
+diff --git a/dist/base/t/lib/BaseIncExtender.pm b/dist/base/t/lib/BaseIncExtender.pm
+deleted file mode 100644
+index 3b693ad..0000000
+--- a/dist/base/t/lib/BaseIncExtender.pm
++++ /dev/null
+@@ -1,7 +0,0 @@
+-package BaseIncExtender;
+-
+-BEGIN { ::ok( $INC[-1] ne '.', 'no trailing dot in @INC during module load from base' ) }
+-
+-use lib 't/lib/blahblah';
+-
+-1;
+diff --git a/t/porting/customized.dat b/t/porting/customized.dat
+index 4dbe3b2..cee286a 100644
+--- a/t/porting/customized.dat
++++ b/t/porting/customized.dat
+@@ -150,7 +150,6 @@ Win32API::File cpan/Win32API-File/Makefile.PL 605d0aee31aebe84a99408f9ab5f644db5
+ Win32API::File cpan/Win32API-File/t/file.t 124e64aa77e755235eb297644a87fac5388d3d78
+ Win32API::File cpan/Win32API-File/t/tie.t 712ea7edd0cc805ce1c0b8172c01b03dd19b583d
+ Win32API::File cpan/Win32API-File/typemap 24bff088babeadac0873e8df390d1666d9d9db4a
+-base dist/base/lib/base.pm 9a826b3e75c5efada34381718a05ee0aceb594a3
+ libnet cpan/libnet/lib/Net/Cmd.pm 4a9f6e4501549a2d7a04fbf5f9e27ab0c00976f2
+ libnet cpan/libnet/lib/Net/Config.pm dfa96dcd5a459f9f39e5ca513cefc82b8178520f
+ libnet cpan/libnet/lib/Net/Domain.pm 090c8c06e210102dcf25e6820c6b43b5464ec49a
+-- 
+2.10.1
+
