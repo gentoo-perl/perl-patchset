@@ -36,6 +36,21 @@ einfo "Getting version info from ./perl -Ilib -V"
   LD_LIBRARY_PATH=. ./perl -Ilib -V
 )
 
+## Example logic for running an isolated test
+if false; then
+  einfo "Running make test_prep"
+  (
+    pushd "${S}";
+    make -j6 test_prep;
+  ) || die "test_prep failed"
+
+  einfo "Testing op/getppid.t"
+  (
+    pushd "${S}"
+    LD_LIBRARY_PATH="${S}" t/TEST -v op/getppid.t
+  ) || die "Test failed"
+fi
+
 einfo "Testing Perl ${TARGET_PERL}"
 (
   pushd "${S}";
