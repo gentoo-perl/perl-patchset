@@ -30,6 +30,12 @@ einfo "Compiling Perl ${TARGET_PERL}"
   make -j6
 ) || die "Make failed"
 
+einfo "Getting version info from ./perl -Ilib -V"
+(
+  pushd "${S}";
+  LD_LIBRARY_PATH=. ./perl -Ilib -V
+)
+
 einfo "Testing Perl ${TARGET_PERL}"
 (
   pushd "${S}";
