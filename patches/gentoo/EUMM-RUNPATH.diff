@@ -14,9 +14,9 @@ diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm b/cpan/ExtUtils-Make
 index fd85612..e3aa20a 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
-@@ -2073,6 +2073,13 @@ sub init_others {
+@@ -2284,6 +2284,13 @@ sub init_others {
              # LD_RUN_PATH now computed by ExtUtils::Liblist
-             ($self->{EXTRALIBS},  $self->{BSLOADLIBS}, 
+             ($self->{EXTRALIBS},  $self->{BSLOADLIBS},
               $self->{LDLOADLIBS}, $self->{LD_RUN_PATH}) = @libs;
 +            # We do not want the build root in RPATH
 +            if (exists $ENV{PORTAGE_TMPDIR}) {
