@@ -1,21 +1,21 @@
-http://www.nntp.perl.org/group/perl.perl5.porters/2016/05/msg236729.html
-
-From c444f7345eb2717105f0addda99b5f4c5d0abeb8 Mon Sep 17 00:00:00 2001
+From 48bdb4805fdff6e3ef9a0b40084d1a756abcfc3f Mon Sep 17 00:00:00 2001
 From: Michael Haubenwallner <michael.haubenwallner@ssi-schaefer.com>
 Date: Tue, 3 May 2016 14:27:25 +0200
-Subject: [PATCH] Cygwin: avoid libperl.dll.dll.a
+Subject: Cygwin: avoid libperl.dll.dll.a
 
 As the user may provide -Dlibperl=libperl.dll.a already, we need to
 avoid duplicating the .dll part.
+
+http://www.nntp.perl.org/group/perl.perl5.porters/2016/05/msg236729.html
 ---
  cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Cygwin.pm | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Cygwin.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Cygwin.pm
-index e8e9d3d..cadc2fa 100644
+index 659d430ffd..ecd7d0f7e1 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Cygwin.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Cygwin.pm
-@@ -87,7 +87,7 @@ sub init_linker {
+@@ -86,7 +86,7 @@ sub init_linker {
      if ($Config{useshrplib} eq 'true') {
          my $libperl = '$(PERL_INC)' .'/'. "$Config{libperl}";
          if( $] >= 5.006002 ) {
@@ -25,5 +25,5 @@ index e8e9d3d..cadc2fa 100644
          $self->{PERL_ARCHIVE} = $libperl;
      } else {
 -- 
-2.7.3
+2.11.0
 
