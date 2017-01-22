@@ -1,9 +1,18 @@
-Subject: Minimal changes to test framework so everything passes with Gentoo patchset
+From e500d6cd8903bc43d19985146a7d3d67e9c39b2d Mon Sep 17 00:00:00 2001
+From: Kent Fredric <kentfredric@gmail.com>
+Date: Sun, 22 Jan 2017 19:12:44 +1300
+Subject: Fixup EUMM perlocal.pod tests and customised SHA1s
 
-diff -ruN perl-5.24.0.orig/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t perl-5.24.0/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t
---- perl-5.24.0.orig/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t	2016-03-01 13:33:01.000000000 +0100
-+++ perl-5.24.0/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t	2016-06-04 23:16:44.306347943 +0200
-@@ -20,7 +20,7 @@
+---
+ cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t |  3 +--
+ t/porting/customized.dat                 | 12 ++++++------
+ 2 files changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t b/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t
+index fc316112b0..fd476d17d0 100644
+--- a/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t
++++ b/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t
+@@ -20,7 +20,7 @@ use Config;
  use ExtUtils::MM;
  plan !MM->can_run(make()) && $ENV{PERL_CORE} && $Config{'usecrosscompile'}
      ? (skip_all => "cross-compiling and make not available")
@@ -12,7 +21,7 @@ diff -ruN perl-5.24.0.orig/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t perl-5.24.0/
  
  my $Is_VMS = $^O eq 'VMS';
  
-@@ -64,7 +64,6 @@
+@@ -64,7 +64,6 @@ for my $instdir (@INSTDIRS) {
      ("$instdir/lib/perl5/Big/Dummy.pm",
       "$instdir/lib/perl5/Big/Liar.pm",
       "$instdir/bin/program",
@@ -20,10 +29,11 @@ diff -ruN perl-5.24.0.orig/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t perl-5.24.0/
       "$instdir/lib/perl5/$Config{archname}/auto/Big/Dummy/.packlist"
      );
  
-diff -ruN a/t/porting/customized.dat b/t/porting/customized.dat
---- a/t/porting/customized.dat	2016-07-25 09:12:22.000000000 +0000
-+++ b/t/porting/customized.dat	2016-07-25 23:13:42.378574781 +0000
-@@ -10,7 +10,7 @@
+diff --git a/t/porting/customized.dat b/t/porting/customized.dat
+index defeae1127..edcedef002 100644
+--- a/t/porting/customized.dat
++++ b/t/porting/customized.dat
+@@ -10,7 +10,7 @@ CPAN cpan/CPAN/scripts/cpan c43050c8c63153a205e4385e118e906d1ecadf06
  Digest cpan/Digest/Digest.pm 43f7f544cb11842b2f55c73e28930da50774e081
  Digest::SHA cpan/Digest-SHA/lib/Digest/SHA.pm 5841fcf70f7290e07befdd16f05093664c618a96
  Digest::SHA cpan/Digest-SHA/shasum f92faa37afc098e2a825e4ecda1097890492d957
@@ -32,7 +42,7 @@ diff -ruN a/t/porting/customized.dat b/t/porting/customized.dat
  Encode cpan/Encode/bin/encguess f1e7a130995c4bad53bb6d3034dae625cfe61e32
  Encode cpan/Encode/bin/piconv 80ea7f9afff580e41c4b29f5ab214ed378274b49
  Encode cpan/Encode/bin/ucmlint 495862125269a60536b78fd0a7910d024c4d21fe
-@@ -23,7 +23,7 @@
+@@ -23,7 +23,7 @@ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Command.pm e3a372e07392
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Command/MM.pm b72721bd6aa9bf7ec328bda99a8fdb63cac6114d
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist.pm 0e1e4c25eddb999fec6c4dc66593f76db34cfd16
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Liblist/Kid.pm bfd2aa00ca4ed251f342e1d1ad704abbaf5a615e
@@ -41,7 +51,7 @@ diff -ruN a/t/porting/customized.dat b/t/porting/customized.dat
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/Config.pm bc88b275af73b8faac6abd59a9aad3f625925810
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/FAQ.pod 062e5d14a803fbbec8d61803086a3d7997e8a473
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker/Tutorial.pod a8a9cab7d67922ed3d6883c864e1fe29aaa6ad89
-@@ -33,16 +33,16 @@
+@@ -33,16 +33,16 @@ ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Mkbootstrap.pm 412e95c3
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/Mksymlists.pm 8559ef191b4371d0c381472464856a8a73825b2a
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM.pm 09d579ed9daea95c3bf47de2e0b8fe3aa0ff6447
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_AIX.pm f720c13748293b792f7073aa96e7daecb590b183
@@ -61,7 +71,7 @@ diff -ruN a/t/porting/customized.dat b/t/porting/customized.dat
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_UWIN.pm 40397f4cd2d49700b80b4ef490da98add24c5b37
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_VMS.pm 147e97fbabb74841f0733dbd5d1b9f3fa51f87c1
  ExtUtils::MakeMaker cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_VOS.pm 3f13ed7045ff3443bcb4dd6c95c98b9bd705820f
-@@ -175,6 +175,6 @@
+@@ -176,6 +176,6 @@ libnet cpan/libnet/lib/Net/FTP/L.pm ac1599c775faee0474710e4f75051c8949f13df2
  libnet cpan/libnet/lib/Net/Netrc.pm 009cfc08f8a5bf247257acb64a21e1b6ad8b2c9c
  libnet cpan/libnet/lib/Net/NNTP.pm 6325fc05fd9ef81dc8d461a77b2a3f56ad1ae114
  libnet cpan/libnet/lib/Net/POP3.pm 2d8065646df80061dae5a9e3465a36a6557165fd
@@ -69,3 +79,6 @@ diff -ruN a/t/porting/customized.dat b/t/porting/customized.dat
 +libnet cpan/libnet/lib/Net/SMTP.pm f1beb42bfbef4333ed24ad63d5dd1aa5c67b20c7
  libnet cpan/libnet/lib/Net/Time.pm b3df8bbaa3bc253fbf77e8386c59a1b2aae13627
  version cpan/version/lib/version.pm ff75e2076be10bd4c05133cd979fda0b38ca8653
+-- 
+2.11.0
+
