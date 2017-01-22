@@ -1,7 +1,18 @@
-diff -Naur a/cpan/IO-Socket-IP/t/15io-socket.t b/cpan/IO-Socket-IP/t/15io-socket.t
+From ca810407675f5942e0930f2361d8fc1e055c5397 Mon Sep 17 00:00:00 2001
+From: Kent Fredric <kentfredric@gmail.com>
+Date: Sun, 22 Jan 2017 19:08:53 +1300
+Subject: cpan/IO-Socket-IP: Disable network tests
+
+---
+ cpan/IO-Socket-IP/t/15io-socket.t | 5 +++++
+ cpan/IO-Socket-IP/t/16v6only.t    | 5 +++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/cpan/IO-Socket-IP/t/15io-socket.t b/cpan/IO-Socket-IP/t/15io-socket.t
+index 07472941a6..2a8684b214 100644
 --- a/cpan/IO-Socket-IP/t/15io-socket.t
 +++ b/cpan/IO-Socket-IP/t/15io-socket.t
-@@ -4,6 +4,11 @@
+@@ -4,6 +4,11 @@ use strict;
  use warnings;
  
  use Test::More;
@@ -13,10 +24,11 @@ diff -Naur a/cpan/IO-Socket-IP/t/15io-socket.t b/cpan/IO-Socket-IP/t/15io-socket
  
  use IO::Socket;
  use IO::Socket::IP -register;
-diff -Naur a/cpan/IO-Socket-IP/t/16v6only.t b/cpan/IO-Socket-IP/t/16v6only.t
---- perl-5.20.2/cpan/IO-Socket-IP/t/16v6only.t
-+++ perl-5.20.2b/cpan/IO-Socket-IP/t/16v6only.t
-@@ -4,6 +4,11 @@
+diff --git a/cpan/IO-Socket-IP/t/16v6only.t b/cpan/IO-Socket-IP/t/16v6only.t
+index d900cd7ceb..038f21bec9 100644
+--- a/cpan/IO-Socket-IP/t/16v6only.t
++++ b/cpan/IO-Socket-IP/t/16v6only.t
+@@ -4,6 +4,11 @@ use strict;
  use warnings;
  
  use Test::More;
@@ -28,3 +40,6 @@ diff -Naur a/cpan/IO-Socket-IP/t/16v6only.t b/cpan/IO-Socket-IP/t/16v6only.t
  
  use Socket qw(PF_INET6 PF_INET IPPROTO_IPV6 IPV6_V6ONLY);
  use IO::Socket::IP;
+-- 
+2.11.0
+
