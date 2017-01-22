@@ -1,7 +1,7 @@
 From 6d8f0056bcf9dfdd34a6cb5e4ccac44bebbc3edd Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 15 Jun 2015 22:15:59 +0200
-Subject: [PATCH] [PATCH] Do not set custom CFLAGS in cpan/Digest-SHA
+Subject: Do not set custom CFLAGS in cpan/Digest-SHA
 
 Bug-Gentoo: https://bugs.gentoo.org/506818
 
