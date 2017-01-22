@@ -1,7 +1,7 @@
 From 8e01e2e43d1ac1531362e6f6301c6f9754c94c04 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:50:12 +0400
-Subject: [PATCH] Add headers for opensolaris
+Subject: Add headers for opensolaris
 
 Thanks to the nice OpenSolaris guys, I finally figured out that on
 OpenSolaris 11, the header dependencies have changed.
