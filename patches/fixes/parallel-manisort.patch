@@ -1,4 +1,4 @@
-From dca9661a99daeb25ac962d6afb7e722c705fd825 Mon Sep 17 00:00:00 2001
+From c647919a0bc84b0836082f2ac1cda69b2e213c72 Mon Sep 17 00:00:00 2001
 From: Tom Hukins <tom@eborcom.com>
 Date: Thu, 8 Sep 2016 16:01:36 +0000
 Subject: Fix parallel building
@@ -15,10 +15,10 @@ target fail every time because perl can't load Cwd.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.SH b/Makefile.SH
-index 3f6cf227b9..0521e53cf3 100755
+index 469f97da64..e1f805d2c8 100755
 --- a/Makefile.SH
 +++ b/Makefile.SH
-@@ -605,7 +605,7 @@ all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) $(generated_pods) $(private) $(unidatafile
+@@ -626,7 +626,7 @@ all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) $(generated_pods) $(private) $(unidatafile
  	@echo " ";
  	@echo "	Everything is up to date. Type '$(MAKE) test' to run test suite."
  

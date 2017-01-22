@@ -1,4 +1,4 @@
-From ca810407675f5942e0930f2361d8fc1e055c5397 Mon Sep 17 00:00:00 2001
+From b30726132390572cc4f4e2cd6ce2b432cb65597b Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentfredric@gmail.com>
 Date: Sun, 22 Jan 2017 19:08:53 +1300
 Subject: cpan/IO-Socket-IP: Disable network tests

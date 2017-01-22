@@ -1,4 +1,4 @@
-From 9c142bd40a05e048735248324d2128d2f54e6323 Mon Sep 17 00:00:00 2001
+From 0470f51953a8abf17a268adac1a99ebeca179d65 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:46:02 +0200
 Subject: Configure CPANPLUS to use the site directories by default.
@@ -19,7 +19,7 @@ Patch-Name: gentoo/cpanplus_definstalldirs.diff
 
 diff --git a/cpan/CPANPLUS/lib/CPANPLUS/Config/System.pm b/cpan/CPANPLUS/lib/CPANPLUS/Config/System.pm
 new file mode 100644
-index 0000000..097f34d
+index 0000000000..097f34d67a
 --- /dev/null
 +++ b/cpan/CPANPLUS/lib/CPANPLUS/Config/System.pm
 @@ -0,0 +1,30 @@
@@ -53,3 +53,6 @@ index 0000000..097f34d
 +}
 +
 +1;
+-- 
+2.11.0
+

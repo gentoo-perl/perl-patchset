@@ -1,4 +1,4 @@
-From 2aacb1be1a15586a7477f02d5f1840ed399bdee5 Mon Sep 17 00:00:00 2001
+From 7e189223bee9f34500b2d43275a5d7bb250c8703 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:16:34 +0200
 Subject: cpan/ExtUtils-MakeMaker: drop $PORTAGE_TMPDIR from LD_RUN_PATH
@@ -11,10 +11,10 @@ Patch-Name: gentoo/EUMM-RUNPATH.diff
  1 file changed, 7 insertions(+)
 
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
-index fd85612..e3aa20a 100644
+index 433a8dd7a3..6f0cd8c630 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Any.pm
-@@ -2284,6 +2284,13 @@ sub init_others {
+@@ -2422,6 +2422,13 @@ sub init_others {
              # LD_RUN_PATH now computed by ExtUtils::Liblist
              ($self->{EXTRALIBS},  $self->{BSLOADLIBS},
               $self->{LDLOADLIBS}, $self->{LD_RUN_PATH}) = @libs;
@@ -28,3 +28,6 @@ index fd85612..e3aa20a 100644
              last;
          }
      }
+-- 
+2.11.0
+

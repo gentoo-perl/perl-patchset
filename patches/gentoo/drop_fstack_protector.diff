@@ -1,4 +1,4 @@
-From d4d5e74db20ad288c2483d9b6f5749187e24a5b1 Mon Sep 17 00:00:00 2001
+From 7f103a9f5717dcda6a1807ae1bdd30c06de3ba71 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:44:44 +0400
 Subject: Don't force -fstack-protector on everyone
@@ -13,10 +13,10 @@ Original by Torsten Veller, ported to perl 5.20
  1 file changed, 47 deletions(-)
 
 diff --git a/Configure b/Configure
-index 4c8c728be6..44a7fd171c 100755
+index 18b190c372..9639523e06 100755
 --- a/Configure
 +++ b/Configure
-@@ -5452,23 +5452,6 @@ default|recommended)
+@@ -5484,23 +5484,6 @@ default|recommended)
  	# is to add the flag to the flags passed to the compiler at link time,
  	# as that way the compiler can do the right implementation dependant
  	# thing. (NWC)
@@ -40,7 +40,7 @@ index 4c8c728be6..44a7fd171c 100755
  esac
  
  case "$mips_type" in
-@@ -5611,21 +5594,6 @@ case "$ldflags" in
+@@ -5643,21 +5626,6 @@ case "$ldflags" in
  	;;
  *) dflt="$ldflags";;
  esac
@@ -62,7 +62,7 @@ index 4c8c728be6..44a7fd171c 100755
  
  : Try to guess additional flags to pick up local libraries.
  for thislibdir in $libpth; do
-@@ -8548,21 +8516,6 @@ EOM
+@@ -8611,21 +8579,6 @@ EOM
  	    ''|' ') dflt='none' ;;
  	esac
  

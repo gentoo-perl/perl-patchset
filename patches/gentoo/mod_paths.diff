@@ -1,4 +1,4 @@
-From afcd5d34a587df95ccaa0839e6659ea8cd872194 Mon Sep 17 00:00:00 2001
+From 603e9448246e9166dd7d280fb5c542e2b500b024 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:59:56 +0200
 Subject: Add /etc/perl to @INC
@@ -9,10 +9,10 @@ Patch-Name: gentoo/mod_paths.diff
  1 file changed, 16 insertions(+), 13 deletions(-)
 
 diff --git a/perl.c b/perl.c
-index 7f6848e..38e2ee7 100644
+index 09eb2f4f62..35ff6fd70c 100644
 --- a/perl.c
 +++ b/perl.c
-@@ -4277,6 +4277,9 @@ S_init_perllib(pTHX)
+@@ -4522,6 +4522,9 @@ S_init_perllib(pTHX)
  		      INCPUSH_ADD_SUB_DIRS|INCPUSH_CAN_RELOCATE);
  #endif
  
@@ -22,7 +22,7 @@ index 7f6848e..38e2ee7 100644
  #ifdef SITEARCH_EXP
      /* sitearch is always relative to sitelib on Windows for
       * DLL-based path intuition to work correctly */
-@@ -4318,6 +4321,19 @@ S_init_perllib(pTHX)
+@@ -4563,6 +4566,19 @@ S_init_perllib(pTHX)
  #  endif
  #endif
  
@@ -42,7 +42,7 @@ index 7f6848e..38e2ee7 100644
  #ifdef ARCHLIB_EXP
      S_incpush_use_sep(aTHX_ STR_WITH_LEN(ARCHLIB_EXP), INCPUSH_CAN_RELOCATE);
  #endif
-@@ -4381,19 +4397,6 @@ S_init_perllib(pTHX)
+@@ -4626,19 +4642,6 @@ S_init_perllib(pTHX)
  		      |INCPUSH_NOT_BASEDIR|INCPUSH_CAN_RELOCATE);
  #endif
  
@@ -62,3 +62,6 @@ index 7f6848e..38e2ee7 100644
  #ifdef PERL_OTHERLIBDIRS
      S_incpush_use_sep(aTHX_ STR_WITH_LEN(PERL_OTHERLIBDIRS),
  		      INCPUSH_ADD_OLD_VERS|INCPUSH_ADD_ARCHONLY_SUB_DIRS
+-- 
+2.11.0
+
