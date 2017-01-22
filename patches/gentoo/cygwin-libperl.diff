@@ -1,4 +1,4 @@
-From 48bdb4805fdff6e3ef9a0b40084d1a756abcfc3f Mon Sep 17 00:00:00 2001
+From d289409d49e43a778ace464cf625313b0071f017 Mon Sep 17 00:00:00 2001
 From: Michael Haubenwallner <michael.haubenwallner@ssi-schaefer.com>
 Date: Tue, 3 May 2016 14:27:25 +0200
 Subject: Cygwin: avoid libperl.dll.dll.a

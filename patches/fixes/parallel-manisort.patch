@@ -1,4 +1,4 @@
-From dca9661a99daeb25ac962d6afb7e722c705fd825 Mon Sep 17 00:00:00 2001
+From 9d25f1af6b7884c21d32fec9fff488772910bc25 Mon Sep 17 00:00:00 2001
 From: Tom Hukins <tom@eborcom.com>
 Date: Thu, 8 Sep 2016 16:01:36 +0000
 Subject: Fix parallel building

@@ -1,4 +1,4 @@
-From 35acf5842b7b3be2c7dffcc025d6f7287962cf39 Mon Sep 17 00:00:00 2001
+From 36fe795d77ae10e99f21564c1a018b751b7c3ff7 Mon Sep 17 00:00:00 2001
 From: Niko Tyni <ntyni@debian.org>
 Date: Mon, 30 May 2011 22:54:24 +0300
 Subject: Document that CCFLAGS should include $Config{ccflags}
@@ -15,10 +15,10 @@ Patch-Name: fixes/document_makemaker_ccflags.diff
  1 file changed, 4 insertions(+)
 
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm
-index d2fabf6..fabb021 100644
+index 42b174fe34..5a9fce22b1 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm
-@@ -1716,6 +1716,10 @@ currently used by MakeMaker but may be handy in Makefile.PLs.
+@@ -1771,6 +1771,10 @@ currently used by MakeMaker but may be handy in Makefile.PLs.
  String that will be included in the compiler call command line between
  the arguments INC and OPTIMIZE.
  
@@ -29,3 +29,6 @@ index d2fabf6..fabb021 100644
  =item CONFIG
  
  Arrayref. E.g. [qw(archname manext)] defines ARCHNAME & MANEXT from
+-- 
+2.11.0
+

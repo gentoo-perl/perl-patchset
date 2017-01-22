@@ -1,4 +1,4 @@
-From e209b4fddfe1fd758a3174e9f82446e32e4c5190 Mon Sep 17 00:00:00 2001
+From 59181f33dadffda3b94bbb2e37aba2ff467977bb Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 18:11:54 +0200
 Subject: List packaged patches in patchlevel.h
@@ -16,7 +16,7 @@ Patch-Name: gentoo/patchlevel.diff
  1 file changed, 1 insertion(+)
 
 diff --git a/patchlevel.h b/patchlevel.h
-index be508d1..df1dffa 100644
+index 0d8ab183f3..1f01970d54 100644
 --- a/patchlevel.h
 +++ b/patchlevel.h
 @@ -137,6 +137,7 @@ static const char * const local_patches[] = {
@@ -27,3 +27,6 @@ index be508d1..df1dffa 100644
  	,NULL
  };
  
+-- 
+2.11.0
+

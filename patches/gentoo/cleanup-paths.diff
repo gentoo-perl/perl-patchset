@@ -1,4 +1,4 @@
-From bd709251a971ce7855857ba230123605cfa710e7 Mon Sep 17 00:00:00 2001
+From f11f891fc3a3ffbb48cbf8e47f5a4673243ef8b6 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:54:51 +0400
 Subject: Cleanup PATH and shrpenv
@@ -9,14 +9,14 @@ use
 Patch-Name: gentoo/cleanup-paths.diff
 Original-By: Torsten Veller <tove@gentoo.org>
 ---
- Configure | 79 ---------------------------------------------------------------
- 1 file changed, 79 deletions(-)
+ Configure | 73 ---------------------------------------------------------------
+ 1 file changed, 73 deletions(-)
 
 diff --git a/Configure b/Configure
-index b221390..63b8848 100755
+index 5a353d6de4..4c8c728be6 100755
 --- a/Configure
 +++ b/Configure
-@@ -107,28 +107,6 @@
+@@ -110,28 +110,6 @@ if test -d c:/. || ( uname -a | grep -i 'os\(/\|\)2' 2>&1 ) 2>&1 >/dev/null ; th
  	fi
  fi
  
@@ -45,7 +45,7 @@ index b221390..63b8848 100755
  : shall we be using ksh?
  inksh=''
  needksh=''
-@@ -8720,57 +8698,6 @@
+@@ -8795,57 +8773,6 @@ EOM
  	;;
  esac
  
@@ -103,3 +103,6 @@ index b221390..63b8848 100755
  # Fix ccdlflags in AIX for building external extensions.
  # (For building Perl itself bare -bE:perl.exp is needed,
  #  Makefile.SH takes care of this.)
+-- 
+2.11.0
+

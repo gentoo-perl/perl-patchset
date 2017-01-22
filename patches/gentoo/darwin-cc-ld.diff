@@ -1,4 +1,4 @@
-From fb0b63b39e9cb74fa220f8402981b736123b24ee Mon Sep 17 00:00:00 2001
+From 8b7121fb047245ea026c91663ba6969221d22154 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:59:52 +0400
 Subject: darwin: Use $CC to link
@@ -16,10 +16,10 @@ Original-By: Torsten Veller <tove@gentoo.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/hints/darwin.sh b/hints/darwin.sh
-index 7c3f818..fa87f4c 100644
+index afadf539ec..589013f9b4 100644
 --- a/hints/darwin.sh
 +++ b/hints/darwin.sh
-@@ -137,7 +137,7 @@ if [ "X`echo | ${cc} -no-cpp-precomp -E - 2>&1 >/dev/null`" = "X" ]; then
+@@ -145,7 +145,7 @@ if [ "X`echo | ${cc} -no-cpp-precomp -E - 2>&1 >/dev/null`" = "X" ]; then
  fi
  
  # Known optimizer problems.
@@ -28,7 +28,7 @@ index 7c3f818..fa87f4c 100644
    *"3.1 20020105"*) toke_cflags='optimize=""' ;;
  esac
  
-@@ -168,7 +168,7 @@ esac
+@@ -176,7 +176,7 @@ esac
  
  # Allow the user to override ld, but modify it as necessary below
  case "$ld" in
@@ -38,5 +38,5 @@ index 7c3f818..fa87f4c 100644
          # set the ld to be that explicitly something else.  Conversely,
          # if the cc is 'cc' (or empty), set the ld to be 'cc'.
 -- 
-1.9.3
+2.11.0
 

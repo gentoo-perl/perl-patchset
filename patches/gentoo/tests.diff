@@ -1,4 +1,4 @@
-From e500d6cd8903bc43d19985146a7d3d67e9c39b2d Mon Sep 17 00:00:00 2001
+From b0159ee264c6820460ebabbdc4c4f6b36fe6dd58 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentfredric@gmail.com>
 Date: Sun, 22 Jan 2017 19:12:44 +1300
 Subject: Fixup EUMM perlocal.pod tests and customised SHA1s

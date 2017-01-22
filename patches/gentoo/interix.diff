@@ -1,4 +1,4 @@
-From 2e0ccc3e4117d54394bbeeab69952f92c4e6321d Mon Sep 17 00:00:00 2001
+From 3515fcd753cb560559148b2e84efbb7404e0b45a Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 20:01:41 +0400
 Subject: Fix interix hints
@@ -11,7 +11,7 @@ Original-By: Torsten Veller <tove@gentoo.org>
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/hints/interix.sh b/hints/interix.sh
-index acbf9c7..c9e3334 100644
+index acbf9c7d1e..c9e3334c6b 100644
 --- a/hints/interix.sh
 +++ b/hints/interix.sh
 @@ -6,8 +6,6 @@
@@ -32,5 +32,5 @@ index acbf9c7..c9e3334 100644
  case "$plibpth" in
  '') plibpth=`LANG=C LC_ALL=C $cc -print-search-dirs | grep libraries |
 -- 
-1.9.3
+2.11.0
 

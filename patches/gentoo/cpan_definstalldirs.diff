@@ -1,4 +1,4 @@
-From 91c395844c280f07b4eeb4aa20f1b2abd9fe1126 Mon Sep 17 00:00:00 2001
+From 223d87d5d86fb7ee2bba30b1d324eed5ccc011f5 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:34:20 +0200
 Subject: Provide a sensible INSTALLDIRS default for modules installed from
@@ -15,10 +15,10 @@ Patch-Name: gentoo/cpan_definstalldirs.diff
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/cpan/CPAN/lib/CPAN/FirstTime.pm b/cpan/CPAN/lib/CPAN/FirstTime.pm
-index 5030ef9..5953cb7 100644
+index 918e009a2b..33054cd284 100644
 --- a/cpan/CPAN/lib/CPAN/FirstTime.pm
 +++ b/cpan/CPAN/lib/CPAN/FirstTime.pm
-@@ -990,7 +990,7 @@ sub init {
+@@ -1024,7 +1024,7 @@ sub init {
      my_prompt_loop(prefer_installer => 'MB', $matcher, 'MB|EUMM|RAND');
  
      if (!$matcher or 'makepl_arg make_arg' =~ /$matcher/) {
@@ -27,7 +27,7 @@ index 5030ef9..5953cb7 100644
          my_dflt_prompt(make_arg => "", $matcher);
          if ( $CPAN::Config->{makepl_arg} =~ /LIBS=|INC=/ ) {
              $CPAN::Frontend->mywarn(
-@@ -1022,7 +1022,7 @@ sub init {
+@@ -1056,7 +1056,7 @@ sub init {
      my_dflt_prompt(make_install_arg => $CPAN::Config->{make_arg} || "",
                     $matcher);
  
@@ -36,3 +36,6 @@ index 5030ef9..5953cb7 100644
      my_dflt_prompt(mbuild_arg => "", $matcher);
  
      if (exists $CPAN::HandleConfig::keys{mbuild_install_build_command}
+-- 
+2.11.0
+

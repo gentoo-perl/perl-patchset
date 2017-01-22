@@ -1,4 +1,4 @@
-From d4d5e74db20ad288c2483d9b6f5749187e24a5b1 Mon Sep 17 00:00:00 2001
+From d2514b5e2a760d9c8d88eeb00cd65e0b9a1e0eba Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:44:44 +0400
 Subject: Don't force -fstack-protector on everyone
