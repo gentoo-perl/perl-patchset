@@ -4,7 +4,6 @@ gentoo/EUMM-RUNPATH.diff
 gentoo/config_over.diff
 gentoo/opensolaris_headers.diff
 gentoo/patchlevel.diff
-gentoo/cpanplus_definstalldirs.diff
 gentoo/cleanup-paths.diff
 gentoo/enc2xs.diff
 gentoo/darwin-cc-ld.diff
