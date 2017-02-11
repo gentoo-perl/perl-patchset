@@ -1,0 +1,226 @@
+From ed30080d284ee79fc1970f39d11e153628d0a2cc Mon Sep 17 00:00:00 2001
+From: Kent Fredric <kentnl@gentoo.org>
+Date: Sun, 12 Feb 2017 06:48:23 +1300
+Subject: Restore base.pm no-dot-in-@INC changes
+
+Under the assumption that upstream is eventually going to ship
+this change in 5.24.*, and that gentoo may wish to stabilize
+5.24.*, it is pertinent we smoke out any breakages associated with this
+change in advance.
+
+This reverts upstream commits 920e2185601f76e9c0f01f02c2ccacbc0c9638db
+to bb1b7d19d95913aa93c70b933210864439c4e3a2
+---
+ MANIFEST                                 |  4 ++++
+ Porting/Maintainers.pl                   |  4 ++++
+ dist/base/lib/base.pm                    | 31 +++++++++++++++++++++++++++----
+ dist/base/t/incdot.t                     | 19 +++++++++++++++++++
+ dist/base/t/incmodified-vs-incdot.t      | 27 +++++++++++++++++++++++++++
+ dist/base/t/lib/BaseIncDoubleExtender.pm |  9 +++++++++
+ dist/base/t/lib/BaseIncExtender.pm       |  7 +++++++
+ t/porting/customized.dat                 |  1 +
+ 8 files changed, 98 insertions(+), 4 deletions(-)
+ create mode 100644 dist/base/t/incdot.t
+ create mode 100644 dist/base/t/incmodified-vs-incdot.t
+ create mode 100644 dist/base/t/lib/BaseIncDoubleExtender.pm
+ create mode 100644 dist/base/t/lib/BaseIncExtender.pm
+
+diff --git a/MANIFEST b/MANIFEST
+index e4331f166a..893abbf31e 100644
+--- a/MANIFEST
++++ b/MANIFEST
+@@ -3007,7 +3007,11 @@ dist/base/t/fields-5_6_0.t	See if fields work
+ dist/base/t/fields-5_8_0.t	See if fields work
+ dist/base/t/fields-base.t	See if fields work
+ dist/base/t/fields.t		See if fields work
++dist/base/t/incdot.t		Test how base.pm handles '.' in @INC
++dist/base/t/incmodified-vs-incdot.t		Test base.pm's @INC fiddling
+ dist/base/t/isa.t		See if base's behaviour doesn't change
++dist/base/t/lib/BaseIncDoubleExtender.pm	Test module for base.pm
++dist/base/t/lib/BaseIncExtender.pm		Test module for base.pm
+ dist/base/t/lib/Broken.pm	Test module for base.pm
+ dist/base/t/lib/Dummy.pm	Test module for base.pm
+ dist/base/t/lib/HasSigDie.pm	Module for testing base.pm
+diff --git a/Porting/Maintainers.pl b/Porting/Maintainers.pl
+index b924e1017e..bf47b400b5 100755
+--- a/Porting/Maintainers.pl
++++ b/Porting/Maintainers.pl
+@@ -189,6 +189,10 @@ use File::Glob qw(:case);
+     'base' => {
+         'DISTRIBUTION' => 'RJBS/base-2.23.tar.gz',
+         'FILES'        => q[dist/base],
++        'CUSTOMIZED'   => [
++            # https://rt.perl.org/Ticket/Display.html?id=127834
++            qw( lib/base.pm )
++        ],
+     },
+ 
+     'bignum' => {
+diff --git a/dist/base/lib/base.pm b/dist/base/lib/base.pm
+index 6fee6008fc..d7193a6c8a 100644
+--- a/dist/base/lib/base.pm
++++ b/dist/base/lib/base.pm
+@@ -3,9 +3,15 @@ package base;
+ 
+ use strict 'vars';
+ use vars qw($VERSION);
+-$VERSION = '2.23';
++$VERSION = '2.23_01';
+ $VERSION =~ tr/_//d;
+ 
++# simplest way to avoid indexing of the package: no package statement
++sub base::__inc_scope_guard::DESTROY {
++	my $noop = $_[0][0];
++	ref $_ and $_ == $noop and $_ = '.' for @INC;
++}
++
+ # constant.pm is slow
+ sub SUCCESS () { 1 }
+ 
+@@ -91,13 +97,17 @@ sub import {
+ 
+         next if grep $_->isa($base), ($inheritor, @bases);
+ 
+-        # Following blocks help isolate $SIG{__DIE__} changes
++        # Following blocks help isolate $SIG{__DIE__} and @INC changes
+         {
+             my $sigdie;
+             {
+                 local $SIG{__DIE__};
+                 my $fn = _module_to_filename($base);
+-                eval { require $fn };
++                my $dotty = $INC[-1] eq '.' && ( $INC[-1] = sub {()} );
++                eval {
++                    my $redotty = $dotty && bless [ $dotty ], 'base::__inc_scope_guard';
++                    require $fn
++                };
+                 # Only ignore "Can't locate" errors from our eval require.
+                 # Other fatal errors (syntax etc) must be reported.
+                 #
+@@ -111,11 +121,24 @@ sub import {
+                 unless (%{"$base\::"}) {
+                     require Carp;
+                     local $" = " ";
+-                    Carp::croak(<<ERROR);
++                    my $e = <<ERROR;
+ Base class package "$base" is empty.
+     (Perhaps you need to 'use' the module which defines that package first,
+     or make that module available in \@INC (\@INC contains: @INC).
+ ERROR
++                    if ($dotty && -e $fn) {
++                        $e .= <<ERROS;
++    The file $fn does exist in the current directory.  But note
++    that base.pm, when loading a module, now ignores the current working
++    directory if it is the last entry in \@INC.  If your software worked on
++    previous versions of Perl, the best solution is to use FindBin to
++    detect the path properly and to add that path to \@INC.  As a last
++    resort, you can re-enable looking in the current working directory by
++    adding "use lib '.'" to your code.
++ERROS
++                    }
++                    $e =~ s/\n\z/)\n/;
++                    Carp::croak($e);
+                 }
+                 $sigdie = $SIG{__DIE__} || undef;
+             }
+diff --git a/dist/base/t/incdot.t b/dist/base/t/incdot.t
+new file mode 100644
+index 0000000000..e0619a6d4c
+--- /dev/null
++++ b/dist/base/t/incdot.t
+@@ -0,0 +1,19 @@
++#!/usr/bin/perl -w
++
++use strict;
++
++use base ();
++
++use Test::More tests => 2;
++
++if ($INC[-1] ne '.') { push @INC, '.' }
++
++my $inc = quotemeta "@INC";
++
++eval { 'base'->import("foo") };
++like $@, qr/\@INC contains: $inc\).\)/,
++    'Error does not list final dot in @INC (or mention use lib)';
++eval { 'base'->import('t::lib::Dummy') };
++like $@, qr<\@INC contains: $inc\).\n(?x:
++           )    The file t/lib/Dummy\.pm does exist in the current direct>,
++    'special cur dir message for existing files in . that are ignored';
+diff --git a/dist/base/t/incmodified-vs-incdot.t b/dist/base/t/incmodified-vs-incdot.t
+new file mode 100644
+index 0000000000..a5288e861f
+--- /dev/null
++++ b/dist/base/t/incmodified-vs-incdot.t
+@@ -0,0 +1,27 @@
++#!/usr/bin/perl -w
++
++use strict;
++use Test::More tests => 10;  # one test is in each BaseInc* itself
++
++use lib 't/lib';
++
++# make it look like an older perl
++BEGIN { push @INC, '.' if $INC[-1] ne '.' }
++
++use base 'BaseIncExtender';
++
++BEGIN {
++    is $INC[0], 't/lib/blahblah', 'modules loaded by base can prepend entries to @INC';
++    is $INC[1], 't/lib', 'previously prepended additional @INC entry remains';
++    is $INC[-1], '.', 'dot still at end @INC after using base';
++}
++
++use base 'BaseIncDoubleExtender';
++
++BEGIN {
++    is $INC[0], 't/lib/blahdeblah', 'modules loaded by base can prepend entries to @INC';
++    is $INC[1], 't/lib/blahblah', 'previously prepended additional @INC entry remains';
++    is $INC[2], 't/lib', 'previously prepended additional @INC entry remains';
++    is $INC[-2], '.', 'dot still at previous end of @INC after using base';
++    is $INC[-1], 't/lib/on-end', 'modules loaded by base can append entries to @INC';
++}
+diff --git a/dist/base/t/lib/BaseIncDoubleExtender.pm b/dist/base/t/lib/BaseIncDoubleExtender.pm
+new file mode 100644
+index 0000000000..455c5de513
+--- /dev/null
++++ b/dist/base/t/lib/BaseIncDoubleExtender.pm
+@@ -0,0 +1,9 @@
++package BaseIncDoubleExtender;
++
++BEGIN { ::ok( $INC[-1] ne '.', 'no trailing dot in @INC during module load from base' ) }
++
++use lib 't/lib/blahdeblah';
++
++push @INC, 't/lib/on-end';
++
++1;
+diff --git a/dist/base/t/lib/BaseIncExtender.pm b/dist/base/t/lib/BaseIncExtender.pm
+new file mode 100644
+index 0000000000..3b693adc06
+--- /dev/null
++++ b/dist/base/t/lib/BaseIncExtender.pm
+@@ -0,0 +1,7 @@
++package BaseIncExtender;
++
++BEGIN { ::ok( $INC[-1] ne '.', 'no trailing dot in @INC during module load from base' ) }
++
++use lib 't/lib/blahblah';
++
++1;
+diff --git a/t/porting/customized.dat b/t/porting/customized.dat
+index edcedef002..57003c6e79 100644
+--- a/t/porting/customized.dat
++++ b/t/porting/customized.dat
+@@ -159,6 +159,7 @@ Test::Harness cpan/Test-Harness/lib/TAP/Parser/YAMLish/Reader.pm 76771092dd2b87a
+ Test::Harness cpan/Test-Harness/lib/TAP/Parser/YAMLish/Writer.pm bf1fbfff9720330886651f183959a5db56daeea0
+ Test::Harness cpan/Test-Harness/lib/Test/Harness.pm da2d76ba673372da129060c9d0adb8cf0d91f9f7
+ autodie cpan/autodie/t/mkdir.t 9e70d2282a3cc7d76a78bf8144fccba20fb37dac
++base dist/base/lib/base.pm b65c508c9d699bf2b7913fb17dc9b23d4c508b33
+ bignum cpan/bignum/lib/bigint.pm 56330354995409dab5073ea92d749f8727e265db
+ bignum cpan/bignum/lib/bignum.pm e999973f78e6be12282c11bb6328246b31a9576b
+ bignum cpan/bignum/lib/bigrat.pm 7fccc9df30e43dbbae6e5ea91b26c8046545c9a9
+-- 
+2.11.0
+
