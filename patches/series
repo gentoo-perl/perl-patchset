@@ -19,6 +19,7 @@ gentoo/io_socket_ip_tests.diff
 gentoo/cygwin-libperl.diff
 gentoo/tests.diff
 gentoo/basepm-dot-inc.diff
+gentoo/failing-zlib-tests.diff
 debian/cpan-missing-site-dirs.diff
 debian/makemaker-pasthru.diff
 fixes/memoize_storable_nstore.diff
