@@ -95,7 +95,7 @@ before_install:
 install:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/perl-5.25.12.tar.bz2
+  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/perl-5.26.0-RC1.tar.bz2
   - source travis-utils/get_perl.sh
   - tar -xf /tmp/perl.tar.bz2 --strip-components 1 -C ${S}
 script:
