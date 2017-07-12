@@ -5,6 +5,7 @@ matrix:
     - env: CLANG_VERSION=3.4 VANILLA=1
     - env: GCC_VERSION=5 VANILLA=1
     - env: GCC_VERSION=6 VANILLA=1
+    - env: GCC_VERSION=6 VANILLA=1 CFLAGS="-O2 -pipe -flto" LDFLAGS="-Wl,-O1 -Wl,--as-needed -flto"
     - env: VANILLA=1
     - env: myconf="-Dusethreads" VANILLA=1
     - env: myconf="-DDEBUGGING" VANILLA=1
@@ -58,6 +59,25 @@ matrix:
               - gcc-6
             sources:
               - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=6 CFLAGS="-O2 -pipe -flto" LDFLAGS="-Wl,-O1 -Wl,--as-needed -flto"
+        compiler: gcc-6
+        addons: &gcc6
+          apt:
+            packages:
+              - g++-6
+              - gcc-6
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=6 VANILLA=1 CFLAGS="-O2 -pipe -flto" LDFLAGS="-Wl,-O1 -Wl,--as-needed -flto"
+        compiler: gcc-6
+        addons: &gcc6
+          apt:
+            packages:
+              - g++-6
+              - gcc-6
+            sources:
+              - ubuntu-toolchain-r-test
+
       - compiler: gcc
       - env: VANILLA=1
         compiler: gcc
