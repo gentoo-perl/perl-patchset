@@ -1,4 +1,4 @@
-From 7ad6fcd69ef640cd54e493053246b6729c5c62e0 Mon Sep 17 00:00:00 2001
+From 3047dd311d7eaf5ce351ef716ebcb9a37d58a895 Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
 Subject: Respect umask during installation
@@ -13,10 +13,10 @@ Patch-Name: fixes/respect_umask.diff
  2 files changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm b/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm
-index 1e8ac4cd12..3e79121f38 100644
+index 047c007145..cd7e4f234c 100644
 --- a/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm
 +++ b/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm
-@@ -451,7 +451,7 @@ sub _can_write_dir {
+@@ -463,7 +463,7 @@ sub _can_write_dir {
  
  =pod
  
@@ -25,7 +25,7 @@ index 1e8ac4cd12..3e79121f38 100644
  
  Wrapper around File::Path::mkpath() to handle errors.
  
-@@ -468,13 +468,13 @@ writable.
+@@ -480,13 +480,13 @@ writable.
  =cut
  
  sub _mkpath {
@@ -42,7 +42,7 @@ index 1e8ac4cd12..3e79121f38 100644
              _choke("Can't create '$dir'","$@");
          }
  
-@@ -783,7 +783,7 @@ sub install { #XXX OS-SPECIFIC
+@@ -799,7 +799,7 @@ sub install { #XXX OS-SPECIFIC
          _chdir($cwd);
      }
      foreach my $targetdir (sort keys %check_dirs) {
@@ -51,7 +51,7 @@ index 1e8ac4cd12..3e79121f38 100644
      }
      foreach my $found (@found_files) {
          my ($diff, $ffd, $origfile, $mode, $size, $atime, $mtime,
-@@ -797,7 +797,7 @@ sub install { #XXX OS-SPECIFIC
+@@ -813,7 +813,7 @@ sub install { #XXX OS-SPECIFIC
                      $targetfile= _unlink_or_rename( $targetfile, 'tryhard', 'install' )
                          unless $dry_run;
                  } elsif ( ! -d $targetdir ) {
@@ -60,7 +60,7 @@ index 1e8ac4cd12..3e79121f38 100644
                  }
                  print "Installing $targetfile\n";
  
-@@ -837,7 +837,7 @@ sub install { #XXX OS-SPECIFIC
+@@ -853,7 +853,7 @@ sub install { #XXX OS-SPECIFIC
  
      if ($pack{'write'}) {
          $dir = install_rooted_dir(dirname($pack{'write'}));
@@ -69,16 +69,16 @@ index 1e8ac4cd12..3e79121f38 100644
          print "Writing $pack{'write'}\n" if $verbose;
          $packlist->write(install_rooted_file($pack{'write'})) unless $dry_run;
      }
-@@ -1180,7 +1180,7 @@ environment variable will silence this output.
+@@ -1199,7 +1199,7 @@ environment variable will silence this output.
  sub pm_to_blib {
      my($fromto,$autodir,$pm_filter) = @_;
  
--    _mkpath($autodir,0,0755);
-+    _mkpath($autodir,0);
+-    _mkpath($autodir,0,0755) if defined $autodir;
++    _mkpath($autodir,0) if defined $autodir;
      while(my($from, $to) = each %$fromto) {
          if( -f $to && -s $from == -s $to && -M $to < -M $from ) {
              print "Skip $to (unchanged)\n" unless $INSTALL_QUIET;
-@@ -1203,7 +1203,7 @@ sub pm_to_blib {
+@@ -1222,7 +1222,7 @@ sub pm_to_blib {
              # we wont try hard here. its too likely to mess things up.
              forceunlink($to);
          } else {
@@ -88,10 +88,10 @@ index 1e8ac4cd12..3e79121f38 100644
          if ($need_filtering) {
              run_filter($pm_filter, $from, $to);
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-index 6d339809ab..8416922494 100644
+index 81fe80b05a..f00fb30be5 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-@@ -2223,7 +2223,7 @@ doc__install : doc_site_install
+@@ -2229,7 +2229,7 @@ doc__install : doc_site_install
  	$(NOECHO) $(ECHO) INSTALLDIRS not defined, defaulting to INSTALLDIRS=site
  
  pure_perl_install :: all
@@ -100,7 +100,7 @@ index 6d339809ab..8416922494 100644
  };
  
      push @m,
-@@ -2243,7 +2243,7 @@ q{		"$(INST_LIB)" "$(DESTINSTALLPRIVLIB)" \
+@@ -2249,7 +2249,7 @@ q{		"$(INST_LIB)" "$(DESTINSTALLPRIVLIB)" \
  
  
  pure_site_install :: all
@@ -109,7 +109,7 @@ index 6d339809ab..8416922494 100644
  };
      push @m,
  q{		read "}.$self->catfile('$(SITEARCHEXP)','auto','$(FULLEXT)','.packlist').q{" \
-@@ -2261,7 +2261,7 @@ q{		"$(INST_LIB)" "$(DESTINSTALLSITELIB)" \
+@@ -2267,7 +2267,7 @@ q{		"$(INST_LIB)" "$(DESTINSTALLSITELIB)" \
  		"}.$self->catdir('$(PERL_ARCHLIB)','auto','$(FULLEXT)').q{"
  
  pure_vendor_install :: all
@@ -118,7 +118,7 @@ index 6d339809ab..8416922494 100644
  };
      push @m,
  q{		read "}.$self->catfile('$(VENDORARCHEXP)','auto','$(FULLEXT)','.packlist').q{" \
-@@ -2294,8 +2294,8 @@ doc_vendor_install :: all
+@@ -2300,8 +2300,8 @@ doc_vendor_install :: all
  doc_perl_install :: all
  doc_site_install :: all
  	$(NOECHO) $(ECHO) Appending installation info to "$(DESTINSTALLARCHLIB)/perllocal.pod"
@@ -130,5 +130,5 @@ index 6d339809ab..8416922494 100644
  		"installed into" "$(INSTALLSITELIB)" \
  		LINKTYPE "$(LINKTYPE)" \
 -- 
-2.11.0
+2.13.1
 
