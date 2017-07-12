@@ -116,6 +116,7 @@ install:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
   - git clone -v --progress --branch maint-5.24 --depth 10 --single-branch git://perl5.git.perl.org/perl.git "${S}"
+  - git -C "${S}" log -p --color=always -n 1
 script:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
