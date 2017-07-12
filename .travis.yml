@@ -164,5 +164,5 @@ install:
 script:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - if [ -z "$VANILLA" ]; then source travis-utils/patch-perl.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/patch-perl.sh; git -C "${S}" add "patchlevel-gentoo.h"; fi
   - source travis-utils/compile-perl.sh
