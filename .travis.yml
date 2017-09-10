@@ -52,7 +52,7 @@ matrix:
               - ubuntu-toolchain-r-test
       - env: GCC_VERSION=6
         compiler: gcc-6
-        addons: &gcc6
+        addons:
           apt:
             packages:
               - g++-6
@@ -61,7 +61,7 @@ matrix:
               - ubuntu-toolchain-r-test
       - env: GCC_VERSION=6 VANILLA=1
         compiler: gcc-6
-        addons: &gcc6
+        addons:
           apt:
             packages:
               - g++-6
@@ -70,7 +70,7 @@ matrix:
               - ubuntu-toolchain-r-test
       - env: GCC_VERSION=6 CFLAGS="-O2 -pipe -flto" LDFLAGS="-Wl,-O1 -Wl,--as-needed -flto"
         compiler: gcc-6
-        addons: &gcc6
+        addons:
           apt:
             packages:
               - g++-6
@@ -79,7 +79,7 @@ matrix:
               - ubuntu-toolchain-r-test
       - env: GCC_VERSION=6 VANILLA=1 CFLAGS="-O2 -pipe -flto" LDFLAGS="-Wl,-O1 -Wl,--as-needed -flto"
         compiler: gcc-6
-        addons: &gcc6
+        addons:
           apt:
             packages:
               - g++-6
@@ -160,7 +160,7 @@ before_install:
 install:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/S/SH/SHAY/perl-5.24.2.tar.bz2
+  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/S/SH/SHAY/perl-5.24.3-RC1.tar.bz2
   - source travis-utils/get_perl.sh
   - tar -xf /tmp/perl.tar.bz2 --strip-components 1 -C ${S}
 script:
