@@ -1,27 +1,37 @@
 sudo: required
+dist: trusty
 matrix:
   fast_finish: true
   allow_failures:
-    - env: CLANG_VERSION=3.4 VANILLA=1
+    - env: CLANG_VERSION=3.5 VANILLA=1
     - env: GCC_VERSION=5 VANILLA=1
     - env: GCC_VERSION=6 VANILLA=1
+    - env: GCC_VERSION=7 VANILLA=1
+    - env: GCC_VERSION=6 VANILLA=1 CFLAGS="-O2 -pipe -flto" LDFLAGS="-Wl,-O1 -Wl,--as-needed -flto"
     - env: VANILLA=1
     - env: myconf="-Dusethreads" VANILLA=1
     - env: myconf="-DDEBUGGING" VANILLA=1
-    - env: CLANG_VERSION=3.8 VANILLA=1
+    - env: CLANG_VERSION=4.0 VANILLA=1
+    - env: CLANG_VERSION=5.0 VANILLA=1
   include:
-      - env: CLANG_VERSION=3.4
-        compiler: clang34
-        addons: &clang34
+      - env: CLANG_VERSION=3.5
+        compiler: clang-3.5
+        addons:
           apt:
+            packages:
+              - clang-3.5
             sources:
               - ubuntu-toolchain-r-test
-      - env: CLANG_VERSION=3.4 VANILLA=1
-        compiler: clang34
-        addons: &clang34
+              - llvm-toolchain-precise-3.5
+      - env: CLANG_VERSION=3.5 VANILLA=1
+        compiler: clang-3.5
+        addons:
           apt:
+            packages:
+              - clang-3.5
             sources:
               - ubuntu-toolchain-r-test
+              - llvm-toolchain-precise-3.5
       - env: GCC_VERSION=5
         compiler: gcc-5
         addons: &gcc5
@@ -42,7 +52,7 @@ matrix:
               - ubuntu-toolchain-r-test
       - env: GCC_VERSION=6
         compiler: gcc-6
-        addons: &gcc6
+        addons:
           apt:
             packages:
               - g++-6
@@ -51,13 +61,50 @@ matrix:
               - ubuntu-toolchain-r-test
       - env: GCC_VERSION=6 VANILLA=1
         compiler: gcc-6
-        addons: &gcc6
+        addons:
           apt:
             packages:
               - g++-6
               - gcc-6
             sources:
               - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=6 CFLAGS="-O2 -pipe -flto" LDFLAGS="-Wl,-O1 -Wl,--as-needed -flto"
+        compiler: gcc-6
+        addons:
+          apt:
+            packages:
+              - g++-6
+              - gcc-6
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=6 VANILLA=1 CFLAGS="-O2 -pipe -flto" LDFLAGS="-Wl,-O1 -Wl,--as-needed -flto"
+        compiler: gcc-6
+        addons:
+          apt:
+            packages:
+              - g++-6
+              - gcc-6
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=7
+        compiler: gcc-7
+        addons:
+          apt:
+            packages:
+              - g++-7
+              - gcc-7
+            sources:
+              - ubuntu-toolchain-r-test
+      - env: GCC_VERSION=7 VANILLA=1
+        compiler: gcc-7
+        addons:
+          apt:
+            packages:
+              - g++-7
+              - gcc-7
+            sources:
+              - ubuntu-toolchain-r-test
+
       - compiler: gcc
       - env: VANILLA=1
         compiler: gcc
@@ -69,33 +116,51 @@ matrix:
         compiler: gcc
       - env: myconf="-DDEBUGGING" VANILLA=1
         compiler: gcc
-      - env: CLANG_VERSION=3.8
-        compiler: clang38
+      - env: CLANG_VERSION=4.0
+        compiler: clang-4.0
         addons:
           apt:
             packages:
-              - clang-3.8
+              - clang-4.0
             sources:
               - ubuntu-toolchain-r-test
-              - llvm-toolchain-precise-3.8
-      - env: CLANG_VERSION=3.8 VANILLA=1
-        compiler: clang38
+              - llvm-toolchain-trusty-4.0
+      - env: CLANG_VERSION=4.0 VANILLA=1
+        compiler: clang-4.0
         addons:
           apt:
             packages:
-              - clang-3.8
+              - clang-4.0
             sources:
               - ubuntu-toolchain-r-test
-              - llvm-toolchain-precise-3.8
+              - llvm-toolchain-trusty-4.0
+      - env: CLANG_VERSION=5.0
+        compiler: clang-5.0
+        addons:
+          apt:
+            packages:
+              - clang-5.0
+            sources:
+              - ubuntu-toolchain-r-test
+              - llvm-toolchain-trusty-5.0
+      - env: CLANG_VERSION=5.0 VANILLA=1
+        compiler: clang-5.0
+        addons:
+          apt:
+            packages:
+              - clang-5.0
+            sources:
+              - ubuntu-toolchain-r-test
+              - llvm-toolchain-trusty-5.0
+
 language: c
 before_install:
   - if [ -n "$GCC_VERSION" ]; then export CXX="g++-${GCC_VERSION}" CC="gcc-${GCC_VERSION}"; fi
   - if [ -n "$CLANG_VERSION" ]; then export CXX="clang++-${CLANG_VERSION}" CC="clang-${CLANG_VERSION}"; fi
-  - if [ "$CLANG_VERSION" == "3.4" ]; then export CXX="/usr/local/clang-3.4/bin/clang++" CC="/usr/local/clang-3.4/bin/clang"; fi
 install:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/perl-5.26.0.tar.bz2
+  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/S/SH/SHAY/perl-5.26.1.tar.bz2
   - source travis-utils/get_perl.sh
   - tar -xf /tmp/perl.tar.bz2 --strip-components 1 -C ${S}
 script:

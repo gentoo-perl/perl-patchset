@@ -1,6 +1,7 @@
 einfo "Configuring Perl ${TARGET_PERL}"
 myconf="$myconf"
 sh=$(which sh)
+
 confopts=(
   -des
   -Duseshrplib        # note: breaks create_libperl_soname.diff
@@ -18,6 +19,12 @@ confopts=(
   -Dperladmin='root@localhost'
   -Dinstallusrbinperl='n'
 )
+if [[ -n "$CFLAGS" ]]; then
+  confopts+=( "-Doptimize=${CFLAGS}" )
+fi
+if [[ -n "$LDFLAGS" ]]; then
+    confopts+=( "-Dldflags=${LDFLAGS}" )
+fi
 (
   pushd "${S}";
   echo sh Configure "${confopts[@]}" $myconf >> /dev/stderr
