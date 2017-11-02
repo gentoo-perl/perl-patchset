@@ -18,6 +18,7 @@ confopts=(
   -Dmyhostname='localhost'
   -Dperladmin='root@localhost'
   -Dinstallusrbinperl='n'
+  -Ui_xlocale # https://bugs.gentoo.org/636206
 )
 if [[ -n "$CFLAGS" ]]; then
   confopts+=( "-Doptimize=${CFLAGS}" )
