@@ -1,4 +1,4 @@
-From a6ead7aae06b1c30596f8e0a851e44b5ea381b61 Mon Sep 17 00:00:00 2001
+From 533acc5a90936292b3f5af5122dc596c66d822ef Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentfredric@gmail.com>
 Date: Sun, 22 Jan 2017 18:58:49 +1300
 Subject: cpan/ExtUtils-MakeMaker: remove targets that generate perllocal.pod
@@ -8,10 +8,10 @@ Subject: cpan/ExtUtils-MakeMaker: remove targets that generate perllocal.pod
  1 file changed, 1 insertion(+), 21 deletions(-)
 
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-index 66a24d7838..da68280917 100644
+index 6233513368..97d1738ee7 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-@@ -2292,16 +2292,6 @@ doc_vendor_install :: all
+@@ -2298,16 +2298,6 @@ doc_vendor_install :: all
  
      push @m, q{
  doc_perl_install :: all
@@ -28,7 +28,7 @@ index 66a24d7838..da68280917 100644
  doc_site_install :: all
  	$(NOECHO) $(ECHO) Appending installation info to "$(DESTINSTALLARCHLIB)/perllocal.pod"
  	-$(NOECHO) $(MKPATH) "$(DESTINSTALLARCHLIB)"
-@@ -2311,19 +2301,9 @@ doc_site_install :: all
+@@ -2317,19 +2307,9 @@ doc_site_install :: all
  		LINKTYPE "$(LINKTYPE)" \
  		VERSION "$(VERSION)" \
  		EXE_FILES "$(EXE_FILES)" \
@@ -50,5 +50,5 @@ index 66a24d7838..da68280917 100644
  
      push @m, q{
 -- 
-2.11.0
+2.14.3
 

@@ -1,4 +1,4 @@
-From e76d73638cc810852017e7c45c05de5472fa5268 Mon Sep 17 00:00:00 2001
+From 84a6e16fb282f0be307eb82a57f51c58de442c27 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:59:52 +0400
 Subject: darwin: Use $CC to link
@@ -16,7 +16,7 @@ Original-By: Torsten Veller <tove@gentoo.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/hints/darwin.sh b/hints/darwin.sh
-index 690fe4e3ce..1e3cbed30d 100644
+index 56e647825a..741bc5e1f9 100644
 --- a/hints/darwin.sh
 +++ b/hints/darwin.sh
 @@ -138,7 +138,7 @@ if [ "X`echo | ${cc} -no-cpp-precomp -E - 2>&1 >/dev/null`" = "X" ]; then
@@ -38,5 +38,5 @@ index 690fe4e3ce..1e3cbed30d 100644
          # set the ld to be that explicitly something else.  Conversely,
          # if the cc is 'cc' (or empty), set the ld to be 'cc'.
 -- 
-2.11.0
+2.14.3
 

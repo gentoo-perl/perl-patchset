@@ -1,4 +1,4 @@
-From 8efb50eeff8baf9908cb1ebe944b14c85be9b45f Mon Sep 17 00:00:00 2001
+From e76eca582df133418946262aed30d64b080426f8 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:41:49 +0400
 Subject: Set libperl soname
@@ -13,7 +13,7 @@ Ported to Perl 5.20
  1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.SH b/Makefile.SH
-index bdf12b272e..469f97da64 100755
+index 3fc9e67aee..71edf8a8f7 100755
 --- a/Makefile.SH
 +++ b/Makefile.SH
 @@ -68,7 +68,7 @@ true)
@@ -54,5 +54,5 @@ index bdf12b272e..469f97da64 100755
  	case "$ldlibpthname" in
  	'') ;;
 -- 
-2.11.0
+2.14.3
 
