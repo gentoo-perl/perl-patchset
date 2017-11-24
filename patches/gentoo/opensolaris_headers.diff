@@ -1,4 +1,4 @@
-From 15a87ed587e729599a7c9888d422e9341c6a2240 Mon Sep 17 00:00:00 2001
+From c203c3aaeb340cce033661c13897d4f700b71cbd Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:50:12 +0400
 Subject: Add headers for opensolaris
@@ -13,10 +13,10 @@ Original-By: Torsten Veller <tove@gentoo.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/perl.h b/perl.h
-index d832db4531..b486c296a1 100644
+index 2200a47c05..970086b857 100644
 --- a/perl.h
 +++ b/perl.h
-@@ -1392,6 +1392,8 @@ EXTERN_C char *crypt(const char *, const char *);
+@@ -1264,6 +1264,8 @@ EXTERN_C char *crypt(const char *, const char *);
   */
  
  #if defined(I_SYSMODE)
@@ -26,5 +26,5 @@ index d832db4531..b486c296a1 100644
  #endif
  
 -- 
-2.11.0
+2.14.3
 

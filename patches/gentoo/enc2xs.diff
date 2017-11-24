@@ -1,4 +1,4 @@
-From 7b5b3540cde2661368250884a57fbaba9b762951 Mon Sep 17 00:00:00 2001
+From c73dfedfd9f791d2c1124bb43862ea124d6962cc Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
 Subject: Tweak enc2xs to follow symlinks and ignore missing @INC directories.
@@ -16,7 +16,7 @@ Patch-Name: debian/enc2xs_inc.diff
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/cpan/Encode/bin/enc2xs b/cpan/Encode/bin/enc2xs
-index bd39639ae8..e467518667 100644
+index 619b64b757..050c863ef9 100644
 --- a/cpan/Encode/bin/enc2xs
 +++ b/cpan/Encode/bin/enc2xs
 @@ -1013,11 +1013,11 @@ use vars qw(
@@ -42,7 +42,7 @@ index bd39639ae8..e467518667 100644
      warn join("\n", keys %e2x_dir), "\n";
      for my $d (sort {$e2x_dir{$a} <=> $e2x_dir{$b}} keys %e2x_dir){
      $_E2X = $d;
-@@ -1094,7 +1094,7 @@ sub make_configlocal_pm {
+@@ -1091,7 +1091,7 @@ sub make_configlocal_pm {
  	    $LocalMod{$enc} ||= $mod;
  	}
      };
@@ -52,5 +52,5 @@ index bd39639ae8..e467518667 100644
      for my $enc ( sort keys %LocalMod ) {
          $_ModLines .=
 -- 
-2.11.0
+2.14.3
 
