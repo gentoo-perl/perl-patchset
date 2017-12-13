@@ -49,7 +49,7 @@ einfo "Compressing "
   . "           to "
   . green( path( $tempdir, $comp_name ) );
 
-delete $ENV{XZ_DEFAULTLS};
+delete $ENV{XZ_DEFAULTS};
 system(
     'xz', '-vv9e',
     '--memlimit-compress=5G',
