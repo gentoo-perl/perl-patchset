@@ -161,7 +161,7 @@ before_install:
 install:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/E/ET/ETHER/perl-5.27.6.tar.xz
+  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/B/BI/BINGOS/perl-5.27.7.tar.xz
   - source travis-utils/get_perl.sh
   - tar -xf /tmp/perl.tar.xz --strip-components 1 -C ${S}
 script:
