@@ -161,11 +161,11 @@ before_install:
 install:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - export TARGET_PERL=https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/perl-5.28.0.tar.xz
-  - source travis-utils/get_perl.sh
-  - tar -xf /tmp/perl.tar.xz --strip-components 1 -C ${S}
+  - git clone -v --progress --branch maint-5.28 --depth 10 --single-branch git://perl5.git.perl.org/perl.git "${S}"
+  - git -C "${S}" config user.email "kentfredric@gmail.com" # Workaround for porting test
+  - git -C "${S}" log -p --color=always -n 1
 script:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - if [ -z "$VANILLA" ]; then source travis-utils/patch-perl.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/patch-perl.sh; git -C "${S}" add "patchlevel-gentoo.h"; fi
   - source travis-utils/compile-perl.sh
