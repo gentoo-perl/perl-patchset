@@ -19,6 +19,7 @@ gentoo/io_socket_ip_tests.diff
 gentoo/tests.diff
 gentoo/no-nsl.patch
 gentoo/no_porting_tests.diff
+gentoo/pathtools_enoent.diff
 debian/cpan-missing-site-dirs.diff
 debian/makemaker-pasthru.diff
 fixes/memoize_storable_nstore.diff

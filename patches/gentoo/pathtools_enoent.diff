@@ -1,0 +1,29 @@
+From bcb6c6147e80d51aab0a0c95b2cd7d8bb9e823cb Mon Sep 17 00:00:00 2001
+From: Kent Fredric <kentnl@gentoo.org>
+Date: Sun, 8 Jul 2018 15:09:29 +1200
+Subject: Disable PathTools tests which fails under sandboxing
+
+Bug: https://bugs.gentoo.org/645084
+---
+ dist/PathTools/t/cwd_enoent.t | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/dist/PathTools/t/cwd_enoent.t b/dist/PathTools/t/cwd_enoent.t
+index 8f3a1fb1fb..2bd5cb1fbc 100644
+--- a/dist/PathTools/t/cwd_enoent.t
++++ b/dist/PathTools/t/cwd_enoent.t
+@@ -1,5 +1,11 @@
+ use warnings;
+ use strict;
++BEGIN {
++  if($ENV{GENTOO_ASSUME_SANDBOXED}) {
++    print "1..0 # SKIP Test disabled by GENTOO_ASSUME_SANDBOXED set";
++    exit;
++  }
++}
+ 
+ use Config;
+ use Errno qw(ENOENT);
+-- 
+2.17.1
+
