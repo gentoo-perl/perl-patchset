@@ -1,0 +1,32 @@
+From 9a13b5ae951e81219739d88fda4145e131c66ef4 Mon Sep 17 00:00:00 2001
+From: Kent Fredric <kentnl@gentoo.org>
+Date: Sun, 8 Jul 2018 16:06:05 +1200
+Subject: Disable porting tests which create fun false-failures all over travis
+
+This is due to our patches tweaking code in-band, and this test
+deciding we need to increment the version as a result.
+---
+ t/porting/cmp_version.t | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/t/porting/cmp_version.t b/t/porting/cmp_version.t
+index 0573e2f81d..c9d1a864f5 100644
+--- a/t/porting/cmp_version.t
++++ b/t/porting/cmp_version.t
+@@ -16,7 +16,12 @@
+ # same as that commit, report it.
+ #
+ # There's also a module exclusion list in Porting/cmpVERSION.pl.
+-
++BEGIN {
++  if ( $ENV{GENTOO_NO_PORTING_TESTS} ) {
++    print "1..0 # SKIP GENTOO_NO_PORTING_TESTS set";
++    exit;
++  }
++}
+ BEGIN {
+     @INC = '..' if -f '../TestInit.pm';
+     @INC = '.'  if -f  './TestInit.pm';
+-- 
+2.17.1
+
