@@ -8,24 +8,27 @@ Bug-Gentoo: https://bugs.gentoo.org/286840
 Patch-Name: gentoo/create_libperl_soname.diff
 
 Ported to Perl 5.20
----
- Makefile.SH | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+Ported to Perl 5.28.2 dilfridge
 
 diff --git a/Makefile.SH b/Makefile.SH
-index 3fc9e67aee..71edf8a8f7 100755
+index d5a710a6d9..15859b0172 100755
 --- a/Makefile.SH
 +++ b/Makefile.SH
-@@ -68,7 +68,7 @@ true)
- 				${api_revision}.${api_version}.${api_subversion} \
- 			     -current_version \
- 				${revision}.${patchlevel}.${subversion} \
--			     -install_name \$(shrpdir)/\$@"
-+			     -install_name \$(shrpdir)/libperl.${revision}.${patchlevel}.dylib"
+@@ -70,11 +70,11 @@ true)
+ 				${revision}.${patchlevel}.${subversion}"
+ 		case "$osvers" in
+ 	        1[5-9]*|[2-9]*)
+-			shrpldflags="$shrpldflags -install_name `pwd`/\$@ -Xlinker -headerpad_max_install_names"
++			shrpldflags="$shrpldflags -install_name `pwd`/libperl.${revision}.${patchlevel}.dylib -Xlinker -headerpad_max_install_names"
+ 			exeldflags="-Xlinker -headerpad_max_install_names"
+ 			;;
+ 		*)
+-			shrpldflags="$shrpldflags -install_name \$(shrpdir)/\$@"
++			shrpldflags="$shrpldflags -install_name \$(shrpdir)/libperl.${revision}.${patchlevel}.dylib"
+ 			;;
+ 		esac
  		;;
- 	cygwin*)
- 		shrpldflags="$shrpldflags -Wl,--out-implib=libperl.dll.a -Wl,--image-base,0x52000000"
-@@ -76,13 +76,15 @@ true)
+@@ -84,13 +84,15 @@ true)
  		;;
  	sunos*)
  		linklibperl="-lperl"
@@ -43,7 +46,7 @@ index 3fc9e67aee..71edf8a8f7 100755
  		;;
  	aix*)
  		case "$cc" in
-@@ -120,6 +122,9 @@ true)
+@@ -128,6 +130,9 @@ true)
  	    linklibperl='libperl.x'
  	    DPERL_EXTERNAL_GLOB=''
  	    ;;
@@ -53,6 +56,3 @@ index 3fc9e67aee..71edf8a8f7 100755
  	esac
  	case "$ldlibpthname" in
  	'') ;;
--- 
-2.14.3
-
