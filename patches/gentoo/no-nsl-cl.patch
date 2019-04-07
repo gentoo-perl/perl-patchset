@@ -1,3 +1,6 @@
+See
+https://rt.perl.org/Public/Bug/Display.html?id=131485
+
 diff --git a/Configure b/Configure
 index e32d18ce1f..85ab0249bc 100755
 --- a/Configure
@@ -7,7 +10,7 @@ index e32d18ce1f..85ab0249bc 100755
  : List of libraries we want.
  : If anyone needs extra -lxxx, put those in a hint file.
 -libswanted="cl pthread socket bind inet nsl ndbm gdbm dbm db malloc dl ld"
-+libswanted="cl pthread socket bind inet ndbm gdbm dbm db malloc dl ld"
++libswanted="socket bind inet ndbm gdbm dbm db malloc dl ld"
  libswanted="$libswanted sun m crypt sec util c cposix posix ucb bsd BSD"
  : We probably want to search /usr/shlib before most other libraries.
  : This is only used by the lib/ExtUtils/MakeMaker.pm routine extliblist.
