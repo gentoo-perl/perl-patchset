@@ -30,3 +30,4 @@ fixes/document_makemaker_ccflags.diff
 fixes/parallel-manisort.patch
 fixes/storable-metasploit.patch
 fixes/storable-probing.patch
+fixes/gdbm-test.patch
