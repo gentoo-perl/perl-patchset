@@ -1,0 +1,1 @@
+Document that CCFLAGS should include $Config{ccflags}

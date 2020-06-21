@@ -1,0 +1,1 @@
+Disable PathTools tests which fails under sandboxing

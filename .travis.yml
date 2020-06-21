@@ -167,5 +167,10 @@ install:
 script:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
-  - if [ -z "$VANILLA" ]; then source travis-utils/patch-perl.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/clean-patches.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/patchlevel-hack.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/setup-patchlist.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/apply-patches.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/gen_patchlevel_ng.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/update-manifest.sh; fi
   - source travis-utils/compile-perl.sh
