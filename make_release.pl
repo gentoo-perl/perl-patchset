@@ -22,7 +22,7 @@ my $url_meta   = parse_url($target_url);
 my $output_name = "perl-$url_meta->{version}-patches-$ENV{PATCH_LEVEL}";
 my $tar_name    = "$output_name.tar";
 my $comp_name   = "$tar_name.xz";
-my (@targets)   = "patches/";
+my (@targets)   = ( "patches/", "patch-info/" );
 
 einfo "Using " . green($comp_name) . " for tarball";
 

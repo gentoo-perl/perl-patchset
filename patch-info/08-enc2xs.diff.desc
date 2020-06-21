@@ -1,0 +1,1 @@
+Tweak enc2xs to follow symlinks and ignore missing @INC directories

@@ -1,0 +1,1 @@
+[rt.cpan.org #68613] Document that CCFLAGS should include $Config{ccflags}\

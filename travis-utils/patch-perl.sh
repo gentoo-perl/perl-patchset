@@ -3,59 +3,55 @@ PF=perl
 PATCH_VER=1
 prefix=""
 patchdir=$(pwd)/patches
+infodir=$(pwd)/patch-info
 patchoutput="patchlevel-gentoo.h"
-patchin=${patchdir}/series
 
-for suffix in create_libperl_soname.diff; do
+for suffix in 12-create-libperl-soname.diff; do
   einfo "Marking $suffix for exclusion";
-  cat $patchin | grep -Fv "$suffix" > $patchin.new || die "Filtering $patchin failed";
-  mv $patchin.new $patchin || die "Relocating $patchin.new to $patchin failed";
+  rm -vf "${patchdir}/${suffix}" || die "Excluding ${suffix} failed";
 done
 
-cat ${patchin} | while read patch; do
+PATCHES=($(
+  find "${patchdir}" -maxdepth 1 -mindepth 1 -type f -printf "%f\n" |\
+    grep -E '[.](diff|patch)$' |\
+    sort -n
+))
+
+for patch in "${PATCHES[@]}"; do
   einfo "Applying $patch";
   (
-    PATCH=$patchdir/$patch;
     pushd "${S}" >> /dev/null
-    patch -p 1 -f -s -g0 --no-backup-if-mismatch <$PATCH
-  ) || die "Could not apply $patch";
+    patch -p 1 -f -s -g0 --no-backup-if-mismatch <"${patchdir}/${patch}"
+  ) || die "Could not apply ${patchdir}${patch}";
 done
 
+c_escape() {
+  printf "%q" "$1" |\
+    sed "s|\\ | |g"
+}
+c_escape_file() {
+  c_escape "$( cat "$1" )"
+}
+
 einfo "Generating $patchoutput"
-cat ${patchin} | while read patch
-do
-	patchname=$(echo $patch | sed 's/\.diff$//')
-	< $patchdir/$patch sed -e '/^Subject:/ { N; s/\n / / }' | sed -n -e '
+for patch in "${PATCHES[@]}"; do
+  name_f="${infodir}/${patch}.name"
+  desc_f="${infodir}/${patch}.desc"
 
-	# massage the patch headers
-	s|^Bug: .*https\?://rt\.perl\.org/.*id=\(.*\).*|[perl #\1]|; tprepend;
-	s|^Bug: .*https\?://rt\.cpan\.org/.*id=\(.*\).*|[rt.cpan.org #\1]|; tprepend;
-	s|^Bug-Gentoo: ||; tprepend;
-	s/^\(Subject\|Description\): //; tappend;
-	s|^Origin: .*http://perl5\.git\.perl\.org/perl\.git/commit\(diff\)\?/\(.......\).*|[\2]|; tprepend;
+  name="$( echo $suffix | sed 's/\.\(diff\|patch\)$//' )"
+  desc=""
 
-	# post-process at the end of input
-	$ { x;
-		# include the version number in the patchlevel.h description (if available)
-		s/List packaged patches/&'" for ${PF}(#${PATCH_VER})"'/;
-
-		# escape any backslashes and double quotes
-		s|\\|\\\\|g; s|"|\\"|g;
-
-		# add a prefix
-		s|^|\t,"'"$prefix$patchname"' - |;
-		# newlines away
-		s/\n/ /g; s/  */ /g;
-		# add a suffix
-		s/ *$/"/; p
-	};
-	# stop all processing
-	d;
-	# label: append to the hold space
-	:append H; d;
-	# label: prepend to the hold space
-	:prepend x; H; d;
-	'
+  if [[ ! -e "${name_f}" ]]; then 
+    ewarn "No ${name_f}, will substitute";
+  else
+    name="$(c_escape_file "${name_f}")"
+  fi
+  if [[ ! -e "${desc_f}" ]]; then
+    ewarn "No ${desc_f}";
+  else
+    desc=" - $(c_escape_file "${desc_f}")"
+  fi
+  printf ',"%s%s"\n' "${name}" "${desc}"
 done > "${S}/${patchoutput}"
 
 einfo "Updating MANIFEST"

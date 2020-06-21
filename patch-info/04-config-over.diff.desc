@@ -1,0 +1,1 @@
+Remove -rpath and append LDFLAGS to lddlflags

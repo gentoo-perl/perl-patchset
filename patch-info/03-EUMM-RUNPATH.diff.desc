@@ -1,0 +1,1 @@
+https://bugs.gentoo.org/105054 cpan/ExtUtils-MakeMaker: drop $PORTAGE_TMPDIR from LD_RUN_PATH

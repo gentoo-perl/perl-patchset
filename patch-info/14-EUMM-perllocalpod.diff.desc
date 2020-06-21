@@ -1,0 +1,1 @@
+cpan/ExtUtils-MakeMaker: remove targets that generate perllocal.pod
