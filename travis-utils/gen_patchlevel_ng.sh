@@ -7,7 +7,8 @@ c_escape() {
   printf "%q" "$1"  |
     sed 's|\\[ ]| |g' |
     sed 's|\\\[|[|g' |
-    sed 's|\\\]|]|g'
+    sed 's|\\\]|]|g' |
+    sed 's|\\\$|$|g'
 }
 c_escape_file() {
   c_escape "$( cat "$1" )"
