@@ -3,15 +3,9 @@ patchdir=$(pwd)/patches
 infodir=$(pwd)/patch-info
 patchoutput="patchlevel-gentoo.h"
 
-c_escape() {
-  printf "%q" "$1"  |
-    sed 's|\\[ ]| |g' |
-    sed 's|\\\[|[|g' |
-    sed 's|\\\]|]|g' |
-    sed 's|\\\$|$|g'
-}
 c_escape_file() {
-  c_escape "$( cat "$1" )"
+  # Convert " to \" but nothing else
+  sed "s|\"|\\\\\"|g" "$1"
 }
 
 einfo "Generating $patchoutput"
