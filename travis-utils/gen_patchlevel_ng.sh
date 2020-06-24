@@ -4,8 +4,16 @@ infodir=$(pwd)/patch-info
 patchoutput="patchlevel-gentoo.h"
 
 c_escape_file() {
-  # Convert " to \" but nothing else
-  sed "s|\"|\\\\\"|g" "$1"
+  local slash dquote
+  slash='\'
+  dquote='"'
+  re_slash="${slash}${slash}"
+  re_dquote="${slash}${dquote}"
+
+  # Convert \ to \\,
+  #         " to \"
+  sed "s|${re_slash}|${re_slash}${re_slash}|g" "$1" |\
+    sed "s|${re_dquote}|${re_slash}${re_dquote}|g"
 }
 
 einfo "Generating $patchoutput"
