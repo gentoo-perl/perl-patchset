@@ -21,7 +21,7 @@ for patch in "${PATCHES[@]}"; do
   name_f="${infodir}/${patch}.name"
   desc_f="${infodir}/${patch}.desc"
 
-  name="$( echo $suffix | sed 's/\.\(diff\|patch\)$//' )"
+  name="$( echo $patch | sed 's/\.\(diff\|patch\)$//' )"
   desc=""
 
   if [[ ! -e "${name_f}" ]]; then 
