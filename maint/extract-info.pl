@@ -67,19 +67,6 @@ sub extract_info {
       }
       close $fh or warn "can't close fh for $ipatch.desc, $!";
     }
-    my $name = $ipatch;
-    if ( $info->{name} ) {
-      $name = $info->{name}
-    }
-    $name =~ s/^\s*//;
-    $name =~ s/\s*$//;
-    $name =~ s/\.(diff|patch)$//;
-    if ( ! -d "$odir" ) {
-        mkdir "$odir" || die "Can't mkdir $odir, $!";
-    }
-    open my $fh, ">", "$odir/$ipatch.name" or die "Can't write to $odir/$ipatch.name, $!";
-    $fh->print($name);
-    close $fh or warn "can't close fh for $ipatch.name, $!";
     1
 }
 

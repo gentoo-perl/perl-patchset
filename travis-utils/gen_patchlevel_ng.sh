@@ -18,17 +18,11 @@ c_escape_file() {
 
 einfo "Generating $patchoutput"
 for patch in "${PATCHES[@]}"; do
-  name_f="${infodir}/${patch}.name"
   desc_f="${infodir}/${patch}.desc"
 
   name="$( echo $patch | sed 's/\.\(diff\|patch\)$//' )"
   desc=""
 
-  if [[ ! -e "${name_f}" ]]; then 
-    ewarn "No ${name_f}, will substitute";
-  else
-    name="$(c_escape_file "${name_f}")"
-  fi
   if [[ ! -e "${desc_f}" ]]; then
     ewarn "No ${desc_f}";
   else
