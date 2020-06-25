@@ -1,7 +1,8 @@
-From c73dfedfd9f791d2c1124bb43862ea124d6962cc Mon Sep 17 00:00:00 2001
+From 3aacddb78a9630c85573c9c035c441a0b5f39719 Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
-Subject: Tweak enc2xs to follow symlinks and ignore missing @INC directories.
+Subject: [PATCH 08/30] Tweak enc2xs to follow symlinks and ignore missing @INC
+ directories.
 
 Bug-Debian: http://bugs.debian.org/290336
 
@@ -52,5 +53,5 @@ index 619b64b757..050c863ef9 100644
      for my $enc ( sort keys %LocalMod ) {
          $_ModLines .=
 -- 
-2.14.3
+2.27.0
 

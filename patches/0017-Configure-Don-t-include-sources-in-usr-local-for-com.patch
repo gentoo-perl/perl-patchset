@@ -1,17 +1,18 @@
-From 94cc70b93394d65b52463654e2ace631029c512d Mon Sep 17 00:00:00 2001
+From 7195b92ab5ee1f3896e5fcbfb78123f1773d72d2 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 22 Jan 2017 19:02:24 +1300
-Subject: Configure: Don't include sources in /usr/local/ for compiling perl
+Subject: [PATCH 17/30] Configure: Don't include sources in /usr/local/ for
+ compiling perl
 
 ---
  Configure | 16 +++++++---------
  1 file changed, 7 insertions(+), 9 deletions(-)
 
 diff --git a/Configure b/Configure
-index 9680a78965..b85b36c281 100755
+index fb8827a39c..837b5e94b0 100755
 --- a/Configure
 +++ b/Configure
-@@ -1399,8 +1399,7 @@ groupstype=''
+@@ -1405,8 +1405,7 @@ groupstype=''
  i_whoami=''
  : Possible local include directories to search.
  : Set locincpth to "" in a hint file to defeat local include searches.
@@ -21,7 +22,7 @@ index 9680a78965..b85b36c281 100755
  :
  : no include file wanted by default
  inclwanted=''
-@@ -1416,12 +1415,11 @@ libnames=''
+@@ -1422,12 +1421,11 @@ libnames=''
  : change the next line if compiling for Xenix/286 on Xenix/386
  xlibpth='/usr/lib/386 /lib/386'
  : Possible local library directories to search.
@@ -36,7 +37,7 @@ index 9680a78965..b85b36c281 100755
  test -f /usr/shlib/libc.so && glibpth="/usr/shlib $glibpth"
  test -f /shlib/libc.so     && glibpth="/shlib $glibpth"
  test -d /usr/lib64         && glibpth="$glibpth /lib64 /usr/lib64 /usr/local/lib64"
-@@ -5004,7 +5002,7 @@ esac
+@@ -5012,7 +5010,7 @@ esac
  : Set private lib path
  case "$plibpth" in
  '') if ./mips; then
@@ -45,7 +46,7 @@ index 9680a78965..b85b36c281 100755
      fi;;
  esac
  case "$libpth" in
-@@ -21269,7 +21267,7 @@ else
+@@ -21371,7 +21369,7 @@ else
  	case "$ranlib" in
  	:) ranlib='';;
  	'')
@@ -54,7 +55,7 @@ index 9680a78965..b85b36c281 100755
  		$test -f $ranlib || ranlib=''
  		;;
  	esac
-@@ -24425,8 +24423,8 @@ lkflags='$lkflags'
+@@ -24530,8 +24528,8 @@ lkflags='$lkflags'
  ln='$ln'
  lns='$lns'
  localtime_r_proto='$localtime_r_proto'
@@ -66,5 +67,5 @@ index 9680a78965..b85b36c281 100755
  longdblkind='$longdblkind'
  longdblmantbits='$longdblmantbits'
 -- 
-2.14.3
+2.27.0
 

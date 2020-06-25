@@ -81,6 +81,9 @@ sub parse_patch {
   my (@desc) = patch_get_header($content);
   if ( @desc ) {
     $out{subject} = shift @desc;
+    $out{subject} =~ s/\[PATCH[^]]+\]//; # strip PATCH leaders
+    $out{subject} =~ s/^\s*//;
+    $out{subject} =~ s/\s*//;
 
     for my $line ( @desc ) {
       if ( $line =~ m{^Bug: .*https?://rt\.perl\.org/.*id=(\d+)} ) {

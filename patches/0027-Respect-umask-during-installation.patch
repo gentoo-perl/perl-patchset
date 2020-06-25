@@ -1,15 +1,15 @@
-From 3047dd311d7eaf5ce351ef716ebcb9a37d58a895 Mon Sep 17 00:00:00 2001
+From 9f8262a130752865a064ea2da8f3f8071ffdbb1f Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
-Subject: Respect umask during installation
+Subject: [PATCH 27/30] Respect umask during installation
 
 This is needed to satisfy Debian policy regarding group-writable
 site directories.
 
 Patch-Name: fixes/respect_umask.diff
 ---
- cpan/ExtUtils-Install/lib/ExtUtils/Install.pm   | 18 +++++++++---------
- cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm | 10 +++++-----
+ cpan/ExtUtils-Install/lib/ExtUtils/Install.pm  | 18 +++++++++---------
+ .../ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm | 10 +++++-----
  2 files changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm b/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm
@@ -88,7 +88,7 @@ index 047c007145..cd7e4f234c 100644
          if ($need_filtering) {
              run_filter($pm_filter, $from, $to);
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-index 81fe80b05a..f00fb30be5 100644
+index 375403c08d..95fac2d588 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 @@ -2229,7 +2229,7 @@ doc__install : doc_site_install
@@ -130,5 +130,5 @@ index 81fe80b05a..f00fb30be5 100644
  		"installed into" "$(INSTALLSITELIB)" \
  		LINKTYPE "$(LINKTYPE)" \
 -- 
-2.13.1
+2.27.0
 

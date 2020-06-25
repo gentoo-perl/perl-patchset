@@ -1,7 +1,7 @@
-From bc9e93e4498fa9ca1c30c6fc16f1f9da52c4ff05 Mon Sep 17 00:00:00 2001
+From e502f3e96c0931075e33b78dff059bf21133e8e9 Mon Sep 17 00:00:00 2001
 From: Russ Allbery <rra@cpan.org>
 Date: Sat, 7 Feb 2015 19:03:34 -0800
-Subject: Better errors for man pages from standard input
+Subject: [PATCH 26/30] Better errors for man pages from standard input
 
 [Pod::Man] Attempt to detect if the input came from a pipe and
 therefore has a completely unhelpful (and nonreproducible) source file
@@ -17,15 +17,15 @@ Patch-Name: fixes/podman-pipe.diff
 ---
  cpan/podlators/lib/Pod/Man.pm     | 15 +++++++++++++++
  cpan/podlators/scripts/pod2man.PL |  4 ++++
- cpan/podlators/t/devise-title.t   | 32 ++++++++++++++++++++++++++++++++
+ cpan/podlators/t/devise-title.t   | 32 +++++++++++++++++++++++++++++++
  3 files changed, 51 insertions(+)
  create mode 100644 cpan/podlators/t/devise-title.t
 
 diff --git a/cpan/podlators/lib/Pod/Man.pm b/cpan/podlators/lib/Pod/Man.pm
-index 886f614c7e..8c1c88a280 100644
+index a737e5b3e9..86a69c7a02 100644
 --- a/cpan/podlators/lib/Pod/Man.pm
 +++ b/cpan/podlators/lib/Pod/Man.pm
-@@ -877,6 +877,17 @@ sub devise_title {
+@@ -880,6 +880,17 @@ sub devise_title {
          $name = 'STDIN';
      }
  
@@ -43,7 +43,7 @@ index 886f614c7e..8c1c88a280 100644
      # If the section isn't 3, then the name defaults to just the basename of
      # the file.
      if ($section !~ /^3/) {
-@@ -1784,6 +1795,10 @@ If generating a manual page from standard input, the name will be set to
+@@ -1791,6 +1802,10 @@ If generating a manual page from standard input, the name will be set to
  C<STDIN> if this option is not provided.  Providing this option is strongly
  recommended to set a meaningful manual page name.
  
@@ -55,10 +55,10 @@ index 886f614c7e..8c1c88a280 100644
  
  Normally, LZ<><> formatting codes with a URL but anchor text are formatted
 diff --git a/cpan/podlators/scripts/pod2man.PL b/cpan/podlators/scripts/pod2man.PL
-index b70057be86..1e2d478569 100644
+index 3f19b791d5..7dc817a4b1 100644
 --- a/cpan/podlators/scripts/pod2man.PL
 +++ b/cpan/podlators/scripts/pod2man.PL
-@@ -271,6 +271,10 @@ When converting POD source from standard input, the name will be set to
+@@ -275,6 +275,10 @@ When converting POD source from standard input, the name will be set to
  C<STDIN> if this option is not provided.  Providing this option is strongly
  recommended to set a meaningful manual page name.
  
@@ -108,5 +108,5 @@ index 0000000000..8639441fc7
 +is($name, 'STDIN', 'devise_title uses STDIN for file handle input');
 +ok($parser->errors_seen, '...and errors were seen');
 -- 
-2.11.0
+2.27.0
 

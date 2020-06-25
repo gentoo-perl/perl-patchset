@@ -1,8 +1,8 @@
-From c2e7821cce058fdeb49620620e779d1b1f37f71f Mon Sep 17 00:00:00 2001
+From f48f9a18c265a654415e02c7f050cc4326e4f1b5 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:34:20 +0200
-Subject: Provide a sensible INSTALLDIRS default for modules installed from
- CPAN.
+Subject: [PATCH 10/30] Provide a sensible INSTALLDIRS default for modules
+ installed from CPAN.
 
 Some modules which are included in core set INSTALLDIRS => 'perl'
 explicitly in Makefile.PL or Build.PL.  This makes sense for the normal @INC
@@ -15,7 +15,7 @@ Patch-Name: gentoo/cpan_definstalldirs.diff
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/cpan/CPAN/lib/CPAN/FirstTime.pm b/cpan/CPAN/lib/CPAN/FirstTime.pm
-index 531c1152a8..3ccaeecfee 100644
+index 49fa8ab7b9..cdf1dc220d 100644
 --- a/cpan/CPAN/lib/CPAN/FirstTime.pm
 +++ b/cpan/CPAN/lib/CPAN/FirstTime.pm
 @@ -1033,7 +1033,7 @@ sub init {
@@ -37,5 +37,5 @@ index 531c1152a8..3ccaeecfee 100644
  
      if (exists $CPAN::HandleConfig::keys{mbuild_install_build_command}
 -- 
-2.11.0
+2.27.0
 

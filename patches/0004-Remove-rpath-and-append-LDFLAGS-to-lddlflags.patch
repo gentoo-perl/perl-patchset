@@ -1,7 +1,7 @@
-From 8cafb2fe3bbabc0585e01fc26bc5736a3471e946 Mon Sep 17 00:00:00 2001
+From 0f28165a7f7f9d3ad1119dc075fb31451e8d8743 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:31:17 +0200
-Subject: Remove -rpath and append LDFLAGS to lddlflags
+Subject: [PATCH 04/30] Remove -rpath and append LDFLAGS to lddlflags
 
 Patch-Name: gentoo/config_over.diff
 ---
@@ -27,5 +27,5 @@ index 0000000000..4cba549b1d
 +ccdlflags="$tmp"
 +lddlflags="$lddlflags $LDFLAGS"
 -- 
-2.11.0
+2.27.0
 

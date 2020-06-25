@@ -1,11 +1,18 @@
-See
-https://rt.perl.org/Public/Bug/Display.html?id=131485
+From 1caa28f4d2948d17f9c0e1bc0a147fa02740c708 Mon Sep 17 00:00:00 2001
+From: Kent Fredric <kentnl@gentoo.org>
+Date: Thu, 25 Jun 2020 21:18:50 +1200
+Subject: [PATCH 20/30] Skip auto-linking nsl and cl
+
+Bug: https://rt.perl.org/Public/Bug/Display.html?id=13148
+---
+ Configure | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index e32d18ce1f..85ab0249bc 100755
+index 837b5e94b0..c3fb55c04d 100755
 --- a/Configure
 +++ b/Configure
-@@ -1497,7 +1497,7 @@ archname=''
+@@ -1459,7 +1459,7 @@ archname=''
  usereentrant='undef'
  : List of libraries we want.
  : If anyone needs extra -lxxx, put those in a hint file.
@@ -14,3 +21,6 @@ index e32d18ce1f..85ab0249bc 100755
  libswanted="$libswanted sun m crypt sec util c cposix posix ucb bsd BSD"
  : We probably want to search /usr/shlib before most other libraries.
  : This is only used by the lib/ExtUtils/MakeMaker.pm routine extliblist.
+-- 
+2.27.0
+

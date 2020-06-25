@@ -1,7 +1,7 @@
-From 3d5cb36db31ac73ba12818053ecaf7bb8b8b87c2 Mon Sep 17 00:00:00 2001
+From 0ee27f4e68dff174b710e08805d87a400fe65069 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 09:27:19 +0200
-Subject: Fix hpux hints
+Subject: [PATCH 01/30] Fix hpux hints
 
 do not assume '.' being in PATH on hpux,
 use 'gcc' as linker, link with '-lm'.
@@ -12,7 +12,7 @@ Patch-Name: gentoo/hints_hpux.diff
  1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/hints/hpux.sh b/hints/hpux.sh
-index b2650a74a2..01c2ce3270 100644
+index 91a4d7d388..c0a653067c 100644
 --- a/hints/hpux.sh
 +++ b/hints/hpux.sh
 @@ -190,7 +190,7 @@ case "$ccisgcc" in
@@ -51,5 +51,5 @@ index b2650a74a2..01c2ce3270 100644
  	    *-g*-O*|*-O*-g*)
  		# gcc without gas will not accept -g
 -- 
-2.11.0
+2.27.0
 
