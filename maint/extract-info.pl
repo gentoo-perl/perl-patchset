@@ -105,7 +105,7 @@ sub parse_patch {
         push @{$out{bugs}}, "https://bugs.gentoo.org/" . $1;
       }
       if ( $line =~ m{https?://bugs\.debian\.org/(\d+)} ) {
-        push @{$out{bugs}}, "https://bugs.debina.org/" . $1;
+        push @{$out{bugs}}, "https://bugs.debian.org/" . $1;
       }
       if ( $line =~ m{^Bug-Gentoo: (\d+)}gm )  {
         push @{$out{bugs}}, "https://bugs.gentoo.org/" . $1;
