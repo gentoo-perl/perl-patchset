@@ -1,4 +1,4 @@
-From 3b5da7ea18fa85317d0963659a646e7d40235f8d Mon Sep 17 00:00:00 2001
+From cc1e96fe3ff14855240d83c7985cfc2b83f81b4f Mon Sep 17 00:00:00 2001
 From: Russ Allbery <rra@cpan.org>
 Date: Sat, 7 Feb 2015 19:03:34 -0800
 Subject: [PATCH 26/30] Better errors for man pages from standard input
@@ -22,10 +22,10 @@ Patch-Name: fixes/podman-pipe.diff
  create mode 100644 cpan/podlators/t/devise-title.t
 
 diff --git a/cpan/podlators/lib/Pod/Man.pm b/cpan/podlators/lib/Pod/Man.pm
-index a737e5b3e9..86a69c7a02 100644
+index 6ebab1e0e5..ceb3e72d35 100644
 --- a/cpan/podlators/lib/Pod/Man.pm
 +++ b/cpan/podlators/lib/Pod/Man.pm
-@@ -880,6 +880,17 @@ sub devise_title {
+@@ -870,6 +870,17 @@ sub devise_title {
          $name = 'STDIN';
      }
  
@@ -43,7 +43,7 @@ index a737e5b3e9..86a69c7a02 100644
      # If the section isn't 3, then the name defaults to just the basename of
      # the file.
      if ($section !~ /^3/) {
-@@ -1791,6 +1802,10 @@ If generating a manual page from standard input, the name will be set to
+@@ -1781,6 +1792,10 @@ If generating a manual page from standard input, the name will be set to
  C<STDIN> if this option is not provided.  Providing this option is strongly
  recommended to set a meaningful manual page name.
  
@@ -55,10 +55,10 @@ index a737e5b3e9..86a69c7a02 100644
  
  Normally, LZ<><> formatting codes with a URL but anchor text are formatted
 diff --git a/cpan/podlators/scripts/pod2man.PL b/cpan/podlators/scripts/pod2man.PL
-index 3f19b791d5..7dc817a4b1 100644
+index bc455d8829..58a8da0345 100644
 --- a/cpan/podlators/scripts/pod2man.PL
 +++ b/cpan/podlators/scripts/pod2man.PL
-@@ -275,6 +275,10 @@ When converting POD source from standard input, the name will be set to
+@@ -273,6 +273,10 @@ When converting POD source from standard input, the name will be set to
  C<STDIN> if this option is not provided.  Providing this option is strongly
  recommended to set a meaningful manual page name.
  

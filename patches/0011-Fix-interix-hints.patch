@@ -1,4 +1,4 @@
-From bc769316a3ab4ceaaa8d9388c301975bacd012df Mon Sep 17 00:00:00 2001
+From b39ba3f24828e190ebb6e3360db20bf2f5f8cf52 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 20:01:41 +0400
 Subject: [PATCH 11/30] Fix interix hints

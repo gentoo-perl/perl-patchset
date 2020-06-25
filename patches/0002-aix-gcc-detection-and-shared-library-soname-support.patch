@@ -1,4 +1,4 @@
-From 0d98052a7e20feb16cf2198c1475493b1ab3825f Mon Sep 17 00:00:00 2001
+From 607fa6d919dbeb024ce19bda50cb204b17cf5d3d Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 08:56:44 +0200
 Subject: [PATCH 02/30] aix gcc detection and shared library soname support
@@ -19,7 +19,7 @@ Patch-Name: gentoo/aix_soname.diff
  1 file changed, 20 insertions(+), 12 deletions(-)
 
 diff --git a/Makefile.SH b/Makefile.SH
-index 3f1851d0e4..1162b6ed03 100755
+index fe3b99aea3..8774f291c8 100755
 --- a/Makefile.SH
 +++ b/Makefile.SH
 @@ -94,12 +94,12 @@ true)
@@ -54,7 +54,7 @@ index 3f1851d0e4..1162b6ed03 100755
  				;;
  			esac
  			shrpldflags="$shrpldflags $ldflags $perllibs $cryptlib"
-@@ -938,11 +938,19 @@ $(LIBPERL): $& $(perllib_dep) $(DYNALOADER) $(LIBPERLEXPORT)
+@@ -934,11 +934,19 @@ $(LIBPERL): $& $(perllib_dep) $(DYNALOADER) $(LIBPERLEXPORT)
  !NO!SUBS!
  		case "$osname" in
  		aix)

@@ -1,4 +1,4 @@
-From cad6c2f7d7bba6d09ccdbcaca6bd7506ac89ccf9 Mon Sep 17 00:00:00 2001
+From 235cdec63fcdd2e5a623b9bf97e14fa10c99fe40 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:34:20 +0200
 Subject: [PATCH 10/30] Provide a sensible INSTALLDIRS default for modules

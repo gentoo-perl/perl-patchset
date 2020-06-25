@@ -1,4 +1,4 @@
-From 88ab979e363a59fdf6506316ff3e3c2e2962dce0 Mon Sep 17 00:00:00 2001
+From 5f03f3e2d220311196d96e493bfe8260b0212cac Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 09:27:19 +0200
 Subject: [PATCH 01/30] Fix hpux hints
@@ -12,7 +12,7 @@ Patch-Name: gentoo/hints_hpux.diff
  1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/hints/hpux.sh b/hints/hpux.sh
-index 91a4d7d388..c0a653067c 100644
+index d224ceef1d..8ef7a3d1d6 100644
 --- a/hints/hpux.sh
 +++ b/hints/hpux.sh
 @@ -190,7 +190,7 @@ case "$ccisgcc" in
@@ -33,7 +33,7 @@ index 91a4d7d388..c0a653067c 100644
  rm -f try try.c core
  if [ $maxdsiz -le 64 ]; then
      # 64 Mb is probably not enough to optimize toke.c
-@@ -412,11 +412,12 @@ case "$ccisgcc" in
+@@ -413,11 +413,12 @@ case "$ccisgcc" in
  	    "")           optimize="-g -O" ;;
  	    *O[3456789]*) optimize=`echo "$optimize" | sed -e 's/O[3-9]/O2/'` ;;
  	    esac

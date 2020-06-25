@@ -1,4 +1,4 @@
-From 74644eae821db68a59f3b9024548c77b98455568 Mon Sep 17 00:00:00 2001
+From abd7c41643428ca5e0895e400e9ad0877caca091 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Sun, 8 Jul 2018 16:06:05 +1200
 Subject: [PATCH 21/30] Disable porting tests which create fun false-failures

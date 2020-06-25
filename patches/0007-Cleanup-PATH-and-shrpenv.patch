@@ -1,4 +1,4 @@
-From e84e5662ca8b8738bee5a2f753bdb3731af7178b Mon Sep 17 00:00:00 2001
+From 2889753c71452389e69daa2e7aaa5e50ea075fc7 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:54:51 +0400
 Subject: [PATCH 07/30] Cleanup PATH and shrpenv
@@ -13,7 +13,7 @@ Original-By: Torsten Veller <tove@gentoo.org>
  1 file changed, 73 deletions(-)
 
 diff --git a/Configure b/Configure
-index f99377e9dd..cb881955ae 100755
+index 3464d4284c..768eea887c 100755
 --- a/Configure
 +++ b/Configure
 @@ -107,28 +107,6 @@ if test -d c:/. || ( uname -a | grep -i 'os\(/\|\)2' 2>&1 ) 2>&1 >/dev/null ; th
@@ -45,7 +45,7 @@ index f99377e9dd..cb881955ae 100755
  : shall we be using ksh?
  inksh=''
  needksh=''
-@@ -8788,57 +8766,6 @@ EOM
+@@ -8795,57 +8773,6 @@ EOM
  	;;
  esac
  
@@ -64,7 +64,7 @@ index f99377e9dd..cb881955ae 100755
 -	solaris)
 -		xxx="-R $shrpdir"
 -		;;
--	freebsd|mirbsd|netbsd|openbsd|interix|dragonfly|bitrig)
+-	freebsd|minix|mirbsd|netbsd|openbsd|interix|dragonfly|bitrig)
 -		xxx="-Wl,-R$shrpdir"
 -		;;
 -	bsdos|linux|irix*|dec_osf|gnu*|haiku)
