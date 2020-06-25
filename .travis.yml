@@ -26,6 +26,7 @@ script:
   - source travis-utils/emsg.sh
   - source travis-utils/env-setup.sh
   - if [ -z "$VANILLA" ]; then source travis-utils/clean-patches.sh; fi
+  - if [ -z "$VANILLA" ]; then source travis-utils/patchlevel-hack.sh; fi
   - if [ -z "$VANILLA" ]; then source travis-utils/setup-patchlist.sh; fi
   - if [ -z "$VANILLA" ]; then source travis-utils/apply-patches.sh; fi
   - if [ -z "$VANILLA" ]; then source travis-utils/gen_patchlevel_ng.sh; fi
