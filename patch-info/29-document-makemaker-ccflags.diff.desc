@@ -1,1 +1,1 @@
-[rt.cpan.org #68613] Document that CCFLAGS should include $Config{ccflags}\
+Document that CCFLAGS should include $Config{ccflags} (cpan #68613, debian #628522)

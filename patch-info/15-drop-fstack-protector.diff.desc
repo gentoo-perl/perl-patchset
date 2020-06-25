@@ -1,1 +1,1 @@
-https://bugs.gentoo.org/348557 Don't force -fstack-protector on everyone
+Don't force -fstack-protector on everyone (gentoo #348557)

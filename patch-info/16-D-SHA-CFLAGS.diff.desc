@@ -1,1 +1,1 @@
-https://bugs.gentoo.org/506818 Do not set custom CFLAGS in cpan/Digest-SHA
+Do not set custom CFLAGS in cpan/Digest-SHA (gentoo #506818)
