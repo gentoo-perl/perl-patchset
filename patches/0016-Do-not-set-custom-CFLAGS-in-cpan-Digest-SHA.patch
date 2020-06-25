@@ -1,4 +1,4 @@
-From 35a90569759572ac127b385be0b41cc8e8ebdb04 Mon Sep 17 00:00:00 2001
+From 98915ca62761a47d6e17cc683f2ec066db690e59 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 15 Jun 2015 22:15:59 +0200
 Subject: [PATCH 16/30] Do not set custom CFLAGS in cpan/Digest-SHA

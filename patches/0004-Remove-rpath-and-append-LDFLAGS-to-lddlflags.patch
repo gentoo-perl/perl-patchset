@@ -1,4 +1,4 @@
-From 0f28165a7f7f9d3ad1119dc075fb31451e8d8743 Mon Sep 17 00:00:00 2001
+From 17e178ecb20698647b7758913b6576955613214b Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:31:17 +0200
 Subject: [PATCH 04/30] Remove -rpath and append LDFLAGS to lddlflags

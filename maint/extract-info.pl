@@ -52,8 +52,8 @@ sub extract_info {
     my ( $idir, $ipatch, $odir ) = @_;
   
     STDERR->printf("\e[32m*\e[0m Extracting \e[1m%s/\e[0m\e[34m%s\e[0m\n", $idir, $ipatch);
-    STDERR->printf("\e[32m*\e[0m      into: \e[1m%s/\e[0m\e[34m%s.name\e[0m\n", $odir, $ipatch);
     STDERR->printf("\e[32m*\e[0m       and: \e[1m%s/\e[0m\e[34m%s.desc\e[0m\n", $odir, $ipatch);
+    STDERR->printf("\e[32m*\e[0m       and: \e[1m%s/\e[0m\e[34m%s.bugs\e[0m\n", $odir, $ipatch);
     my $info = parse_patch("$idir/$ipatch");
     if ( $info->{subject} ) {
       if ( ! -d "$odir" ) {
@@ -61,12 +61,18 @@ sub extract_info {
       }
       open my $fh, ">", "$odir/$ipatch.desc" or die "Can't write to $odir/$ipatch.desc, $!";
       $fh->print($info->{subject});
-      if ( $info->{bugs} ) {
-        my $bugs = join q[, ], sort @{$info->{bugs}};
-        $fh->printf(" (%s)", $bugs);
-      }
-      close $fh or warn "can't close fh for $ipatch.desc, $!";
+         close $fh or warn "can't close fh for $ipatch.desc, $!";
     }
+    if ( $info->{bugs} ) {
+        my $bugs = join q[, ], sort @{$info->{bugs}};
+        open my $fh, ">", "$odir/$ipatch.bugs" or die "Can't write to $odir/$ipatch.bugs, $!";
+        my (%seen_bug);
+        for my $bug ( sort @{$info->{bugs}} ) {
+          next if exists $seen_bug{$bug};
+          $fh->printf("%s\n", $bug);
+        }
+    }
+
     1
 }
 
@@ -87,28 +93,29 @@ sub parse_patch {
 
     for my $line ( @desc ) {
       if ( $line =~ m{^Bug: .*https?://rt\.perl\.org/.*id=(\d+)} ) {
-        push @{$out{bugs}}, "perl #" . $1;
+        push @{$out{bugs}}, "https://rt.perl.org/Public/Bug/Display.html?id=" . $1;
       }
       if ( $line =~ m{^Bug: .*https?://rt\.cpan\.org/.*id=(\d+)} ) {
-        push @{$out{bugs}}, "cpan #" . $1;
+        push @{$out{bugs}}, "https://rt.cpan.org/Public/Bug/Display.html?id=" . $1;
       }
       if ( $line =~ m{https?://bugs\.gentoo\.org/.*id=(\d+)} ) {
-        push @{$out{bugs}}, "gentoo #" . $1;
+        push @{$out{bugs}}, "https://bugs.gentoo.org/" . $1;
       }
       if ( $line =~ m{https?://bugs\.gentoo\.org/(\d+)} ) {
-        push @{$out{bugs}}, "gentoo #" . $1;
+        push @{$out{bugs}}, "https://bugs.gentoo.org/" . $1;
       }
       if ( $line =~ m{https?://bugs\.debian\.org/(\d+)} ) {
-        push @{$out{bugs}}, "debian #" . $1;
+        push @{$out{bugs}}, "https://bugs.debina.org/" . $1;
       }
       if ( $line =~ m{^Bug-Gentoo: (\d+)}gm )  {
-        push @{$out{bugs}}, "gentoo #" . $1;
+        push @{$out{bugs}}, "https://bugs.gentoo.org/" . $1;
       }
       if ( $line =~ m{Patch-Name: (.*$)} ) {
         $out{name} = $1;
       }
     }
   }
+  pp \%out;
   \%out
 }
 

@@ -1,4 +1,4 @@
-From 8f2afc0a9c3e9e6b04910dc30d4bedecb28e2e2c Mon Sep 17 00:00:00 2001
+From f4db4b20ea94c680fe79dd84d10e95457ac9c63f Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 18:11:54 +0200
 Subject: [PATCH 06/30] List packaged patches in patchlevel.h

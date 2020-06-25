@@ -1,4 +1,4 @@
-From e8d4b16407e994b1316ec2925d8f66bc49adaa10 Mon Sep 17 00:00:00 2001
+From d4c7d57b82dd2b2a22bd5f2415f9c5add0ef5f4b Mon Sep 17 00:00:00 2001
 From: Tom Hukins <tom@eborcom.com>
 Date: Thu, 8 Sep 2016 16:01:36 +0000
 Subject: [PATCH 30/30] Fix parallel building

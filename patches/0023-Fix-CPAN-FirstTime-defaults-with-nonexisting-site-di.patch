@@ -1,4 +1,4 @@
-From 59131453b841fc0e29558f6ba04d8ed7c2064a2d Mon Sep 17 00:00:00 2001
+From 6b71957edff85d31fc3f4cf2b984f74c8902364f Mon Sep 17 00:00:00 2001
 From: Niko Tyni <ntyni@debian.org>
 Date: Tue, 16 Oct 2012 23:07:56 +0300
 Subject: [PATCH 23/30] Fix CPAN::FirstTime defaults with nonexisting site dirs

@@ -1,1 +1,1 @@
-Tweak enc2xs to follow symlinks and ignore missing @INC directories. (debian #290336)
+Tweak enc2xs to follow symlinks and ignore missing @INC directories.

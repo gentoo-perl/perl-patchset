@@ -1,1 +1,1 @@
-Disable PathTools tests which fails under sandboxing (gentoo #645084)
+Disable PathTools tests which fails under sandboxing

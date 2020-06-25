@@ -1,4 +1,4 @@
-From 0ee27f4e68dff174b710e08805d87a400fe65069 Mon Sep 17 00:00:00 2001
+From 88ab979e363a59fdf6506316ff3e3c2e2962dce0 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 09:27:19 +0200
 Subject: [PATCH 01/30] Fix hpux hints

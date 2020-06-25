@@ -1,4 +1,4 @@
-From 915777751ad2d2732e3b7c7a8b2068d6939b9ecb Mon Sep 17 00:00:00 2001
+From 4d8e3e5720bcaba0488965e594a857510d06f959 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:16:34 +0200
 Subject: [PATCH 03/30] cpan/ExtUtils-MakeMaker: drop $PORTAGE_TMPDIR from

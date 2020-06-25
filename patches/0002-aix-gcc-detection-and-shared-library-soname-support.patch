@@ -1,4 +1,4 @@
-From 19bd70a2b113ce1b0ea8fe96b8e4c1b48e4d80dc Mon Sep 17 00:00:00 2001
+From 0d98052a7e20feb16cf2198c1475493b1ab3825f Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 08:56:44 +0200
 Subject: [PATCH 02/30] aix gcc detection and shared library soname support

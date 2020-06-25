@@ -1,4 +1,4 @@
-From 3aacddb78a9630c85573c9c035c441a0b5f39719 Mon Sep 17 00:00:00 2001
+From a3e3de835522d87b8e6a6892eba2d485fb6eb335 Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
 Subject: [PATCH 08/30] Tweak enc2xs to follow symlinks and ignore missing @INC

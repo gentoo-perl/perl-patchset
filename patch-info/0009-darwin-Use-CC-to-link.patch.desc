@@ -1,1 +1,1 @@
-darwin: Use $CC to link (gentoo #297751)
+darwin: Use $CC to link

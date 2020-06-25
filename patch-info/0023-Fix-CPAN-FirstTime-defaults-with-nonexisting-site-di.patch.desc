@@ -1,1 +1,1 @@
-Fix CPAN::FirstTime defaults with nonexisting site dirs if a parent is writable (debian #688842)
+Fix CPAN::FirstTime defaults with nonexisting site dirs if a parent is writable

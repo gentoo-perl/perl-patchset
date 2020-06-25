@@ -1,4 +1,4 @@
-From 9f8262a130752865a064ea2da8f3f8071ffdbb1f Mon Sep 17 00:00:00 2001
+From ca3b78591ee135333057141256232c91ef7f95f6 Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
 Subject: [PATCH 27/30] Respect umask during installation

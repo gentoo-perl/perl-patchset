@@ -1,4 +1,4 @@
-From 245c4c50d4b64ffb1e862fefae1997f4df53395b Mon Sep 17 00:00:00 2001
+From 6a65777c58043f9bc6d98676a03feaa0479ec43e Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:50:12 +0400
 Subject: [PATCH 05/30] Add headers for opensolaris
