@@ -1,7 +1,7 @@
 From 043e1e2761e650177fbafa873c226354b3f17146 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 09:27:19 +0200
-Subject: [PATCH 01/29] Fix hpux hints
+Subject: [PATCH 01/30] Fix hpux hints
 
 do not assume '.' being in PATH on hpux,
 use 'gcc' as linker, link with '-lm'.

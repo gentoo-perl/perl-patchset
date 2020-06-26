@@ -1,7 +1,7 @@
 From cb5572c436b231b0d4608568a9eafbba95ae9831 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 18:11:54 +0200
-Subject: [PATCH 06/29] List packaged patches in patchlevel.h
+Subject: [PATCH 06/30] List packaged patches in patchlevel.h
 
 The list of packaged patches is in patchlevel-gentoo.h, which is generated
 from the patches/ directory when building the package.
