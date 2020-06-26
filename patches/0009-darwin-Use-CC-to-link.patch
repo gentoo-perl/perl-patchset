@@ -1,7 +1,7 @@
-From c00d402a19f36444c00d678bad3db7c595b236f4 Mon Sep 17 00:00:00 2001
+From ea285878e45eb49fdc0e24f898ed0671129a4e96 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:59:52 +0400
-Subject: [PATCH 09/30] darwin: Use $CC to link
+Subject: [PATCH 09/29] darwin: Use $CC to link
 
 Use $CC to link (and check for broken compilers), such that we don't get
 linked modules of a different bitness.

@@ -1,7 +1,7 @@
-From d765cc8f31acb98d6a2dbacfd655b68e672153a8 Mon Sep 17 00:00:00 2001
+From 1bc4d514dd27afd00e0c3522e4c3c794a5dbf525 Mon Sep 17 00:00:00 2001
 From: Jonathan Nieder <jrnieder@gmail.com>
 Date: Fri, 27 Jul 2012 10:35:07 -0500
-Subject: [PATCH 25/30] Memoize::Storable: respect 'nstore' option not
+Subject: [PATCH 25/29] Memoize::Storable: respect 'nstore' option not
  respected
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8

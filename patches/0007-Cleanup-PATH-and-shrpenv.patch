@@ -1,7 +1,7 @@
-From 2889753c71452389e69daa2e7aaa5e50ea075fc7 Mon Sep 17 00:00:00 2001
+From 02338db33c0c284fd61bf417948efdd788de6588 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:54:51 +0400
-Subject: [PATCH 07/30] Cleanup PATH and shrpenv
+Subject: [PATCH 07/29] Cleanup PATH and shrpenv
 
 cut the crap of inventing paths, or adding search paths that we don't
 use

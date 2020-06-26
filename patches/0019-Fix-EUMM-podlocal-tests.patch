@@ -1,7 +1,7 @@
-From 0e1dc8276d4ac500a40381ccc94bbe81c3d746b7 Mon Sep 17 00:00:00 2001
+From 8dc6d8caf8198a4c9b71997ca6f8b3116486b945 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Sun, 22 Jan 2017 20:45:08 +1300
-Subject: [PATCH 19/30] Fix EUMM podlocal tests
+Subject: [PATCH 19/29] Fix EUMM podlocal tests
 
 ---
  cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t | 3 +--

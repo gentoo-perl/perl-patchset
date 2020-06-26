@@ -1,7 +1,7 @@
-From cc1e96fe3ff14855240d83c7985cfc2b83f81b4f Mon Sep 17 00:00:00 2001
+From f440bb9da0ef35176435103d392316e03769c980 Mon Sep 17 00:00:00 2001
 From: Russ Allbery <rra@cpan.org>
 Date: Sat, 7 Feb 2015 19:03:34 -0800
-Subject: [PATCH 26/30] Better errors for man pages from standard input
+Subject: [PATCH 26/29] Better errors for man pages from standard input
 
 [Pod::Man] Attempt to detect if the input came from a pipe and
 therefore has a completely unhelpful (and nonreproducible) source file

@@ -1,7 +1,7 @@
-From 235cdec63fcdd2e5a623b9bf97e14fa10c99fe40 Mon Sep 17 00:00:00 2001
+From d3c2bf81faa3c9ca7f410c891de203e52c7e3390 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:34:20 +0200
-Subject: [PATCH 10/30] Provide a sensible INSTALLDIRS default for modules
+Subject: [PATCH 10/29] Provide a sensible INSTALLDIRS default for modules
  installed from CPAN.
 
 Some modules which are included in core set INSTALLDIRS => 'perl'

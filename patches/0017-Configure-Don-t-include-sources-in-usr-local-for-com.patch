@@ -1,7 +1,7 @@
-From 9ea5fa3d209bf1b260307a0be7453ac1a30b34ab Mon Sep 17 00:00:00 2001
+From 1801a5752023243a233df7325cbd48319c56c1be Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 22 Jan 2017 19:02:24 +1300
-Subject: [PATCH 17/30] Configure: Don't include sources in /usr/local/ for
+Subject: [PATCH 17/29] Configure: Don't include sources in /usr/local/ for
  compiling perl
 
 ---

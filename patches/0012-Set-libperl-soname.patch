@@ -1,7 +1,7 @@
-From 7991496ece47193ffd08fc888fd631850988dbcc Mon Sep 17 00:00:00 2001
+From 0e022e4750517a47c34f64d78524a6eb84d708a6 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:41:49 +0400
-Subject: [PATCH 12/30] Set libperl soname
+Subject: [PATCH 12/29] Set libperl soname
 
 Bug-Gentoo: https://bugs.gentoo.org/286840
 

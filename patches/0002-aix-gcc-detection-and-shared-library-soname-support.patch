@@ -1,7 +1,7 @@
-From 607fa6d919dbeb024ce19bda50cb204b17cf5d3d Mon Sep 17 00:00:00 2001
+From 1e0213aaaa2835a3d0b472f7ddf7013daa2338f0 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 08:56:44 +0200
-Subject: [PATCH 02/30] aix gcc detection and shared library soname support
+Subject: [PATCH 02/29] aix gcc detection and shared library soname support
 
 1) Match "powerpc-ibm-aix5.3.0.0-gcc" as gcc too.
 

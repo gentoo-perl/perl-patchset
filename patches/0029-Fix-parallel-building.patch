@@ -1,7 +1,7 @@
-From e1c93164e8086fe9e253178b79855c277b7a4c68 Mon Sep 17 00:00:00 2001
+From 8f4e4d8bf89b37b9c5c4d839dbff8720ea11c479 Mon Sep 17 00:00:00 2001
 From: Tom Hukins <tom@eborcom.com>
 Date: Thu, 8 Sep 2016 16:01:36 +0000
-Subject: [PATCH 30/30] Fix parallel building
+Subject: [PATCH 29/29] Fix parallel building
 
 Commit 3dfcef7e97bf1b516f added a dependency on Porting/pod_lib.pl to
 Porting/manisort.  Porting/pod_lib.pl depends on File::Find which in

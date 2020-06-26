@@ -1,7 +1,7 @@
-From 84e943d31881463fe04b347cc654585d3bec6baf Mon Sep 17 00:00:00 2001
+From 71f6c272e638b217154d250000a0b5b8afebfc5a Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Thu, 25 Jun 2020 21:18:50 +1200
-Subject: [PATCH 20/30] Skip auto-linking nsl and cl
+Subject: [PATCH 20/29] Skip auto-linking nsl and cl
 
 Bug: https://rt.perl.org/Public/Bug/Display.html?id=13148
 ---
