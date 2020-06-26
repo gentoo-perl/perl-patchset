@@ -1,14 +1,15 @@
-From 533acc5a90936292b3f5af5122dc596c66d822ef Mon Sep 17 00:00:00 2001
+From e2505850bc78e0a7b5dbe6f59f5591f435b20816 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentfredric@gmail.com>
 Date: Sun, 22 Jan 2017 18:58:49 +1300
-Subject: cpan/ExtUtils-MakeMaker: remove targets that generate perllocal.pod
+Subject: [PATCH 14/30] cpan/ExtUtils-MakeMaker: remove targets that generate
+ perllocal.pod
 
 ---
- cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm | 22 +---------------------
+ .../lib/ExtUtils/MM_Unix.pm                   | 22 +------------------
  1 file changed, 1 insertion(+), 21 deletions(-)
 
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-index 6233513368..97d1738ee7 100644
+index fe53be12ef..0086e4fd55 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 @@ -2298,16 +2298,6 @@ doc_vendor_install :: all
@@ -50,5 +51,5 @@ index 6233513368..97d1738ee7 100644
  
      push @m, q{
 -- 
-2.14.3
+2.27.0
 

@@ -1,7 +1,7 @@
-From 4998818814b767df6b5ed3c4b1647d3b70851fa5 Mon Sep 17 00:00:00 2001
+From a8f0cb5871870111d16f52ceaeab78034d1a5330 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:59:56 +0200
-Subject: Add /etc/perl to @INC
+Subject: [PATCH 13/30] Add /etc/perl to @INC
 
 Patch-Name: gentoo/mod_paths.diff
 ---
@@ -9,10 +9,10 @@ Patch-Name: gentoo/mod_paths.diff
  1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/perl.c b/perl.c
-index 25b4a26740..fa1f5ed6a2 100644
+index 5cf250aecf..14cdaac1b1 100644
 --- a/perl.c
 +++ b/perl.c
-@@ -4586,17 +4586,21 @@ S_init_perllib(pTHX)
+@@ -4697,17 +4697,21 @@ S_init_perllib(pTHX)
      SITEARCH, SITELIB, VENDORARCH, VENDORLIB, ARCHLIB and PRIVLIB
  */
      INCPUSH_APPLLIB_EXP
@@ -37,5 +37,5 @@ index 25b4a26740..fa1f5ed6a2 100644
  
  #endif /* !PERL_IS_MINIPERL */
 -- 
-2.14.3
+2.27.0
 

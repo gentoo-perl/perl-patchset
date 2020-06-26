@@ -6,7 +6,7 @@ PATCH_VER=1
 
 FIX=( $(
   cd "${patchdir}";
-  echo *06-patchlevel*
+  echo *List-packaged-patches*
 ) )
 for suffix in "${FIX[@]}"; do
   if [[ -e "${patchdir}/${suffix}" ]]; then

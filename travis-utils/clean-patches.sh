@@ -3,7 +3,7 @@ patchdir=$(pwd)/patches
 
 STRIP=( $(
   cd "${patchdir}";
-  echo *create-libperl-soname*
+  echo *Set-libperl-soname*
   ) )
 for suffix in "${STRIP[@]}"; do
   einfo "Marking $suffix for exclusion";

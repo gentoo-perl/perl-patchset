@@ -1,7 +1,7 @@
-From c203c3aaeb340cce033661c13897d4f700b71cbd Mon Sep 17 00:00:00 2001
+From 7c4a4c3a15fb988457416c074318b7336f63f9a7 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:50:12 +0400
-Subject: Add headers for opensolaris
+Subject: [PATCH 05/30] Add headers for opensolaris
 
 Thanks to the nice OpenSolaris guys, I finally figured out that on
 OpenSolaris 11, the header dependencies have changed.
@@ -13,10 +13,10 @@ Original-By: Torsten Veller <tove@gentoo.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/perl.h b/perl.h
-index 2200a47c05..970086b857 100644
+index e5a55850f1..7064ade521 100644
 --- a/perl.h
 +++ b/perl.h
-@@ -1264,6 +1264,8 @@ EXTERN_C char *crypt(const char *, const char *);
+@@ -1436,6 +1436,8 @@ EXTERN_C char *crypt(const char *, const char *);
   */
  
  #if defined(I_SYSMODE)
@@ -26,5 +26,5 @@ index 2200a47c05..970086b857 100644
  #endif
  
 -- 
-2.14.3
+2.27.0
 

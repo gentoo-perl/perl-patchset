@@ -1,7 +1,7 @@
-From ba4c1584de416a34fbd9257d4a7a127e1c0f7207 Mon Sep 17 00:00:00 2001
+From 6986190a1282930c7f3fcd8f68da3942bf0c3e8f Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:44:44 +0400
-Subject: Don't force -fstack-protector on everyone
+Subject: [PATCH 15/30] Don't force -fstack-protector on everyone
 
 Bug-Gentoo: https://bugs.gentoo.org/348557
 
@@ -13,10 +13,10 @@ Original by Torsten Veller, ported to perl 5.20
  1 file changed, 47 deletions(-)
 
 diff --git a/Configure b/Configure
-index 1a25c537ee..9680a78965 100755
+index 768eea887c..86ab2cb568 100755
 --- a/Configure
 +++ b/Configure
-@@ -5461,23 +5461,6 @@ default|recommended)
+@@ -5476,23 +5476,6 @@ default|recommended)
  	# is to add the flag to the flags passed to the compiler at link time,
  	# as that way the compiler can do the right implementation dependant
  	# thing. (NWC)
@@ -40,7 +40,7 @@ index 1a25c537ee..9680a78965 100755
  esac
  
  case "$mips_type" in
-@@ -5620,21 +5603,6 @@ case "$ldflags" in
+@@ -5635,21 +5618,6 @@ case "$ldflags" in
  	;;
  *) dflt="$ldflags";;
  esac
@@ -62,7 +62,7 @@ index 1a25c537ee..9680a78965 100755
  
  : Try to guess additional flags to pick up local libraries.
  for thislibdir in $libpth; do
-@@ -8534,21 +8502,6 @@ EOM
+@@ -8548,21 +8516,6 @@ EOM
  	    ''|' ') dflt='none' ;;
  	esac
  
@@ -85,5 +85,5 @@ index 1a25c537ee..9680a78965 100755
  	. ./myread
  	case "$ans" in
 -- 
-2.14.3
+2.27.0
 
