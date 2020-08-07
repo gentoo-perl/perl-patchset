@@ -1,4 +1,4 @@
-From 4f19b76c72b0481c4d1225ac2eb469977c59d5ac Mon Sep 17 00:00:00 2001
+From 96b17e11d7976bb725eaef270f4e74758bed689c Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Sun, 8 Jul 2018 16:06:05 +1200
 Subject: [PATCH 21/30] Disable porting tests which create fun false-failures
@@ -29,5 +29,5 @@ index 0573e2f81d..f5738c5837 100644
      @INC = '..' if -f '../TestInit.pm';
      @INC = '.'  if -f  './TestInit.pm';
 -- 
-2.27.0
+2.28.0
 

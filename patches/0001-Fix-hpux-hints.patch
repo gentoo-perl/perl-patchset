@@ -1,4 +1,4 @@
-From 043e1e2761e650177fbafa873c226354b3f17146 Mon Sep 17 00:00:00 2001
+From b7cfc47c1f4a7c93a8e750d069a46d171f20db24 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 09:27:19 +0200
 Subject: [PATCH 01/30] Fix hpux hints
@@ -12,7 +12,7 @@ Patch-Name: gentoo/hints_hpux.diff
  1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/hints/hpux.sh b/hints/hpux.sh
-index d224ceef1d..8ef7a3d1d6 100644
+index da5f81dfe1..3626f4fc25 100644
 --- a/hints/hpux.sh
 +++ b/hints/hpux.sh
 @@ -190,7 +190,7 @@ case "$ccisgcc" in
@@ -51,5 +51,5 @@ index d224ceef1d..8ef7a3d1d6 100644
  	    *-g*-O*|*-O*-g*)
  		# gcc without gas will not accept -g
 -- 
-2.27.0
+2.28.0
 

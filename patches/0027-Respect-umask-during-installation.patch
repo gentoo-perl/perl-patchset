@@ -1,4 +1,4 @@
-From 956a8bab66adec923b44ad28a68f3188d7bafaa6 Mon Sep 17 00:00:00 2001
+From 704288ce0b8de25b71921741eb6299d58d7f8ce6 Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
 Subject: [PATCH 27/30] Respect umask during installation
@@ -88,10 +88,10 @@ index 047c007145..cd7e4f234c 100644
          if ($need_filtering) {
              run_filter($pm_filter, $from, $to);
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-index 375403c08d..95fac2d588 100644
+index a2608d57b8..f26b4b9277 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-@@ -2229,7 +2229,7 @@ doc__install : doc_site_install
+@@ -2310,7 +2310,7 @@ doc__install : doc_site_install
  	$(NOECHO) $(ECHO) INSTALLDIRS not defined, defaulting to INSTALLDIRS=site
  
  pure_perl_install :: all
@@ -100,7 +100,7 @@ index 375403c08d..95fac2d588 100644
  };
  
      push @m,
-@@ -2249,7 +2249,7 @@ q{		"$(INST_LIB)" "$(DESTINSTALLPRIVLIB)" \
+@@ -2330,7 +2330,7 @@ q{		"$(INST_LIB)" "$(DESTINSTALLPRIVLIB)" \
  
  
  pure_site_install :: all
@@ -109,7 +109,7 @@ index 375403c08d..95fac2d588 100644
  };
      push @m,
  q{		read "}.$self->catfile('$(SITEARCHEXP)','auto','$(FULLEXT)','.packlist').q{" \
-@@ -2267,7 +2267,7 @@ q{		"$(INST_LIB)" "$(DESTINSTALLSITELIB)" \
+@@ -2348,7 +2348,7 @@ q{		"$(INST_LIB)" "$(DESTINSTALLSITELIB)" \
  		"}.$self->catdir('$(PERL_ARCHLIB)','auto','$(FULLEXT)').q{"
  
  pure_vendor_install :: all
@@ -118,7 +118,7 @@ index 375403c08d..95fac2d588 100644
  };
      push @m,
  q{		read "}.$self->catfile('$(VENDORARCHEXP)','auto','$(FULLEXT)','.packlist').q{" \
-@@ -2300,8 +2300,8 @@ doc_vendor_install :: all
+@@ -2381,8 +2381,8 @@ doc_vendor_install :: all
  doc_perl_install :: all
  doc_site_install :: all
  	$(NOECHO) $(ECHO) Appending installation info to "$(DESTINSTALLARCHLIB)/perllocal.pod"
@@ -130,5 +130,5 @@ index 375403c08d..95fac2d588 100644
  		"installed into" "$(INSTALLSITELIB)" \
  		LINKTYPE "$(LINKTYPE)" \
 -- 
-2.27.0
+2.28.0
 

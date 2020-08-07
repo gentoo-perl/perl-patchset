@@ -1,4 +1,4 @@
-From 02338db33c0c284fd61bf417948efdd788de6588 Mon Sep 17 00:00:00 2001
+From 13602c6bbb20fe0e3b04c793a1f9773dd6b7e386 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:54:51 +0400
 Subject: [PATCH 07/30] Cleanup PATH and shrpenv
@@ -13,7 +13,7 @@ Original-By: Torsten Veller <tove@gentoo.org>
  1 file changed, 73 deletions(-)
 
 diff --git a/Configure b/Configure
-index 3464d4284c..768eea887c 100755
+index cef8c3c078..7a113f5246 100755
 --- a/Configure
 +++ b/Configure
 @@ -107,28 +107,6 @@ if test -d c:/. || ( uname -a | grep -i 'os\(/\|\)2' 2>&1 ) 2>&1 >/dev/null ; th
@@ -45,7 +45,7 @@ index 3464d4284c..768eea887c 100755
  : shall we be using ksh?
  inksh=''
  needksh=''
-@@ -8795,57 +8773,6 @@ EOM
+@@ -8807,57 +8785,6 @@ EOM
  	;;
  esac
  
@@ -104,5 +104,5 @@ index 3464d4284c..768eea887c 100755
  # (For building Perl itself bare -bE:perl.exp is needed,
  #  Makefile.SH takes care of this.)
 -- 
-2.27.0
+2.28.0
 
