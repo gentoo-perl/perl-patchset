@@ -1,34 +1,42 @@
-From ddfce73ef1bf5f167971bac393f0a74a1e9df22e Mon Sep 17 00:00:00 2001
+From 3cc1b84b5d109216e27cf822bf59eac9fed0e44b Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
-Date: Sat, 20 Jun 2020 22:14:22 +1200
-Subject: [PATCH 30/30] Add support for -Dgentoolibdirs
+Date: Sun, 16 May 2021 14:34:00 +0200
+Subject: [PATCH] Add support for -Dgentoolibdirs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Which just adds the libdirs verbatim in the right place without
 having perl molest it in the process.
+
+Ported to 5.34 by dilfridge@gentoo.org
+
+Signed-off-by: Andreas K. Hüttel <dilfridge@gentoo.org>
 ---
- Configure                      | 26 ++++++++++++++++++++++++++
- Cross/config.sh-arm-linux      |  2 ++
- Cross/config.sh-arm-linux-n770 |  2 ++
- NetWare/config.wc              |  2 ++
- Porting/config.sh              |  2 ++
- config_h.SH                    |  5 +++++
- configure.com                  |  2 ++
- perl.c                         |  1 +
- perl_inc_macro.h               |  8 ++++++++
- plan9/config_sh.sample         |  2 ++
- symbian/config.sh              |  2 ++
- uconfig.h                      |  9 +++++++--
- uconfig.sh                     |  2 ++
- uconfig64.sh                   |  2 ++
- win32/config.gc                |  2 ++
- win32/config.vc                |  2 ++
- 16 files changed, 69 insertions(+), 2 deletions(-)
+ Configure                                     | 26 +++++++++++++++++++
+ Cross/config.sh-arm-linux                     |  2 ++
+ Cross/config.sh-arm-linux-n770                |  2 ++
+ Makefile.SH                                   |  2 +-
+ NetWare/config.wc                             |  2 ++
+ Porting/config.sh                             |  2 ++
+ config_h.SH                                   |  5 ++++
+ configure.com                                 |  2 ++
+ .../lib/ExtUtils/MakeMaker.pm                 |  4 +++
+ perl.c                                        |  1 +
+ perl_inc_macro.h                              |  8 ++++++
+ plan9/config_sh.sample                        |  2 ++
+ uconfig.h                                     | 11 +++++---
+ uconfig.sh                                    |  2 ++
+ uconfig64.sh                                  |  2 ++
+ win32/config.gc                               |  2 ++
+ win32/config.vc                               |  2 ++
+ 17 files changed, 73 insertions(+), 4 deletions(-)
 
 diff --git a/Configure b/Configure
-index b3643aa7b2..3435e804f7 100755
+index 913e080883..3c1756ee5e 100755
 --- a/Configure
 +++ b/Configure
-@@ -1159,6 +1159,8 @@ orderlib=''
+@@ -1183,6 +1183,8 @@ orderlib=''
  ranlib=''
  d_perl_otherlibdirs=''
  otherlibdirs=''
@@ -37,7 +45,7 @@ index b3643aa7b2..3435e804f7 100755
  package=''
  spackage=''
  pager=''
-@@ -8045,6 +8047,28 @@ esac
+@@ -8048,6 +8050,28 @@ esac
  set d_perl_otherlibdirs
  eval $setvar
  
@@ -66,7 +74,7 @@ index b3643aa7b2..3435e804f7 100755
  : DTrace support
  dflt_dtrace='/usr/sbin/dtrace'
  $test -x /usr/bin/dtrace && dflt_dtrace='/usr/bin/dtrace'
-@@ -24280,6 +24304,7 @@ d_openat='$d_openat'
+@@ -24538,6 +24562,7 @@ d_openat='$d_openat'
  d_pathconf='$d_pathconf'
  d_pause='$d_pause'
  d_perl_otherlibdirs='$d_perl_otherlibdirs'
@@ -74,7 +82,7 @@ index b3643aa7b2..3435e804f7 100755
  d_phostname='$d_phostname'
  d_pipe2='$d_pipe2'
  d_pipe='$d_pipe'
-@@ -24815,6 +24840,7 @@ orderlib='$orderlib'
+@@ -25073,6 +25098,7 @@ orderlib='$orderlib'
  osname='$osname'
  osvers='$osvers'
  otherlibdirs='$otherlibdirs'
@@ -83,7 +91,7 @@ index b3643aa7b2..3435e804f7 100755
  pager='$pager'
  passcat='$passcat'
 diff --git a/Cross/config.sh-arm-linux b/Cross/config.sh-arm-linux
-index ef59f91027..d13c657cc3 100644
+index 33bab37392..c678288f36 100644
 --- a/Cross/config.sh-arm-linux
 +++ b/Cross/config.sh-arm-linux
 @@ -246,6 +246,7 @@ d_futimes='undef'
@@ -93,8 +101,8 @@ index ef59f91027..d13c657cc3 100644
 +d_gentoolibdirs='undef'
  d_getaddrinfo='undef'
  d_getcwd='define'
- d_getespwnam='undef'
-@@ -688,6 +689,7 @@ full_sed='/bin/sed'
+ d_getenv_preserves_other_thread='define'
+@@ -689,6 +690,7 @@ full_sed='/bin/sed'
  gccansipedantic=''
  gccosandvers=''
  gccversion='2.95.3 20010125 (prerelease)'
@@ -103,7 +111,7 @@ index ef59f91027..d13c657cc3 100644
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
 diff --git a/Cross/config.sh-arm-linux-n770 b/Cross/config.sh-arm-linux-n770
-index 281d59f86e..5b39433bce 100644
+index 73567fbae9..85da005ceb 100644
 --- a/Cross/config.sh-arm-linux-n770
 +++ b/Cross/config.sh-arm-linux-n770
 @@ -245,6 +245,7 @@ d_futimes='undef'
@@ -113,8 +121,8 @@ index 281d59f86e..5b39433bce 100644
 +d_gentoolibdirs='undef'
  d_getaddrinfo='undef'
  d_getcwd='define'
- d_getespwnam='undef'
-@@ -686,6 +687,7 @@ full_sed='/bin/sed'
+ d_getenv_preserves_other_thread='define'
+@@ -687,6 +688,7 @@ full_sed='/bin/sed'
  gccansipedantic=''
  gccosandvers=''
  gccversion='2.95.3 20010125 (prerelease)'
@@ -122,8 +130,21 @@ index 281d59f86e..5b39433bce 100644
  getgrent_r_proto='0'
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
+diff --git a/Makefile.SH b/Makefile.SH
+index 2895bfcace..89b4ed2089 100755
+--- a/Makefile.SH
++++ b/Makefile.SH
+@@ -641,7 +641,7 @@ all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) $(generated_pods) $(private) $(unidatafile
+ 	@echo " ";
+ 	@echo "	Everything is up to date. Type '$(MAKE) test' to run test suite."
+ 
+-$(MANIFEST_SRT):	MANIFEST $(PERL_EXE)
++$(MANIFEST_SRT):	MANIFEST $(PERL_EXE) lib/auto/Cwd/Cwd$(DLSUFFIX)
+ 	@$(RUN_PERL) Porting/manisort -q || (echo "WARNING: re-sorting MANIFEST"; \
+ 	    $(RUN_PERL) Porting/manisort -q -o MANIFEST; sh -c true)
+ 	@touch $(MANIFEST_SRT)
 diff --git a/NetWare/config.wc b/NetWare/config.wc
-index b0a02f5605..5b3d0faba1 100644
+index 26c1755798..bfd4e8b599 100644
 --- a/NetWare/config.wc
 +++ b/NetWare/config.wc
 @@ -234,6 +234,7 @@ d_futimes='undef'
@@ -133,8 +154,8 @@ index b0a02f5605..5b3d0faba1 100644
 +d_gentoolibdirs='undef'
  d_getaddrinfo='undef'
  d_getcwd='define'
- d_getespwnam='undef'
-@@ -675,6 +676,7 @@ full_ar=''
+ d_getenv_preserves_other_thread='define'
+@@ -676,6 +677,7 @@ full_ar=''
  full_csh=''
  full_sed=''
  gccversion=''
@@ -143,27 +164,27 @@ index b0a02f5605..5b3d0faba1 100644
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
 diff --git a/Porting/config.sh b/Porting/config.sh
-index f7f212dd24..7546687c99 100644
+index d1f54f2f63..d10d31a38e 100644
 --- a/Porting/config.sh
 +++ b/Porting/config.sh
-@@ -259,6 +259,7 @@ d_futimes='define'
+@@ -262,6 +262,7 @@ d_futimes='define'
  d_gai_strerror='define'
  d_gdbm_ndbm_h_uses_prototypes='undef'
  d_gdbmndbm_h_uses_prototypes='undef'
 +d_gentoolibdirs='undef'
  d_getaddrinfo='define'
  d_getcwd='define'
- d_getespwnam='undef'
-@@ -707,6 +708,7 @@ full_sed='/bin/sed'
+ d_getenv_preserves_other_thread='define'
+@@ -713,6 +714,7 @@ full_sed='/usr/bin/sed'
  gccansipedantic=''
  gccosandvers=''
- gccversion='4.9.2'
+ gccversion='10.2.1 20200805 [revision dda1e9d08434def88ed86557d08b23251332c5aa]'
 +gentoolibdirs=''
- getgrent_r_proto='0'
- getgrgid_r_proto='0'
- getgrnam_r_proto='0'
+ getgrent_r_proto='REENTRANT_PROTO_I_SBWR'
+ getgrgid_r_proto='REENTRANT_PROTO_I_TSBWR'
+ getgrnam_r_proto='REENTRANT_PROTO_I_CSBWR'
 diff --git a/config_h.SH b/config_h.SH
-index 08c5923ef8..5563082969 100755
+index 8264f91dce..f4c4e58d3a 100755
 --- a/config_h.SH
 +++ b/config_h.SH
 @@ -1308,6 +1308,11 @@ sed <<!GROK!THIS! >$CONFIG_H -e 's!^#undef\(.*/\)\*!/\*#define\1 \*!' -e 's!^#un
@@ -179,10 +200,10 @@ index 08c5923ef8..5563082969 100755
   *	This symbol contains the name of the private library for this package.
   *	The library is private in the sense that it needn't be in anyone's
 diff --git a/configure.com b/configure.com
-index 713e875d33..947d695cf7 100644
+index df2958201e..51d1ad077b 100644
 --- a/configure.com
 +++ b/configure.com
-@@ -6684,6 +6684,7 @@ $ WC "full_ar='" + "'"
+@@ -6675,6 +6675,7 @@ $ WC "full_ar='" + "'"
  $ WC "full_csh='" + " '"
  $ WC "full_sed='_NLA0:'"
  $ WC "gccversion='" + gccversion + "'"
@@ -190,7 +211,7 @@ index 713e875d33..947d695cf7 100644
  $ WC "gidformat='lu'"
  $ WC "gidsign='1'"
  $ WC "gidsize='4'"
-@@ -7081,6 +7082,7 @@ $ WC "d_endpwent_r='undef'"
+@@ -7072,6 +7073,7 @@ $ WC "d_endpwent_r='undef'"
  $ WC "d_endservent_r='undef'"
  $ WC "d_freelocale='undef'"
  $ WC "d_gai_strerror='define'"
@@ -198,24 +219,39 @@ index 713e875d33..947d695cf7 100644
  $ WC "d_getgrent_r='undef'"
  $ WC "d_getgrgid_r='" + d_getgrgid_r + "'"
  $ WC "d_getgrnam_r='" + d_getgrnam_r + "'"
+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm
+index b9b38368e0..cc637ad40c 100644
+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm
++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MakeMaker.pm
+@@ -1838,6 +1838,10 @@ currently used by MakeMaker but may be handy in Makefile.PLs.
+ String that will be included in the compiler call command line between
+ the arguments INC and OPTIMIZE.
+ 
++The default value is taken from $Config{ccflags}. When overriding
++CCFLAGS, make sure to include the $Config{ccflags} settings to avoid
++binary incompatibilities.
++
+ =item CONFIG
+ 
+ Arrayref. E.g. [qw(archname manext)] defines ARCHNAME & MANEXT from
 diff --git a/perl.c b/perl.c
-index 0669cb41e6..1dc172c3b4 100644
+index 48ae9a3a04..3e787c62d6 100644
 --- a/perl.c
 +++ b/perl.c
-@@ -4756,6 +4756,7 @@ S_init_perllib(pTHX)
+@@ -4728,6 +4728,7 @@ S_init_perllib(pTHX)
      INCPUSH_ARCHLIB_EXP
      INCPUSH_PRIVLIB_EXP
      INCPUSH_PERL_OTHERLIBDIRS
 +    INCPUSH_GENTOO_LIBDIRS
      INCPUSH_PERL5LIB
      INCPUSH_APPLLIB_OLD_EXP
-     INCPUSH_PERL_OTHERLIBDIRS_ARCHONLY
+     INCPUSH_SITELIB_STEM
 diff --git a/perl_inc_macro.h b/perl_inc_macro.h
-index 5a2f20dfae..4b69b39199 100644
+index b9cd60947e..5f310f22d8 100644
 --- a/perl_inc_macro.h
 +++ b/perl_inc_macro.h
 @@ -143,6 +143,14 @@
- 		      INCPUSH_ADD_OLD_VERS|INCPUSH_CAN_RELOCATE);
+                       INCPUSH_ADD_OLD_VERS|INCPUSH_CAN_RELOCATE);
  #endif
  
 +#ifdef GENTOO_LIBDIRS
@@ -228,9 +264,9 @@ index 5a2f20dfae..4b69b39199 100644
 +
  #ifdef PERL_OTHERLIBDIRS
  #	define INCPUSH_PERL_OTHERLIBDIRS_ARCHONLY  S_incpush_use_sep(aTHX_ STR_WITH_LEN(PERL_OTHERLIBDIRS), \
- 		      INCPUSH_ADD_OLD_VERS|INCPUSH_ADD_ARCHONLY_SUB_DIRS|INCPUSH_CAN_RELOCATE);
+                       INCPUSH_ADD_OLD_VERS|INCPUSH_ADD_ARCHONLY_SUB_DIRS|INCPUSH_CAN_RELOCATE);
 diff --git a/plan9/config_sh.sample b/plan9/config_sh.sample
-index 813845a9a4..a4398ad96f 100644
+index b76136370c..f564adac53 100644
 --- a/plan9/config_sh.sample
 +++ b/plan9/config_sh.sample
 @@ -246,6 +246,7 @@ d_futimes='undef'
@@ -240,8 +276,8 @@ index 813845a9a4..a4398ad96f 100644
 +d_gentoolibdirs='undef'
  d_getaddrinfo='undef'
  d_getcwd='define'
- d_getespwnam='undef'
-@@ -686,6 +687,7 @@ full_csh='csh'
+ d_getenv_preserves_other_thread='define'
+@@ -687,6 +688,7 @@ full_csh='csh'
  full_sed='/bin/sed'
  gccosandvers=''
  gccversion=''
@@ -249,28 +285,8 @@ index 813845a9a4..a4398ad96f 100644
  getgrent_r_proto='0'
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
-diff --git a/symbian/config.sh b/symbian/config.sh
-index b5260d7f34..7fa146902c 100644
---- a/symbian/config.sh
-+++ b/symbian/config.sh
-@@ -192,6 +192,7 @@ d_futimesat='undef'
- d_gai_strerror='undef'
- d_gdbm_ndbm_h_uses_prototypes='undef'
- d_gdbmndbm_h_uses_prototypes='undef'
-+d_gentoolibdirs='undef'
- d_getaddrinfo='undef'
- d_getcwd='define'
- d_getespwnam='undef'
-@@ -622,6 +623,7 @@ freetype=void
- full_ar=':'
- full_csh=':'
- full_sed=':'
-+gentoolibdirs=''
- getgrent_r_proto='0'
- getgrgid_r_proto='0'
- getgrnam_r_proto='0'
 diff --git a/uconfig.h b/uconfig.h
-index 7d3db32309..6a71fb7177 100644
+index 68df40f605..c8bda0fe12 100644
 --- a/uconfig.h
 +++ b/uconfig.h
 @@ -1273,6 +1273,11 @@
@@ -285,17 +301,26 @@ index 7d3db32309..6a71fb7177 100644
  /* PRIVLIB:
   *	This symbol contains the name of the private library for this package.
   *	The library is private in the sense that it needn't be in anyone's
-@@ -5260,6 +5265,6 @@
+@@ -4159,7 +4164,7 @@
+  */
+ /*#define	HAS_STDIO_STREAM_ARRAY	/ **/
+ #ifdef HAS_STDIO_STREAM_ARRAY
+-#define STDIO_STREAM_ARRAY	
++#define STDIO_STREAM_ARRAY
+ #endif
+ 
+ /* GMTIME_MAX:
+@@ -5282,6 +5287,6 @@
  #endif
  
  /* Generated from:
-- * 14796a77fb4ae3335f5e589a98445bc6e838b688194f6f112537495f0814f5d5 config_h.SH
-- * 6e8898de349ca5bd5102aa12be91e6884110157cb9267e661f6fc797bbd54649 uconfig.sh
+- * 6edd641b187b02d0daa8cb53f5d22f2dcca115a0d3e744f51b0292d2db484ca5 config_h.SH
+- * a9ec40c778a205e0256475b5ef025389f7ea06d75d09ac92414f6b99839577e8 uconfig.sh
 + * eea9b7e3779e6f3300062448ce1a661d10ce9c2bbcce53d8c7c5cca180e8f3b8 config_h.SH
 + * 37dca284f20f2a67761e956be7dae73f5b9610052597f3cbd6ba64e75ed7b4b5 uconfig.sh
   * ex: set ro: */
 diff --git a/uconfig.sh b/uconfig.sh
-index 1d4a0f4a57..07675dd395 100644
+index 6711c3e627..d017d72d6f 100644
 --- a/uconfig.sh
 +++ b/uconfig.sh
 @@ -185,6 +185,7 @@ d_futimes='undef'
@@ -305,8 +330,8 @@ index 1d4a0f4a57..07675dd395 100644
 +d_gentoolibdirs='undef'
  d_getaddrinfo='undef'
  d_getcwd='undef'
- d_getespwnam='undef'
-@@ -608,6 +609,7 @@ fpostype=int
+ d_getenv_preserves_other_thread='define'
+@@ -609,6 +610,7 @@ fpostype=int
  freetype=void
  full_csh=''
  full_sed=''
@@ -315,7 +340,7 @@ index 1d4a0f4a57..07675dd395 100644
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
 diff --git a/uconfig64.sh b/uconfig64.sh
-index c6479b8010..3ced79ddd5 100644
+index eb122dc867..6c36dcf9c8 100644
 --- a/uconfig64.sh
 +++ b/uconfig64.sh
 @@ -185,6 +185,7 @@ d_futimes='undef'
@@ -325,8 +350,8 @@ index c6479b8010..3ced79ddd5 100644
 +d_gentoolibdirs='undef'
  d_getaddrinfo='undef'
  d_getcwd='undef'
- d_getespwnam='undef'
-@@ -608,6 +609,7 @@ fpostype=int
+ d_getenv_preserves_other_thread='define'
+@@ -609,6 +610,7 @@ fpostype=int
  freetype=void
  full_csh=''
  full_sed=''
@@ -335,7 +360,7 @@ index c6479b8010..3ced79ddd5 100644
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
 diff --git a/win32/config.gc b/win32/config.gc
-index 793b455d0c..01a418a1da 100644
+index af6fed92fb..e5b914f5b3 100644
 --- a/win32/config.gc
 +++ b/win32/config.gc
 @@ -233,6 +233,7 @@ d_futimes='undef'
@@ -345,8 +370,8 @@ index 793b455d0c..01a418a1da 100644
 +d_gentoolibdirs='undef'
  d_getaddrinfo='undef'
  d_getcwd='define'
- d_getespwnam='undef'
-@@ -679,6 +680,7 @@ full_sed=''
+ d_getenv_preserves_other_thread='define'
+@@ -680,6 +681,7 @@ full_sed=''
  gccansipedantic=''
  gccosandvers=''
  gccversion=''
@@ -355,7 +380,7 @@ index 793b455d0c..01a418a1da 100644
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
 diff --git a/win32/config.vc b/win32/config.vc
-index a2c3f5a53d..3175914e35 100644
+index f4625bf2a4..e3954c5a88 100644
 --- a/win32/config.vc
 +++ b/win32/config.vc
 @@ -233,6 +233,7 @@ d_futimes='undef'
@@ -365,8 +390,8 @@ index a2c3f5a53d..3175914e35 100644
 +d_gentoolibdirs='undef'
  d_getaddrinfo='undef'
  d_getcwd='define'
- d_getespwnam='undef'
-@@ -678,6 +679,7 @@ full_sed=''
+ d_getenv_preserves_other_thread='define'
+@@ -679,6 +680,7 @@ full_sed=''
  gccansipedantic=''
  gccosandvers=''
  gccversion=''
@@ -375,5 +400,5 @@ index a2c3f5a53d..3175914e35 100644
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
 -- 
-2.28.0
+2.26.3
 
