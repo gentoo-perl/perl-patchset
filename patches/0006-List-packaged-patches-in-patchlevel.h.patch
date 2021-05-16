@@ -16,15 +16,15 @@ Patch-Name: gentoo/patchlevel.diff
  1 file changed, 1 insertion(+)
 
 diff --git a/patchlevel.h b/patchlevel.h
-index dea542dc44..84e0157ad3 100644
+index 1a48368e7c..a6c9b3171a 100644
 --- a/patchlevel.h
 +++ b/patchlevel.h
-@@ -137,6 +137,7 @@ static const char * const local_patches[] = {
- 	,"uncommitted-changes"
+@@ -161,6 +161,7 @@ static const char * const local_patches[] = {
+         ,"uncommitted-changes"
  #endif
- 	PERL_GIT_UNPUSHED_COMMITS    	/* do not remove this line */
+         PERL_GIT_UNPUSHED_COMMITS    	/* do not remove this line */
 +#include "patchlevel-gentoo.h"
- 	,NULL
+         ,NULL
  };
  
 -- 
