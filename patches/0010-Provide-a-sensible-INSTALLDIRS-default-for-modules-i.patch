@@ -1,4 +1,4 @@
-From 69f1c3cf97a54964d86a2ff47cd10a42de91def3 Mon Sep 17 00:00:00 2001
+From a6c34e40ec669739afcc91d20ae008987c2dd4fd Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:34:20 +0200
 Subject: [PATCH 10/30] Provide a sensible INSTALLDIRS default for modules
@@ -15,7 +15,7 @@ Patch-Name: gentoo/cpan_definstalldirs.diff
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/cpan/CPAN/lib/CPAN/FirstTime.pm b/cpan/CPAN/lib/CPAN/FirstTime.pm
-index af4a6d7759..b7322fd16f 100644
+index 310e73abef..6410cdaf74 100644
 --- a/cpan/CPAN/lib/CPAN/FirstTime.pm
 +++ b/cpan/CPAN/lib/CPAN/FirstTime.pm
 @@ -1080,7 +1080,7 @@ sub init {
@@ -37,5 +37,5 @@ index af4a6d7759..b7322fd16f 100644
  
      if (exists $CPAN::HandleConfig::keys{mbuild_install_build_command}
 -- 
-2.28.0
+2.26.3
 

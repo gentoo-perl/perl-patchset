@@ -1,4 +1,4 @@
-From b7cfc47c1f4a7c93a8e750d069a46d171f20db24 Mon Sep 17 00:00:00 2001
+From c894486cd06b0026e923882feafe9e3900630223 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 09:27:19 +0200
 Subject: [PATCH 01/30] Fix hpux hints
@@ -51,5 +51,5 @@ index da5f81dfe1..3626f4fc25 100644
  	    *-g*-O*|*-O*-g*)
  		# gcc without gas will not accept -g
 -- 
-2.28.0
+2.26.3
 

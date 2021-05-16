@@ -1,4 +1,4 @@
-From 704288ce0b8de25b71921741eb6299d58d7f8ce6 Mon Sep 17 00:00:00 2001
+From 00f4a9f8518e19e12288678ddba2ed24b8135d51 Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
 Subject: [PATCH 27/30] Respect umask during installation
@@ -13,7 +13,7 @@ Patch-Name: fixes/respect_umask.diff
  2 files changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm b/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm
-index 96081806f7..6907dd8568 100644
+index 96081806f7..edad4e88a7 100644
 --- a/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm
 +++ b/cpan/ExtUtils-Install/lib/ExtUtils/Install.pm
 @@ -442,7 +442,7 @@ sub _can_write_dir {
@@ -58,7 +58,7 @@ index 96081806f7..6907dd8568 100644
                          unless $dry_run;
                  } elsif ( ! -d $targetdir ) {
 -                    _mkpath( $targetdir, 0, 0755, $verbose, $dry_run );
-+                    _mkpath( $targetdir, 0, $verbose, $dry_run );
++                    mkpath( $targetdir, 0, $verbose, $dry_run );
                  }
                  print "Installing $targetfile\n";
  
@@ -90,7 +90,7 @@ index 96081806f7..6907dd8568 100644
          }
          if ($need_filtering) {
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-index 977b50ed02..3958e48fe4 100644
+index f389fc3071..3642a25580 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 @@ -2311,7 +2311,7 @@ doc__install : doc_site_install
@@ -120,8 +120,8 @@ index 977b50ed02..3958e48fe4 100644
  };
      push @m,
  q{		read "}.$self->catfile('$(VENDORARCHEXP)','auto','$(FULLEXT)','.packlist').q{" \
-@@ -2392,8 +2392,8 @@ doc_perl_install :: all
- 
+@@ -2382,8 +2382,8 @@ doc_vendor_install :: all
+ doc_perl_install :: all
  doc_site_install :: all
  	$(NOECHO) $(ECHO) Appending installation info to "$(DESTINSTALLARCHLIB)/perllocal.pod"
 -	-$(NOECHO) $(MKPATH) "$(DESTINSTALLARCHLIB)"
@@ -132,5 +132,5 @@ index 977b50ed02..3958e48fe4 100644
  		"installed into" "$(INSTALLSITELIB)" \
  		LINKTYPE "$(LINKTYPE)" \
 -- 
-2.28.0
+2.26.3
 

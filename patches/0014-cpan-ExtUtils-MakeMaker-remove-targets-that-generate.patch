@@ -1,4 +1,4 @@
-From 42427b9bd5c295c95cfe12fa3647a7ca9d068c3a Mon Sep 17 00:00:00 2001
+From 6c6077cd8aaefe64987b2a17b7492559814db9e5 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentfredric@gmail.com>
 Date: Sun, 22 Jan 2017 18:58:49 +1300
 Subject: [PATCH 14/30] cpan/ExtUtils-MakeMaker: remove targets that generate
@@ -9,10 +9,10 @@ Subject: [PATCH 14/30] cpan/ExtUtils-MakeMaker: remove targets that generate
  1 file changed, 1 insertion(+), 21 deletions(-)
 
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-index ce1292740f..0444745922 100644
+index 977b50ed02..0a4748e01d 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-@@ -2379,16 +2379,6 @@ doc_vendor_install :: all
+@@ -2380,16 +2380,6 @@ doc_vendor_install :: all
  
      push @m, q{
  doc_perl_install :: all
@@ -29,7 +29,7 @@ index ce1292740f..0444745922 100644
  doc_site_install :: all
  	$(NOECHO) $(ECHO) Appending installation info to "$(DESTINSTALLARCHLIB)/perllocal.pod"
  	-$(NOECHO) $(MKPATH) "$(DESTINSTALLARCHLIB)"
-@@ -2398,19 +2388,9 @@ doc_site_install :: all
+@@ -2399,19 +2389,9 @@ doc_site_install :: all
  		LINKTYPE "$(LINKTYPE)" \
  		VERSION "$(VERSION)" \
  		EXE_FILES "$(EXE_FILES)" \
@@ -51,5 +51,5 @@ index ce1292740f..0444745922 100644
  
      push @m, q{
 -- 
-2.28.0
+2.26.3
 

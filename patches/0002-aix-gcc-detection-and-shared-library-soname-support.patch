@@ -1,4 +1,4 @@
-From 095ac921320cd9d1fb7fc1d2cfe11f1706de710e Mon Sep 17 00:00:00 2001
+From 7cb9355a96b380a14048b44755b12bdf0c1600b0 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 15 Apr 2012 08:56:44 +0200
 Subject: [PATCH 02/30] aix gcc detection and shared library soname support
@@ -19,7 +19,7 @@ Patch-Name: gentoo/aix_soname.diff
  1 file changed, 20 insertions(+), 12 deletions(-)
 
 diff --git a/Makefile.SH b/Makefile.SH
-index f77f170a0c..e6098560dc 100755
+index 2895bfcace..7d1eac9f3c 100755
 --- a/Makefile.SH
 +++ b/Makefile.SH
 @@ -94,12 +94,12 @@ true)
@@ -80,5 +80,5 @@ index f77f170a0c..e6098560dc 100755
  		esac
  		;;
 -- 
-2.28.0
+2.26.3
 

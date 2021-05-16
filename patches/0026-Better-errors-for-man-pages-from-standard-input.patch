@@ -1,4 +1,4 @@
-From 46b18fa430160530f6d45efcb5dc2292e6ee7654 Mon Sep 17 00:00:00 2001
+From 309875128e43e538a1912b979a78e0f3cc822056 Mon Sep 17 00:00:00 2001
 From: Russ Allbery <rra@cpan.org>
 Date: Sat, 7 Feb 2015 19:03:34 -0800
 Subject: [PATCH 26/30] Better errors for man pages from standard input
@@ -108,5 +108,5 @@ index 0000000000..8639441fc7
 +is($name, 'STDIN', 'devise_title uses STDIN for file handle input');
 +ok($parser->errors_seen, '...and errors were seen');
 -- 
-2.28.0
+2.26.3
 

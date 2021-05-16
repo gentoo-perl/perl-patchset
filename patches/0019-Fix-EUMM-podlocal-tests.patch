@@ -1,4 +1,4 @@
-From 666beae5c721891c187c1b4ce66d2818f570239a Mon Sep 17 00:00:00 2001
+From 0783b824893de9959ca73b48411f630ccb9b9693 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Sun, 22 Jan 2017 20:45:08 +1300
 Subject: [PATCH 19/30] Fix EUMM podlocal tests
@@ -8,10 +8,10 @@ Subject: [PATCH 19/30] Fix EUMM podlocal tests
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t b/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t
-index 69398117b7..5b84a0e9e1 100644
+index 31d645be5e..95564cc3c6 100644
 --- a/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t
 +++ b/cpan/ExtUtils-MakeMaker/t/INSTALL_BASE.t
-@@ -21,7 +21,7 @@ use Test::More
+@@ -22,7 +22,7 @@ use Test::More
      !MM->can_run(make()) && $ENV{PERL_CORE} && $Config{'usecrosscompile'}
      ? (skip_all => "cross-compiling and make not available")
      : ();
@@ -20,7 +20,7 @@ index 69398117b7..5b84a0e9e1 100644
  
  my $Is_VMS = $^O eq 'VMS';
  
-@@ -71,7 +71,6 @@ for my $instdir (@INSTDIRS) {
+@@ -72,7 +72,6 @@ for my $instdir (@INSTDIRS) {
      ("$instdir/lib/perl5/Big/Dummy.pm",
       "$instdir/lib/perl5/Big/Liar.pm",
       "$instdir/bin/program",
@@ -29,5 +29,5 @@ index 69398117b7..5b84a0e9e1 100644
      );
  
 -- 
-2.28.0
+2.26.3
 
