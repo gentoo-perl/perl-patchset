@@ -13,34 +13,35 @@ Original by Torsten Veller, ported to perl 5.20
  1 file changed, 47 deletions(-)
 
 diff --git a/Configure b/Configure
-index 7a113f5246..441192a1b0 100755
+index 913e080883..9c81ef9fa5 100755
 --- a/Configure
 +++ b/Configure
-@@ -5484,23 +5484,6 @@ default|recommended)
+@@ -5397,24 +5397,6 @@ default|recommended)
  	# is to add the flag to the flags passed to the compiler at link time,
  	# as that way the compiler can do the right implementation dependant
  	# thing. (NWC)
--	case "$osname" in
--	amigaos) ;; # -fstack-protector builds but doesn't work
--	*)	case "$gccversion" in
--		?*)	set stack-protector-strong -fstack-protector-strong
--			eval $checkccflag
--			case "$dflt" in
--			*-fstack-protector-strong*) ;; # It got added.
--			*) # Try the plain/older -fstack-protector.
--			   set stack-protector -fstack-protector
--			   eval $checkccflag
--			   ;;
--			esac
--			;;
+-	case "$ccflags" in
+-	*-fno-stack-protector*)
+-	    echo "Do not add -fstack-protector nor -fstack-protector-strong" 2>&1
+-	    ;;
+-	*) case "$gccversion" in
+-	   ?*)	set stack-protector-strong -fstack-protector-strong
+-		eval $checkccflag
+-		case "$dflt" in
+-		*-fstack-protector-strong*) ;; # It got added.
+-		*) # Try the plain/older -fstack-protector.
+-		   set stack-protector -fstack-protector
+-		   eval $checkccflag
+-		   ;;
 -		esac
 -		;;
+-	    esac
+-	    ;;
 -	esac
--	;;
  esac
  
  case "$mips_type" in
-@@ -5643,21 +5626,6 @@ case "$ldflags" in
+@@ -5557,21 +5539,6 @@ case "$ldflags" in
  	;;
  *) dflt="$ldflags";;
  esac
@@ -62,7 +63,7 @@ index 7a113f5246..441192a1b0 100755
  
  : Try to guess additional flags to pick up local libraries.
  for thislibdir in $libpth; do
-@@ -8560,21 +8528,6 @@ EOM
+@@ -8529,21 +8496,6 @@ EOM
  	    ''|' ') dflt='none' ;;
  	esac
  
