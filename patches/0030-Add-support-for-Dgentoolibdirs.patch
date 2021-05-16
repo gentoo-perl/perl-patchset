@@ -1,4 +1,4 @@
-From da4cef0a31504f97390c3df9e1016690d7f5aa80 Mon Sep 17 00:00:00 2001
+From ae6f2ccda6b5c349d237b364bf7d413bd2094f39 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Sun, 16 May 2021 15:00:02 +0200
 Subject: [PATCH 30/30] Add support for -Dgentoolibdirs
@@ -256,7 +256,7 @@ index b76136370c..f564adac53 100644
  getgrgid_r_proto='0'
  getgrnam_r_proto='0'
 diff --git a/uconfig.h b/uconfig.h
-index 68df40f605..c8bda0fe12 100644
+index 68df40f605..5a53f60d9f 100644
 --- a/uconfig.h
 +++ b/uconfig.h
 @@ -1273,6 +1273,11 @@
@@ -286,8 +286,8 @@ index 68df40f605..c8bda0fe12 100644
  /* Generated from:
 - * 6edd641b187b02d0daa8cb53f5d22f2dcca115a0d3e744f51b0292d2db484ca5 config_h.SH
 - * a9ec40c778a205e0256475b5ef025389f7ea06d75d09ac92414f6b99839577e8 uconfig.sh
-+ * eea9b7e3779e6f3300062448ce1a661d10ce9c2bbcce53d8c7c5cca180e8f3b8 config_h.SH
-+ * 37dca284f20f2a67761e956be7dae73f5b9610052597f3cbd6ba64e75ed7b4b5 uconfig.sh
++ * 5a635fb2eac8476e42ff4ef61ecaa0c3aab02d1ead9f967bf2a728d4ab3c000a config_h.SH
++ * c315ea3f243db9ad7f647dfc474a7b1168d3c6f1fd3b3be534692295813c1f22 uconfig.sh
   * ex: set ro: */
 diff --git a/uconfig.sh b/uconfig.sh
 index 6711c3e627..d017d72d6f 100644
