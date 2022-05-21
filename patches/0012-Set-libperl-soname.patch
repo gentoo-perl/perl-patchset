@@ -7,17 +7,15 @@ Bug-Gentoo: https://bugs.gentoo.org/286840
 
 Patch-Name: gentoo/create_libperl_soname.diff
 
-Ported to Perl 5.20
-Ported to Perl 5.28.2 dilfridge
+Ported to Perl 5.36.0 dilfridge
 ---
  Makefile.SH | 13 +++++++++----
  1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/Makefile.SH b/Makefile.SH
-index 7d1eac9f3c..731247530d 100755
---- a/Makefile.SH
-+++ b/Makefile.SH
-@@ -70,11 +70,11 @@ true)
+diff -ruN perl-5.36.0-RC2.orig/Makefile.SH perl-5.36.0-RC2/Makefile.SH
+--- perl-5.36.0-RC2.orig/Makefile.SH	2022-05-21 16:21:30.083486570 +0200
++++ perl-5.36.0-RC2/Makefile.SH	2022-05-21 16:25:26.671799368 +0200
+@@ -64,11 +64,11 @@
  				${revision}.${patchlevel}.${subversion}"
  		case "$osvers" in
  	        1[5-9]*|[2-9]*)
@@ -31,7 +29,7 @@ index 7d1eac9f3c..731247530d 100755
  			;;
  		esac
  		;;
-@@ -84,13 +84,15 @@ true)
+@@ -78,13 +78,15 @@
  		;;
  	sunos*)
  		linklibperl="-lperl"
@@ -49,16 +47,13 @@ index 7d1eac9f3c..731247530d 100755
  		;;
  	aix*)
  		case "$cc" in
-@@ -128,6 +130,9 @@ true)
- 	    linklibperl='libperl.x'
- 	    DPERL_EXTERNAL_GLOB=''
- 	    ;;
+@@ -127,6 +129,9 @@
+ 	           ;;
+             esac
+             ;;
 +	linux*)
 +	    shrpldflags="$shrpldflags -Wl,-soname -Wl,libperl.so.${revision}.${patchlevel}"
 +	    ;;
  	esac
  	case "$ldlibpthname" in
  	'') ;;
--- 
-2.26.3
-
