@@ -1,7 +1,7 @@
 From 842191c34a2c3b98f3724e67df0449ca113746ed Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Sun, 8 Jul 2018 15:09:29 +1200
-Subject: [PATCH 22/27] Disable PathTools tests which fails under sandboxing
+Subject: [PATCH 22/28] Disable PathTools tests which fails under sandboxing
 
 Bug: https://bugs.gentoo.org/645084
 ---

@@ -1,7 +1,7 @@
 From 0f58bc89f1c077b181aafcc4c5871268df1baf9b Mon Sep 17 00:00:00 2001
 From: Niko Tyni <ntyni@debian.org>
 Date: Tue, 16 Oct 2012 23:07:56 +0300
-Subject: [PATCH 23/27] Fix CPAN::FirstTime defaults with nonexisting site dirs
+Subject: [PATCH 23/28] Fix CPAN::FirstTime defaults with nonexisting site dirs
  if a parent is writable
 
 The site directories do not exist on a typical Debian system.  The build

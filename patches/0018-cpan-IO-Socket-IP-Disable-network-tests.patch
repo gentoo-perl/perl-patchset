@@ -1,7 +1,7 @@
 From a47141ee37f01187be780ddde39439ca81dc33e0 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentfredric@gmail.com>
 Date: Sun, 22 Jan 2017 19:08:53 +1300
-Subject: [PATCH 18/27] cpan/IO-Socket-IP: Disable network tests
+Subject: [PATCH 18/28] cpan/IO-Socket-IP: Disable network tests
 
 ---
  cpan/IO-Socket-IP/t/15io-socket.t | 5 +++++

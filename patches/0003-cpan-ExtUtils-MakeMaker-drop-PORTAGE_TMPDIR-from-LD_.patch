@@ -1,7 +1,7 @@
 From d969753ce8b4fef520d2867b316f3eb1abe92c60 Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sat, 14 Apr 2012 13:16:34 +0200
-Subject: [PATCH 03/27] cpan/ExtUtils-MakeMaker: drop $PORTAGE_TMPDIR from
+Subject: [PATCH 03/28] cpan/ExtUtils-MakeMaker: drop $PORTAGE_TMPDIR from
  LD_RUN_PATH
 
 Bug-Gentoo: https://bugs.gentoo.org/105054

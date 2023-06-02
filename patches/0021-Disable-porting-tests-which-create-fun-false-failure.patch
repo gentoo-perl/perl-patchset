@@ -1,7 +1,7 @@
 From ef038a3a4f09657e4dbcfd47a145c87895896147 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Sun, 8 Jul 2018 16:06:05 +1200
-Subject: [PATCH 21/27] Disable porting tests which create fun false-failures
+Subject: [PATCH 21/28] Disable porting tests which create fun false-failures
  all over travis
 
 This is due to our patches tweaking code in-band, and this test

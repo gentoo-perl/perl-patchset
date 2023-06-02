@@ -1,7 +1,7 @@
 From 642fe048dc3c360fd68315e2919ab49a67e8ab84 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentfredric@gmail.com>
 Date: Sun, 22 Jan 2017 18:58:49 +1300
-Subject: [PATCH 14/27] cpan/ExtUtils-MakeMaker: remove targets that generate
+Subject: [PATCH 14/28] cpan/ExtUtils-MakeMaker: remove targets that generate
  perllocal.pod
 
 ---

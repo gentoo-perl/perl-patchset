@@ -1,7 +1,7 @@
 From e78cc42e9b2f02d7201724401a960cd5897480f3 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Sun, 16 May 2021 15:00:02 +0200
-Subject: [PATCH 27/27] Add support for -Dgentoolibdirs (note: hashes in
+Subject: [PATCH 27/28] Add support for -Dgentoolibdirs (note: hashes in
  uconfig.h need fixing)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8

@@ -1,7 +1,7 @@
 From d4eb13898cb11627482d9b78c78e401c88a25a16 Mon Sep 17 00:00:00 2001
 From: Niko Tyni <ntyni@debian.org>
 Date: Sun, 24 Aug 2014 12:56:11 -0700
-Subject: [PATCH 24/27] Pass LD settings through to subdirectories
+Subject: [PATCH 24/28] Pass LD settings through to subdirectories
 
 [rt.cpan.org #28632] fixed most issues with passing LD down to
 subdirectory Makefile.PL files. However, there are some distributions
