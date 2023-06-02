@@ -1,0 +1,345 @@
+From e78cc42e9b2f02d7201724401a960cd5897480f3 Mon Sep 17 00:00:00 2001
+From: Kent Fredric <kentnl@gentoo.org>
+Date: Sun, 16 May 2021 15:00:02 +0200
+Subject: [PATCH 27/27] Add support for -Dgentoolibdirs (note: hashes in
+ uconfig.h need fixing)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Which just adds the libdirs verbatim in the right place without
+having perl molest it in the process.
+
+Ported to 5.36, 5.38 by Andreas K. Hüttel <dilfridge@gentoo.org>
+
+Signed-off-by: Andreas K. Hüttel <dilfridge@gentoo.org>
+---
+ Configure                      | 26 ++++++++++++++++++++++++++
+ Cross/config.sh-arm-linux      |  2 ++
+ Cross/config.sh-arm-linux-n770 |  2 ++
+ Porting/config.sh              |  2 ++
+ config_h.SH                    |  5 +++++
+ configure.com                  |  2 ++
+ perl.c                         |  1 +
+ perl_inc_macro.h               |  8 ++++++++
+ plan9/config_sh.sample         |  2 ++
+ uconfig.h                      |  7 ++++++-
+ uconfig.sh                     |  2 ++
+ uconfig64.sh                   |  2 ++
+ win32/config.gc                |  2 ++
+ win32/config.vc                |  2 ++
+ 14 files changed, 64 insertions(+), 1 deletion(-)
+
+diff --git a/Configure b/Configure
+index cd54297b38..097e14f8d9 100755
+--- a/Configure
++++ b/Configure
+@@ -1172,6 +1172,8 @@ orderlib=''
+ ranlib=''
+ d_perl_otherlibdirs=''
+ otherlibdirs=''
++gentoolibdirs=''
++d_gentoolibdirs=''
+ package=''
+ spackage=''
+ pager=''
+@@ -8027,6 +8029,28 @@ esac
+ set d_perl_otherlibdirs
+ eval $setvar
+ 
++case "$gentoolibdirs" in
++''|' ') dflt='none' ;;
++*) dflt="$gentoolibdirs" ;;
++esac
++$cat <<EOM
++Enter a colon-seperated list of explicit gentoo paths to stuff in @INC
++unmolested, or enter 'none' for no extra paths
++
++EOM
++rp='Colon-seperated list of gentoo-specific perl library search dirs?'
++. ./myread
++case "$ans" in
++' '|''|none) gentoolibdirs=' ';;
++*) gentoolibdirs="$ans" ;;
++esac
++case "$gentoolibdirs" in
++' ') val=$undef ;;
++*) val=$define ;;
++esac
++set d_gentoolibdirs
++eval $setvar
++
+ : DTrace support
+ dflt_dtrace='/usr/sbin/dtrace'
+ $test -x /usr/bin/dtrace && dflt_dtrace='/usr/bin/dtrace'
+@@ -24895,6 +24919,7 @@ d_openat='$d_openat'
+ d_pathconf='$d_pathconf'
+ d_pause='$d_pause'
+ d_perl_otherlibdirs='$d_perl_otherlibdirs'
++d_gentoolibdirs='$d_gentoolibdirs'
+ d_phostname='$d_phostname'
+ d_pipe2='$d_pipe2'
+ d_pipe='$d_pipe'
+@@ -25435,6 +25460,7 @@ orderlib='$orderlib'
+ osname='$osname'
+ osvers='$osvers'
+ otherlibdirs='$otherlibdirs'
++gentoolibdirs='$gentoolibdirs'
+ package='$package'
+ pager='$pager'
+ passcat='$passcat'
+diff --git a/Cross/config.sh-arm-linux b/Cross/config.sh-arm-linux
+index 126dc654d8..ea269586ea 100644
+--- a/Cross/config.sh-arm-linux
++++ b/Cross/config.sh-arm-linux
+@@ -249,6 +249,7 @@ d_futimes='undef'
+ d_gai_strerror='undef'
+ d_gdbm_ndbm_h_uses_prototypes='undef'
+ d_gdbmndbm_h_uses_prototypes='undef'
++d_gentoolibdirs='undef'
+ d_getaddrinfo='undef'
+ d_getcwd='define'
+ d_getenv_preserves_other_thread='define'
+@@ -697,6 +698,7 @@ full_sed='/bin/sed'
+ gccansipedantic=''
+ gccosandvers=''
+ gccversion='2.95.3 20010125 (prerelease)'
++gentoolibdirs=''
+ getgrent_r_proto='0'
+ getgrgid_r_proto='0'
+ getgrnam_r_proto='0'
+diff --git a/Cross/config.sh-arm-linux-n770 b/Cross/config.sh-arm-linux-n770
+index 1c4a008c2d..c3b5273319 100644
+--- a/Cross/config.sh-arm-linux-n770
++++ b/Cross/config.sh-arm-linux-n770
+@@ -248,6 +248,7 @@ d_futimes='undef'
+ d_gai_strerror='undef'
+ d_gdbm_ndbm_h_uses_prototypes='undef'
+ d_gdbmndbm_h_uses_prototypes='undef'
++d_gentoolibdirs='undef'
+ d_getaddrinfo='undef'
+ d_getcwd='define'
+ d_getenv_preserves_other_thread='define'
+@@ -695,6 +696,7 @@ full_sed='/bin/sed'
+ gccansipedantic=''
+ gccosandvers=''
+ gccversion='2.95.3 20010125 (prerelease)'
++gentoolibdirs=''
+ getgrent_r_proto='0'
+ getgrgid_r_proto='0'
+ getgrnam_r_proto='0'
+diff --git a/Porting/config.sh b/Porting/config.sh
+index d0a6ac5a5e..da5d772a53 100644
+--- a/Porting/config.sh
++++ b/Porting/config.sh
+@@ -260,6 +260,7 @@ d_futimes='define'
+ d_gai_strerror='define'
+ d_gdbm_ndbm_h_uses_prototypes='undef'
+ d_gdbmndbm_h_uses_prototypes='undef'
++d_gentoolibdirs='undef'
+ d_getaddrinfo='define'
+ d_getcwd='define'
+ d_getenv_preserves_other_thread='define'
+@@ -716,6 +717,7 @@ full_sed='/usr/bin/sed'
+ gccansipedantic=''
+ gccosandvers=''
+ gccversion='13.0.1 20230421 (prerelease) [revision f980561c60b0446cc427595198d7f3f4f90e0924]'
++gentoolibdirs=''
+ getgrent_r_proto='REENTRANT_PROTO_I_SBWR'
+ getgrgid_r_proto='REENTRANT_PROTO_I_TSBWR'
+ getgrnam_r_proto='REENTRANT_PROTO_I_CSBWR'
+diff --git a/config_h.SH b/config_h.SH
+index 5880dc532d..8b1b41ed23 100755
+--- a/config_h.SH
++++ b/config_h.SH
+@@ -1308,6 +1308,11 @@ sed <<!GROK!THIS! >$CONFIG_H -e 's!^#undef\(.*/\)\*!/\*#define\1 \*!' -e 's!^#un
+  */
+ #$d_perl_otherlibdirs PERL_OTHERLIBDIRS "$otherlibdirs"		/**/
+ 
++/* GENTOO_LIBDIRS:
++ * Like PERL_OTHERLIBDIRS, but doesn't stuff ARCH dirs in when not wanted
++ */
++#$d_gentoolibdirs GENTOO_LIBDIRS "$gentoolibdirs"		/**/
++
+ /* PRIVLIB:
+  *	This symbol contains the name of the private library for this package.
+  *	The library is private in the sense that it needn't be in anyone's
+diff --git a/configure.com b/configure.com
+index 9b43ca65a0..9a2de8353e 100644
+--- a/configure.com
++++ b/configure.com
+@@ -6480,6 +6480,7 @@ $ WC "freetype='void'"
+ $ WC "full_ar='" + "'"
+ $ WC "full_csh='" + " '"
+ $ WC "full_sed='_NLA0:'"
++$ WC "gentoolibdirs='" + "'"
+ $ WC "gidformat='lu'"
+ $ WC "gidsign='1'"
+ $ WC "gidsize='4'"
+@@ -6887,6 +6888,7 @@ $ WC "d_endpwent_r='undef'"
+ $ WC "d_endservent_r='undef'"
+ $ WC "d_freelocale='undef'"
+ $ WC "d_gai_strerror='define'"
++$ WC "d_gentoolibdirs='undef'"
+ $ WC "d_getgrent_r='undef'"
+ $ WC "d_getgrgid_r='" + d_getgrgid_r + "'"
+ $ WC "d_getgrnam_r='" + d_getgrnam_r + "'"
+diff --git a/perl.c b/perl.c
+index 810ebc298b..4b467c6c03 100644
+--- a/perl.c
++++ b/perl.c
+@@ -4868,6 +4868,7 @@ S_init_perllib(pTHX)
+     INCPUSH_ARCHLIB_EXP
+     INCPUSH_PRIVLIB_EXP
+     INCPUSH_PERL_OTHERLIBDIRS
++    INCPUSH_GENTOO_LIBDIRS
+     INCPUSH_PERL5LIB
+     INCPUSH_APPLLIB_OLD_EXP
+     INCPUSH_PERL_OTHERLIBDIRS_ARCHONLY
+diff --git a/perl_inc_macro.h b/perl_inc_macro.h
+index 627a63a817..0f55ebe2f2 100644
+--- a/perl_inc_macro.h
++++ b/perl_inc_macro.h
+@@ -132,6 +132,14 @@
+                       INCPUSH_ADD_OLD_VERS|INCPUSH_CAN_RELOCATE);
+ #endif
+ 
++#ifdef GENTOO_LIBDIRS
++# define INCPUSH_GENTOO_LIBDIRS S_incpush_use_sep(aTHX_ STR_WITH_LEN(GENTOO_LIBDIRS), \
++    INCPUSH_ADD_OLD_VERS|INCPUSH_CAN_RELOCATE);
++#endif
++#ifndef INCPUSH_GENTOO_LIBDIRS
++# define INCPUSH_GENTOO_LIBDIRS
++#endif
++
+ #ifdef PERL_OTHERLIBDIRS
+ #	define INCPUSH_PERL_OTHERLIBDIRS_ARCHONLY  S_incpush_use_sep(aTHX_ STR_WITH_LEN(PERL_OTHERLIBDIRS), \
+                       INCPUSH_ADD_OLD_VERS|INCPUSH_ADD_ARCHONLY_SUB_DIRS|INCPUSH_CAN_RELOCATE);
+diff --git a/plan9/config_sh.sample b/plan9/config_sh.sample
+index a1c089d33d..fbf04aa9ba 100644
+--- a/plan9/config_sh.sample
++++ b/plan9/config_sh.sample
+@@ -249,6 +249,7 @@ d_futimes='undef'
+ d_gai_strerror='undef'
+ d_gdbm_ndbm_h_uses_prototypes='undef'
+ d_gdbmndbm_h_uses_prototypes='undef'
++d_gentoolibdirs='undef'
+ d_getaddrinfo='undef'
+ d_getcwd='define'
+ d_getenv_preserves_other_thread='define'
+@@ -695,6 +696,7 @@ full_csh='csh'
+ full_sed='/bin/sed'
+ gccosandvers=''
+ gccversion=''
++gentoolibdirs=''
+ getgrent_r_proto='0'
+ getgrgid_r_proto='0'
+ getgrnam_r_proto='0'
+diff --git a/uconfig.h b/uconfig.h
+index 47d586ccf8..473aa8f63f 100644
+--- a/uconfig.h
++++ b/uconfig.h
+@@ -1273,6 +1273,11 @@
+  */
+ /*#define PERL_OTHERLIBDIRS " "		/ **/
+ 
++/* GENTOO_LIBDIRS:
++ * Like PERL_OTHERLIBDIRS, but doesn't stuff ARCH dirs in when not wanted
++ */
++/*#define GENTOO_LIBDIRS ""		/ **/
++
+ /* PRIVLIB:
+  *	This symbol contains the name of the private library for this package.
+  *	The library is private in the sense that it needn't be in anyone's
+@@ -4242,7 +4247,7 @@
+  */
+ /*#define HAS_STDIO_STREAM_ARRAY	/ **/
+ #ifdef HAS_STDIO_STREAM_ARRAY
+-#define STDIO_STREAM_ARRAY	
++#define STDIO_STREAM_ARRAY
+ #endif
+ 
+ /* GMTIME_MAX:
+diff --git a/uconfig.sh b/uconfig.sh
+index 3c7fdbcf9f..6a436631c1 100644
+--- a/uconfig.sh
++++ b/uconfig.sh
+@@ -188,6 +188,7 @@ d_futimes='undef'
+ d_gai_strerror='undef'
+ d_gdbm_ndbm_h_uses_prototypes='undef'
+ d_gdbmndbm_h_uses_prototypes='undef'
++d_gentoolibdirs='undef'
+ d_getaddrinfo='undef'
+ d_getcwd='undef'
+ d_getenv_preserves_other_thread='define'
+@@ -617,6 +618,7 @@ fpostype=int
+ freetype=void
+ full_csh=''
+ full_sed=''
++gentoolibdirs=''
+ getgrent_r_proto='0'
+ getgrgid_r_proto='0'
+ getgrnam_r_proto='0'
+diff --git a/uconfig64.sh b/uconfig64.sh
+index f1f7f58858..3fe81f4896 100644
+--- a/uconfig64.sh
++++ b/uconfig64.sh
+@@ -188,6 +188,7 @@ d_futimes='undef'
+ d_gai_strerror='undef'
+ d_gdbm_ndbm_h_uses_prototypes='undef'
+ d_gdbmndbm_h_uses_prototypes='undef'
++d_gentoolibdirs='undef'
+ d_getaddrinfo='undef'
+ d_getcwd='undef'
+ d_getenv_preserves_other_thread='define'
+@@ -617,6 +618,7 @@ fpostype=int
+ freetype=void
+ full_csh=''
+ full_sed=''
++gentoolibdirs=''
+ getgrent_r_proto='0'
+ getgrgid_r_proto='0'
+ getgrnam_r_proto='0'
+diff --git a/win32/config.gc b/win32/config.gc
+index 3de8b72e73..cb936e9ea4 100644
+--- a/win32/config.gc
++++ b/win32/config.gc
+@@ -236,6 +236,7 @@ d_futimes='undef'
+ d_gai_strerror='undef'
+ d_gdbm_ndbm_h_uses_prototypes='undef'
+ d_gdbmndbm_h_uses_prototypes='undef'
++d_gentoolibdirs='undef'
+ d_getaddrinfo='undef'
+ d_getcwd='define'
+ d_getenv_preserves_other_thread='define'
+@@ -688,6 +689,7 @@ full_sed=''
+ gccansipedantic=''
+ gccosandvers=''
+ gccversion=''
++gentoolibdirs=''
+ getgrent_r_proto='0'
+ getgrgid_r_proto='0'
+ getgrnam_r_proto='0'
+diff --git a/win32/config.vc b/win32/config.vc
+index 934e78f3bd..4350571bc5 100644
+--- a/win32/config.vc
++++ b/win32/config.vc
+@@ -236,6 +236,7 @@ d_futimes='undef'
+ d_gai_strerror='undef'
+ d_gdbm_ndbm_h_uses_prototypes='undef'
+ d_gdbmndbm_h_uses_prototypes='undef'
++d_gentoolibdirs='undef'
+ d_getaddrinfo='undef'
+ d_getcwd='define'
+ d_getenv_preserves_other_thread='define'
+@@ -687,6 +688,7 @@ full_sed=''
+ gccansipedantic=''
+ gccosandvers=''
+ gccversion=''
++gentoolibdirs=''
+ getgrent_r_proto='0'
+ getgrgid_r_proto='0'
+ getgrnam_r_proto='0'
+-- 
+2.39.3
+

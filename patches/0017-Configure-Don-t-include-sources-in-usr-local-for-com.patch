@@ -1,7 +1,7 @@
-From a00ef97eadf4af85612ec97114dc781e01085b56 Mon Sep 17 00:00:00 2001
+From 54a86f3304f013a3850ebba760059511b1bda2ad Mon Sep 17 00:00:00 2001
 From: Torsten Veller <tove@gentoo.org>
 Date: Sun, 22 Jan 2017 19:02:24 +1300
-Subject: [PATCH 17/30] Configure: Don't include sources in /usr/local/ for
+Subject: [PATCH 17/27] Configure: Don't include sources in /usr/local/ for
  compiling perl
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 17/30] Configure: Don't include sources in /usr/local/ for
  1 file changed, 7 insertions(+), 9 deletions(-)
 
 diff --git a/Configure b/Configure
-index b98ea548c4..24da797dee 100755
+index e80d616d6e..3ce9f24760 100755
 --- a/Configure
 +++ b/Configure
-@@ -1415,8 +1415,7 @@ groupstype=''
+@@ -1433,8 +1433,7 @@ groupstype=''
  i_whoami=''
  : Possible local include directories to search.
  : Set locincpth to "" in a hint file to defeat local include searches.
@@ -22,7 +22,7 @@ index b98ea548c4..24da797dee 100755
  :
  : no include file wanted by default
  inclwanted=''
-@@ -1432,12 +1431,11 @@ libnames=''
+@@ -1450,12 +1449,11 @@ libnames=''
  : change the next line if compiling for Xenix/286 on Xenix/386
  xlibpth='/usr/lib/386 /lib/386'
  : Possible local library directories to search.
@@ -37,7 +37,7 @@ index b98ea548c4..24da797dee 100755
  test -f /usr/shlib/libc.so && glibpth="/usr/shlib $glibpth"
  test -f /shlib/libc.so     && glibpth="/shlib $glibpth"
  test -d /usr/lib64         && glibpth="$glibpth /lib64 /usr/lib64 /usr/local/lib64"
-@@ -4918,7 +4916,7 @@ esac
+@@ -5001,7 +4999,7 @@ esac
  : Set private lib path
  case "$plibpth" in
  '') if ./mips; then
@@ -46,7 +46,7 @@ index b98ea548c4..24da797dee 100755
      fi;;
  esac
  case "$libpth" in
-@@ -21694,7 +21692,7 @@ else
+@@ -22101,7 +22099,7 @@ else
  	case "$ranlib" in
  	:) ranlib='';;
  	'')
@@ -55,7 +55,7 @@ index b98ea548c4..24da797dee 100755
  		$test -f $ranlib || ranlib=''
  		;;
  	esac
-@@ -24883,8 +24881,8 @@ lkflags='$lkflags'
+@@ -25368,8 +25366,8 @@ lkflags='$lkflags'
  ln='$ln'
  lns='$lns'
  localtime_r_proto='$localtime_r_proto'
@@ -67,5 +67,5 @@ index b98ea548c4..24da797dee 100755
  longdblkind='$longdblkind'
  longdblmantbits='$longdblmantbits'
 -- 
-2.26.3
+2.39.3
 

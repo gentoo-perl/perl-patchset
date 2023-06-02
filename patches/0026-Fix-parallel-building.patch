@@ -1,7 +1,7 @@
-From 695f80f063d1b1bebee07d15819f3791b4dca669 Mon Sep 17 00:00:00 2001
+From 1c2d49a5c8e998911edb794304fcf5ab60044370 Mon Sep 17 00:00:00 2001
 From: Tom Hukins <tom@eborcom.com>
 Date: Thu, 8 Sep 2016 16:01:36 +0000
-Subject: [PATCH 29/30] Fix parallel building
+Subject: [PATCH 26/27] Fix parallel building
 
 Commit 3dfcef7e97bf1b516f added a dependency on Porting/pod_lib.pl to
 Porting/manisort.  Porting/pod_lib.pl depends on File::Find which in
@@ -15,10 +15,10 @@ target fail every time because perl can't load Cwd.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.SH b/Makefile.SH
-index 731247530d..ea7714a298 100755
+index 8ba0bbf289..4e9ec04771 100755
 --- a/Makefile.SH
 +++ b/Makefile.SH
-@@ -646,7 +646,7 @@ all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) $(generated_pods) $(private) $(unidatafile
+@@ -679,7 +679,7 @@ all: $(FIRSTMAKEFILE) $(MINIPERL_EXE) $(generated_pods) $(private) $(unidatafile
  	@echo " ";
  	@echo "	Everything is up to date. Type '$(MAKE) test' to run test suite."
  
@@ -28,5 +28,5 @@ index 731247530d..ea7714a298 100755
  	    $(RUN_PERL) Porting/manisort -q -o MANIFEST; sh -c true)
  	@touch $(MANIFEST_SRT)
 -- 
-2.26.3
+2.39.3
 

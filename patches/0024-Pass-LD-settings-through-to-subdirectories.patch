@@ -1,7 +1,7 @@
-From c3ca8bd36869ed647c203823ad7d2aa020d1d1ac Mon Sep 17 00:00:00 2001
+From d4eb13898cb11627482d9b78c78e401c88a25a16 Mon Sep 17 00:00:00 2001
 From: Niko Tyni <ntyni@debian.org>
 Date: Sun, 24 Aug 2014 12:56:11 -0700
-Subject: [PATCH 24/30] Pass LD settings through to subdirectories
+Subject: [PATCH 24/27] Pass LD settings through to subdirectories
 
 [rt.cpan.org #28632] fixed most issues with passing LD down to
 subdirectory Makefile.PL files. However, there are some distributions
@@ -16,10 +16,10 @@ Patch-Name: debian/makemaker-pasthru.diff
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-index 0a4748e01d..f389fc3071 100644
+index 08f84299db..9a90e88eca 100644
 --- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
 +++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-@@ -3050,7 +3050,7 @@ sub pasthru {
+@@ -3064,7 +3064,7 @@ sub pasthru {
      my($sep) = $Is{VMS} ? ',' : '';
      $sep .= "\\\n\t";
  
@@ -29,5 +29,5 @@ index 0a4748e01d..f389fc3071 100644
                   )
      {
 -- 
-2.26.3
+2.39.3
 

@@ -1,7 +1,7 @@
-From fe7f2f8fe1cef92bb6887068ea1a77f853bb0a97 Mon Sep 17 00:00:00 2001
+From af317dec34df4670684792e546e26f0f339c66a5 Mon Sep 17 00:00:00 2001
 From: Brendan O'Dea <bod@debian.org>
 Date: Tue, 8 Mar 2005 19:30:38 +1100
-Subject: [PATCH 08/30] Tweak enc2xs to follow symlinks and ignore missing @INC
+Subject: [PATCH 08/27] Tweak enc2xs to follow symlinks and ignore missing @INC
  directories.
 
 Bug-Debian: http://bugs.debian.org/290336
@@ -17,10 +17,10 @@ Patch-Name: debian/enc2xs_inc.diff
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/cpan/Encode/bin/enc2xs b/cpan/Encode/bin/enc2xs
-index 1209baa9cd..8571d64b3a 100644
+index c1c9796002..be3d1d6885 100644
 --- a/cpan/Encode/bin/enc2xs
 +++ b/cpan/Encode/bin/enc2xs
-@@ -997,11 +997,11 @@ use vars qw(
+@@ -1002,11 +1002,11 @@ use vars qw(
  sub find_e2x{
      eval { require File::Find; };
      my (@inc, %e2x_dir);
@@ -34,7 +34,7 @@ index 1209baa9cd..8571d64b3a 100644
           my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
               $atime,$mtime,$ctime,$blksize,$blocks)
               = lstat($_) or return;
-@@ -1011,7 +1011,7 @@ sub find_e2x{
+@@ -1016,7 +1016,7 @@ sub find_e2x{
               $e2x_dir{$File::Find::dir} ||= $mtime;
           }
           return;
@@ -43,7 +43,7 @@ index 1209baa9cd..8571d64b3a 100644
      warn join("\n", keys %e2x_dir), "\n";
      for my $d (sort {$e2x_dir{$a} <=> $e2x_dir{$b}} keys %e2x_dir){
      $_E2X = $d;
-@@ -1075,7 +1075,7 @@ sub make_configlocal_pm {
+@@ -1080,7 +1080,7 @@ sub make_configlocal_pm {
  	    $LocalMod{$enc} ||= $mod;
  	}
      };
@@ -53,5 +53,5 @@ index 1209baa9cd..8571d64b3a 100644
      for my $enc ( sort keys %LocalMod ) {
          $_ModLines .=
 -- 
-2.26.3
+2.39.3
 

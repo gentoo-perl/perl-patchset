@@ -1,7 +1,7 @@
-From 4bc48a24ade14ecd7b47e74e1ed216b120ce7e74 Mon Sep 17 00:00:00 2001
+From dc5ff6b176661f547809bb9d1e9cff30b6788133 Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 20:01:41 +0400
-Subject: [PATCH 11/30] Fix interix hints
+Subject: [PATCH 11/27] Fix interix hints
 
 Patch-Name: gentoo/interix.diff
 
@@ -32,5 +32,5 @@ index acbf9c7d1e..c9e3334c6b 100644
  case "$plibpth" in
  '') plibpth=`LANG=C LC_ALL=C $cc -print-search-dirs | grep libraries |
 -- 
-2.26.3
+2.39.3
 

@@ -1,7 +1,7 @@
-From cdc50e6276a4d5c938a8b86a52ed29424d8fd1ca Mon Sep 17 00:00:00 2001
+From a47141ee37f01187be780ddde39439ca81dc33e0 Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentfredric@gmail.com>
 Date: Sun, 22 Jan 2017 19:08:53 +1300
-Subject: [PATCH 18/30] cpan/IO-Socket-IP: Disable network tests
+Subject: [PATCH 18/27] cpan/IO-Socket-IP: Disable network tests
 
 ---
  cpan/IO-Socket-IP/t/15io-socket.t | 5 +++++
@@ -41,5 +41,5 @@ index 792ca2f4f5..72265796e7 100644
  use Socket qw(PF_INET6 PF_INET IPPROTO_IPV6 IPV6_V6ONLY);
  use IO::Socket::IP;
 -- 
-2.26.3
+2.39.3
 

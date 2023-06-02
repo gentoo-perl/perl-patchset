@@ -1,7 +1,7 @@
-From 7e9a8abc348f88f1b4558e921bfd3b4cf3f65005 Mon Sep 17 00:00:00 2001
+From 788856b11a057813bf1afc3b447c73841ec705bc Mon Sep 17 00:00:00 2001
 From: Kent Fredric <kentnl@gentoo.org>
 Date: Thu, 25 Jun 2020 21:18:50 +1200
-Subject: [PATCH 20/30] Skip auto-linking nsl and cl
+Subject: [PATCH 20/27] Skip auto-linking cl and pthread
 
 Bug: https://rt.perl.org/Public/Bug/Display.html?id=13148
 ---
@@ -9,18 +9,18 @@ Bug: https://rt.perl.org/Public/Bug/Display.html?id=13148
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index 24da797dee..5b04023159 100755
+index 3ce9f24760..cd54297b38 100755
 --- a/Configure
 +++ b/Configure
-@@ -1469,7 +1469,7 @@ archname=''
+@@ -1487,7 +1487,7 @@ archname=''
  usereentrant='undef'
  : List of libraries we want.
  : If anyone needs extra -lxxx, put those in a hint file.
--libswanted="cl pthread socket bind inet nsl ndbm gdbm dbm db malloc dl ld"
+-libswanted="cl pthread socket bind inet ndbm gdbm dbm db malloc dl ld"
 +libswanted="socket bind inet ndbm gdbm dbm db malloc dl ld"
  libswanted="$libswanted sun m crypt sec util c cposix posix ucb bsd BSD"
  : We probably want to search /usr/shlib before most other libraries.
  : This is only used by the lib/ExtUtils/MakeMaker.pm routine extliblist.
 -- 
-2.26.3
+2.39.3
 

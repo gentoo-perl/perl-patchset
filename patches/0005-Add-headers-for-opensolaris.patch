@@ -1,7 +1,7 @@
-From 5c11a11471e3aea547cedad63a550b16508a4c05 Mon Sep 17 00:00:00 2001
+From 9304bc1d4413c8c7b0a8dd1994b10e4f2e1e1b2e Mon Sep 17 00:00:00 2001
 From: Vladimir Smirnov <civil@gentoo.org>
 Date: Mon, 19 May 2014 19:50:12 +0400
-Subject: [PATCH 05/30] Add headers for opensolaris
+Subject: [PATCH 05/27] Add headers for opensolaris
 
 Thanks to the nice OpenSolaris guys, I finally figured out that on
 OpenSolaris 11, the header dependencies have changed.
@@ -13,10 +13,10 @@ Original-By: Torsten Veller <tove@gentoo.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/perl.h b/perl.h
-index 17a21a1c42..b0f6ab8d89 100644
+index 4ef161db95..19af31ac41 100644
 --- a/perl.h
 +++ b/perl.h
-@@ -1769,6 +1769,8 @@ Localize C<$_>.  See L<perlguts/Localizing changes>.
+@@ -2141,6 +2141,8 @@ Localize C<$_>.  See L<perlguts/Localizing changes>.
   */
  
  #if defined(I_SYSMODE)
@@ -26,5 +26,5 @@ index 17a21a1c42..b0f6ab8d89 100644
  #endif
  
 -- 
-2.26.3
+2.39.3
 
